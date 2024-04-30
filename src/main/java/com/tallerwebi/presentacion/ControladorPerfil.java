@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControladorPerfil {
+
     @RequestMapping("/perfil")
     public ModelAndView irAlperfil() {
         return new ModelAndView("perfil.html");

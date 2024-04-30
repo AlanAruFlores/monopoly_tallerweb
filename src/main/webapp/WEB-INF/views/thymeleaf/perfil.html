@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Perfil</title>
-    <link rel="stylesheet" href="perfil.css">
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
 </head>
 <body>
 <header class="header">
@@ -16,8 +16,8 @@
         <img src="../imagenes/monopoly-man.jpg" alt="Default Avatar">
         <h3>UsuarioX</h3>
         <h3>ID:12345</h3>
-        <a href="../editarPerfil.html" class="btn">Editar Perfil</a>
-        <a href="" class="delete-btn">Salir</a>
+        <a href="../editarPerfil.html" class="btn" th:href="@{/editarPerfil}">Editar Perfil</a>
+        <a href="" class="delete-btn" th:href="@{/ir-menu}">Salir</a>
 
     </div>
 </div>

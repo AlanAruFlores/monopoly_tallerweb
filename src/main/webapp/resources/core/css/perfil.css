@@ -19,7 +19,7 @@
 
 /*iMAGEN DE FONDO*/
 body{
-    background: url(../imagenes/fondo.jpg);
+
     background-size:cover;
     background-color: rgba(255,255,255,0.8);
     background-blend-mode: lighten;
@@ -170,10 +170,7 @@ body{
 /*VISTA EDITAR PERFIL*/
 .actualizar-perfil{
     min-height: 100vh;
-    background-image: linear-gradient(
-            rgba(249, 245, 245, 0.664),
-            rgba(241, 232, 232, 0.708)
-    ), url(../imagenes/fondo.jpg);
+
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>editarPerfil</title>
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+</head>
+<body>
+<div class="actualizar-perfil">
+
+    <form action="" method="post" enctype="multipart/form-data">
+        <!-- Espacio para la imagen -->
+        <img id="update_image" src="../imagenes/monopoly-man.jpg">
+
+        <!-- Campos de entrada -->
+        <div class="flex">
+
+            <div class="inputBox">
+                <span>Nombre de usuario :</span>
+                <input type="text" id="update_name" name="update_name" placeholder="UsuarioX" class="box">
+                <span>Tu email :</span>
+                <input type="email" id="update_email" name="update_email" placeholder="usuarioX@gmail.com" class="box">
+                <span>Actualiza tu foto:</span>
+                <input type="file" id="update_picture" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
+            </div>
+            <div class="inputBox">
+                <input type="hidden" id="old_pass" name="old_pass">
+                <span>Actual contraseña:</span>
+                <input type="password" id="update_pass" name="update_pass" placeholder="Contraseña actual" class="box">
+                <span>Nueva contraseña :</span>
+                <input type="password" id="new_pass" name="new_pass" placeholder="Nueva contraseña" class="box">
+                <span>Confirmar contraseña :</span>
+                <input type="password" id="confirm_pass" name="confirm_pass" placeholder="confirmar nueva contraseña" class="box">
+            </div>
+        </div>
+        <input type="submit" value="Guardar cambios" name="update_profile" class="btn">
+        <a href="" class="delete-btn" th:href="@{/perfil}">Salir</a>
+    </form>
+</div>
+</body>
+</html>
