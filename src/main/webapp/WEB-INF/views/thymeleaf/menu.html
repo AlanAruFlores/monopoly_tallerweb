@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/menu.css}">
+    <title>Menu</title>
+</head>
+<body>
+    <header class="header">
+        <img th:src="@{/imagenes/monopoly.png}" class="header__logo">
+        <h1 class="header__titulo">MONOPOLY</h1>
+    </header>
+
+    <main class="main">
+        <h2 class="main__titulo">MENU</h2>
+        <a class="main__boton" th:href="@{/ir-jugar}">Jugar</a>
+        <a class="main__boton" th:href="@{/ir-estadistica}">Estadistica</a>
+        <a class="main__boton" th:href="@{/ir-salir}">Salir</a>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__div">
+            <h2 class="footer__titulo">MONOPOLY</h2>
+            <h3 class="footer__subtitulo">Integrantes</h3>
+            <p>Integrante 1</p>
+            <p>Integrante 2</p>
+            <p>Integrante 3</p>
+            <p>Integrante 4</p>
+            <p>Integrante 5</p>
+        </div>
+        <div class="footer__div">
+            <h3 class="footer__subtitulo">Materia</h3>
+            <p>Taller Web I</p>
+            <h3 class="footer__subtitulo">Universidad</h3>
+            <p>Universidad Nacional de la Matanza</p>
+        </div>
+    </footer>
+</body>
+</html>
