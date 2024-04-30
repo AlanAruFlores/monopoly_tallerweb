@@ -10,18 +10,18 @@
 
     <form action="" method="post" enctype="multipart/form-data">
         <!-- Espacio para la imagen -->
-        <img id="update_image" th:src="@{/imagenes/fondo.png}">
+        <img id="update_image" th:src="@{/imagenes/fondo.jpg}">
 
         <!-- Campos de entrada -->
         <div class="flex">
 
             <div class="inputBox">
                 <span>Nombre de usuario :</span>
-                <input type="text" id="update_name" name="update_name" placeholder="UsuarioX" class="box">
+                <input type="text" id="actualizar-nombre" name="actualizar-nombre" placeholder="UsuarioX" class="box">
                 <span>Tu email :</span>
-                <input type="email" id="update_email" name="update_email" placeholder="usuarioX@gmail.com" class="box">
+                <input type="email" id="actualizar_email" name="actualizar_email" placeholder="usuarioX@gmail.com" class="box">
                 <span>Actualiza tu foto:</span>
-                <input type="file" id="update_picture" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
+                <input type="file" id="actualizar_imagen" name="actualizar_imagen" accept="image/jpg, image/jpeg, image/png" class="box">
             </div>
             <div class="inputBox">
                 <input type="hidden" id="old_pass" name="old_pass">
@@ -33,7 +33,7 @@
                 <input type="password" id="confirm_pass" name="confirm_pass" placeholder="confirmar nueva contraseña" class="box">
             </div>
         </div>
-        <input type="submit" value="Guardar cambios" name="update_profile" class="btn">
+        <input type="submit" value="Guardar cambios" name="cambiar_perfil" class="btn">
         <a href="" class="delete-btn" th:href="@{/perfil}">Salir</a>
     </form>
 </div>

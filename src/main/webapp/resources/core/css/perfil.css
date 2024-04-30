@@ -56,7 +56,6 @@ body{
 .btn,
 .delete-btn{
     width: 100%;
-    border-radius: 5px;
     padding:10px 30px;
     color:var(--white);
     display: block;
@@ -64,6 +63,7 @@ body{
     cursor: pointer;
     font-size: 20px;
     margin-top: 10px;
+    border-radius: 50px;
 }
 
 .btn,.delete-btn{
@@ -265,7 +265,11 @@ body{
         width: 100%;
     }
 
+}
+
+@media(min-width: 600px){
     .footer{
+
         display: flex;
         flex-direction: row;
         justify-content: space-around;
