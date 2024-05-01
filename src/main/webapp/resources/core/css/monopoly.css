@@ -14,3 +14,11 @@
 .propiedades img {
   width: 20%;
 }
+
+.propiedades-container {
+  margin-left: 3%;
+}
+
+.logo {
+  width: 80px;
+}
