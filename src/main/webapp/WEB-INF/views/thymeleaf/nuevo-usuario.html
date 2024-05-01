@@ -19,7 +19,7 @@
 <div class="container">
   <div class="color"></div>
   <h2>Registro - Monopoly Online</h2>
-  <form action="registro" method="post">
+  <form th:action="@{/login}" method="post">
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" required>
     <label for="apellido">Apellido:</label>
@@ -34,7 +34,7 @@
     <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" required>
     <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
     <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
-    <input type="submit" value="Registrarse" formaction="login.html">
+    <input type="submit" value="Registrarse">
   </form>
 </div>
 

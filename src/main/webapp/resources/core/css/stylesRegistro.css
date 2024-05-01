@@ -1,6 +1,16 @@
+@font-face {
+    font-family: monopoly;
+    src: url(../fuentes/monopoly.ttf);
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #C5D9C7;
+    background: url(../imagenes/fondo.jpg);
+    background-size:cover;
+    background-color: rgba(255,255,255,0.8);
+    background-blend-mode: lighten;
+    background-repeat: no-repeat;
+    background-position: center;
     margin: 0;
     padding: 0;
     display: flex;
@@ -18,6 +28,8 @@ body {
 
 h2 {
     text-align: center;
+    font-family: monopoly;
+    letter-spacing:2px;
     color: #000000;
 }
 
@@ -50,9 +62,9 @@ input[type="submit"] {
     height: 50px;
     width: auto;
     margin: -20px;
-    background-color: #ff0000;
+    background-color: #ff4122;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border: 2px solid #000;
+    /*border: 2px solid #000;*/
     margin-block-end: 5px;
 }
