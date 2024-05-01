@@ -1,0 +1,16 @@
+.tablero {
+  width: 60%;
+  height: 60%;
+}
+
+.tablero img {
+  border: 1px solid black;
+}
+
+.billetes img {
+  width: 100%;
+}
+
+.propiedades img {
+  width: 20%;
+}
