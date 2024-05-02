@@ -14,7 +14,7 @@ public class MenuControlador {
     }
     @RequestMapping("/ir-jugar")
     public ModelAndView irAJugar(){
-        return new ModelAndView("jugar.html");
+        return new ModelAndView("monopoly.html");
     }
 
 
