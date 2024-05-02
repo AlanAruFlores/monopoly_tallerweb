@@ -7,7 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MenuControlador {
-
     @RequestMapping("/ir-menu")
     public ModelAndView irAlMenu() {
         return new ModelAndView("menu.html");
@@ -16,8 +15,6 @@ public class MenuControlador {
     public ModelAndView irAJugar(){
         return new ModelAndView("monopoly.html");
     }
-
-
     @RequestMapping("/ir-salir")
     public ModelAndView irASalir(){
         return new ModelAndView("login.html");

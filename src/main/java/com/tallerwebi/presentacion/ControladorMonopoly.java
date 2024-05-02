@@ -12,12 +12,6 @@ public class ControladorMonopoly {
         return "monopoly";
     }
 
-    @RequestMapping("/ir-menu")
-    public ModelAndView irAlMenu() {
-        return new ModelAndView("menu.html");
-    }
-
-
 }
 
 
