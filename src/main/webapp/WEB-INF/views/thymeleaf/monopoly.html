@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Monopoly</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/monopoly.css}" />
+  </head>
+  <body>
+    <!-- Barra de navegacion -->
+    <nav>
+      <div class="container-fluid bg-dark">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <ul class="nav align-items-center">
+                <li class="nav-item">
+                  <img th:src="@{/imagenes/monopoly.png}" class="logo" />
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-light" href="../Perfil.html" th:href="@{/perfil}">Mi perfil</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-light" href="#">Salir</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- Parte superior con la imagen del tablero de Monopoly -->
+    <div class="container-fluid p-0 mt-3 text-center tablero">
+      <img th:src="@{/imagenes/tablero.png}" class="img-fluid" id="tablero" alt="Tablero de Monopoly" />
+    </div>
+
+    <!-- Parte central con los billetes y propiedades -->
+    <div class="container">
+      <div class="row">
+        <!-- Billetes, cambiar la cantidad de billetes dinamicamente-->
+        <div class="col-md-4 p-0 billetes">
+          <h2 class="text-center">Billetes en posesion</h2>
+          <div class="row">
+            <div class="col p-0">
+              <img th:src="@{/imagenes/bill 10.jpg}" alt="Billete de $1" />
+              <p class="text-center m-0">X</p>
+            </div>
+            <div class="col p-0">
+              <img th:src="@{/imagenes/bill 10.jpg}" alt="Billete de $5" />
+              <p class="text-center m-0">X</p>
+            </div>
+            <div class="col p-0">
+              <img th:src="@{/imagenes/bill 10.jpg}" alt="Billete de $10" />
+              <p class="text-center m-0">X</p>
+            </div>
+            <div class="col p-0">
+              <img th:src="@{/imagenes/bill 10.jpg}" alt="Billete de $20" />
+              <p class="text-center m-0">X</p>
+            </div>
+            <div class="col p-0">
+              <img th:src="@{/imagenes/bill 10.jpg}" alt="Billete de $50" />
+              <p class="text-center m-0">X</p>
+            </div>
+            <div class="col p-0">
+              <img th:src="@{/imagenes/bill 10.jpg}" alt="Billete de $100" />
+              <p class="text-center m-0">X</p>
+            </div>
+            <div class="col p-0">
+              <img th:src="@{/imagenes/bill 10.jpg}" alt="Billete de $500" />
+              <p class="text-center">X</p>
+            </div>
+          </div>
+          <hr />
+          <h4 class="text-center">Total: $X</h4>
+        </div>
+        <!-- Propiedades -->
+        <div class="col-md-6 p-0 propiedades-container">
+          <div class="container p-0">
+            <h2 class="text-center">Propiedades</h2>
+            <div class="row">
+              <div class="col propiedades p-0">
+                <!-- Ejemplo, reemplazar con logica para agregar mas propiedas dinamicamente-->
+                <img th:src="@{/imagenes/mediterranean ave.png}" class="card-img-top" alt="Propiedad" />
+                <img th:src="@{/imagenes/mediterranean ave.png}" class="card-img-top" alt="Propiedad" />
+                <img th:src="@{/imagenes/mediterranean ave.png}" class="card-img-top" alt="Propiedad" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+  </body>
+</html>
