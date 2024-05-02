@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 public class ControladorLoginTest {
 
-	private ControladorLogin controladorLogin;
+	private EjemploControladorLogin controladorLogin;
 	private Usuario usuarioMock;
 	private DatosLogin datosLoginMock;
 	private HttpServletRequest requestMock;
@@ -32,7 +32,7 @@ public class ControladorLoginTest {
 		requestMock = mock(HttpServletRequest.class);
 		sessionMock = mock(HttpSession.class);
 		servicioLoginMock = mock(ServicioLogin.class);
-		controladorLogin = new ControladorLogin(servicioLoginMock);
+		controladorLogin = new EjemploControladorLogin(servicioLoginMock);
 	}
 
 	@Test

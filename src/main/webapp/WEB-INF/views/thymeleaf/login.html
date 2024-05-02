@@ -2,47 +2,53 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>Taller Web I</title>
-
-    <!-- Boostrap core css -->
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
-
-    <!-- custom style -->
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <title>Monopoly</title>
 </head>
 
 <body>
+    <header class="header">
+        <img th:src="@{/imagenes/monopoly.png}" class="header__logo">
+        <h1 class="header__titulo">MONOPOLY</h1>
+    </header>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">UNLAM</a>
-</nav>
-
-<main role="main" class="container">
-
-    <div class = "container">
-        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <form action="#" th:action="@{/validar-login}" method="POST" th:object="${datosLogin}">
-                <h3 class="form-signin-heading">Taller Web I</h3>
-                <hr class="colorgraph"><br>
-
-                <input th:field="*{email}" id="email" type="email" class="form-control" required/>
-                <input th:field="*{password}" type="password" id="password" class="form-control" required/>
-
-                <button id="btn-login" class="btn btn-lg btn-primary btn-block" Type="Submit">Login</button>
-
-                <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}">
-                </p>
+    <main class="main">
+        <div class="fondo-form">
+            <h2 class="main__titulo">INICIAR SESIÓN</h2>
+            <form th:action="@{/ir-menu}" class="container" method="POST">
+                <div class="flex">
+                    <div class="inputBox">
+                        <span>Ingresar correo electrónico:</span>
+                        <input type="email" id="email" placeholder="usuarioX@gmail.com" class="box" required/>
+                    </div>
+                    <div class="inputBox">
+                        <span>Ingresar contraseña:</span>
+                        <input type="password" id="pass" name="pass" placeholder="Contraseña" class="box">
+                    </div>
+                </div>
+                <input type="submit" value="Acceder" name="login" class="main__boton">
             </form>
-            <a id="ir-a-registrarme" href="nuevo-usuario">Registrarme</a>
+            <a id="ir-a-registrarme" th:href="@{/ir-registro}">Registrarme</a>
         </div>
-    </div>
-</main>
-<!-- /.container -->
+    </main>
 
-<!-- Boostrap core js -->
-<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+    <footer class="footer">
+        <div class="footer__div">
+            <h2 class="footer__titulo">MONOPOLY</h2>
+            <h3 class="footer__subtitulo">Integrantes</h3>
+            <p>Gavagnin Lucas Daniel</p>
+            <p>Pessino Milagros</p>
+            <p>Aruquipa Alan</p>
+            <p>Vargas Mariano Luis</p>
+            <p>Vargas Franco</p>
+        </div>
+        <div class="footer__div">
+            <h3 class="footer__subtitulo">Materia</h3>
+            <p>Taller Web I</p>
+            <h3 class="footer__subtitulo">Universidad</h3>
+            <p>Universidad Nacional de la Matanza</p>
+        </div>
+    </footer>
 </body>
 </html>
