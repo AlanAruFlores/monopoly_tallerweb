@@ -1,0 +1,401 @@
+@font-face {
+    font-family: monopoly;
+    src: url("../fuentes/monopoly.ttf");
+}
+
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/*CSS TABLERO*/
+.tablero{
+    width: 80%;
+    margin: 0 auto;
+    /* border: black solid 1px; */
+    display: grid;
+
+    grid-template-columns: repeat(5,20%);
+    grid-template-rows: repeat(5,150px);
+
+    grid-template-areas:
+    "descanso casaroja1 casaroja2 tren2 cafeteria"
+    "servicio1 interior interior interior casaverde1"
+    "casarosa2 interior interior interior casaverde2"
+    "casarosa1 interior interior interior servicio2"
+    "carcel tren1 casaceleste2 casaceleste1 inicio";
+    max-width: 1100px;
+
+    background-image: url(../imagenes/fondo3.jpg);
+    background-color: rgba(255,255, 255, 0.7);
+    background-blend-mode: lighten;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    /* background-color: #f3f3f3; */
+
+}
+.tabla__interior{
+    grid-area: interior;
+    position: relative;
+    width: 100%;
+}
+.interior__titulo{
+    background-color: #ff3f22;
+    color: white;
+    padding: 20px 30px;
+    display: inline-block;
+    font-size: 4rem;
+    font-family: monopoly;
+    transform: rotate(30deg);
+    text-transform: uppercase;
+    position: absolute;
+    left: 50%;
+    margin-left: -27%;
+    top: 50%;
+    margin-top: -50px;
+}
+
+/*BORDEAMOS*/
+.tablero div{
+    border: 1px solid;
+}
+
+/*ESTILOS A LOS MAZOS DE CARTAS*/
+
+.interior_cartas_propiedades{
+    position: absolute;
+    width: 100px;
+    height: 150px;
+    border: 0px solid !important;
+    right: 0;
+    top: 0;
+    margin-top: 40px;
+    margin-right: 25%;
+    border-radius: 10px;
+    transform: rotate(-60deg);
+    background-image: url(../imagenes/cubes.png);
+    background-size: 10px 10px;
+    background-color: #ff3f22;
+    box-shadow: 4px -4px  #fff, 8px -8px  #ff3f22 , 12px -12px  #fff,16px -16px  #ff3f22 , 20px -20px  #fff;
+}
+
+.interior_cartas_comodines{
+    position: absolute;
+    width: 100px;
+    height: 150px;
+    border: 0px solid !important;
+    left: 0;
+    bottom: 0;
+    margin-bottom: 40px;
+    margin-left: 25%;
+    border: none;
+    border-radius: 10px;
+    transform: rotate(-60deg);
+    background-image: url(../imagenes/cubes.png);
+    background-size: 10px 10px;
+    background-color: #0077b6;
+    box-shadow: 4px -4px  #fff, 8px -8px  #0077b6 , 12px -12px  #fff,16px -16px  #0077b6 , 20px -20px  #fff;
+
+}
+
+/*jugador*/
+.jugador{
+    width: 60px;
+    height: 60px;
+    background-color: rgb(153, 0, 255);
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px black;
+    position: absolute;
+    z-index: 999;
+    transform: translateY(30%);
+}
+/* PROPIEDADES  */
+
+/* INICIO */
+.tablero__inicio{
+    grid-area: inicio;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border: 1px solid;
+    position: relative;
+}
+
+.tablero__inicio h2{
+    font-size: 40px;
+    font-family: monopoly;
+    font-weight: bold;
+}
+.tablero__inicio i{
+    font-size: 30px;
+    color: red;
+}
+
+/* CASAS */
+
+.tablero__casa{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+}
+.tablero__casa .precio{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.tablero__casa h2{
+    font-family: monopoly;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.tablero__casa .franja{
+    width: 100%;
+    height: 25%
+}
+/* CASAS CELESTES */
+.celeste1{
+    grid-area: casaceleste1;
+}
+.celeste2{
+    grid-area: casaceleste2;
+}
+.casa__celeste .franja{
+    background-color: #51bcf5;
+}
+
+
+/*CASAS ROSAS*/
+.rosa1{
+    grid-area: casarosa1;
+}
+.rosa2{
+    grid-area: casarosa2;
+}
+.casa__rosa .franja{
+    background-color: #f1004e;
+}
+
+
+/*CASAS ROJAS*/
+.casa__roja{
+    transform: rotate(180deg);
+}
+.roja1{
+    grid-area: casaroja1;
+}
+.roja2{
+    grid-area: casaroja2;
+}
+.casa__roja .franja{
+    background-color: #d1001f;
+}
+
+/*CASAS VERDES*/
+.verde1{
+    grid-area: casaverde1;
+}
+.verde2{
+    grid-area: casaverde2;
+}
+.casa__verde .franja{
+    background-color: #16914f;
+}
+
+/*TRENES*/
+.tablero__tren{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    padding-top: 10px;
+}
+
+.tablero__tren h2{
+    font-family: monopoly;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.tablero__tren img{
+    width: 60px;
+    height: 60px;
+}
+
+.tablero__tren .precio{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.tren1{
+    grid-area: tren1;
+}
+
+.tren2{
+    grid-area: tren2;
+    transform: rotate(180deg);
+}
+
+/*SERVICIOS*/
+.tablero__servicio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+    position: relative;
+}
+
+.tablero__servicio h2{
+    font-family: monopoly;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-top: 10px;
+}
+.tablero__servicio img{
+    width: 60px;
+    height: 60px;
+}
+
+.tablero__servicio .precio{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.servicio_luz{
+    grid-area: servicio1;
+}
+.servicio_agua{
+    grid-area: servicio2;
+}
+
+/*CARCEL*/
+.tablero__carcel{
+    grid-area: carcel;
+    position: relative;
+}
+.tablero__carcel h3{
+    font-family: monopoly;
+    text-transform: uppercase;
+    font-size:30px;
+    position: absolute;
+
+}
+.tablero__carcel :nth-child(3){
+    top: 40px;
+    left: -10px;
+    transform: rotate(90deg);
+}
+
+.tablero__carcel h3:nth-child(2){
+    right: 20%;
+    bottom: 0;
+}
+
+.tablero__carcel .jugador{
+    top: 0;
+}
+
+
+.carcel{
+    position: relative;
+    background-color: #ff5d44;
+    width: 70%;
+    height: 70%;
+    float: right;
+    padding: 10px 0px;
+}
+.carcel img{
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+/*POLICIA*/
+.tablero__policia{
+    background-color: #054fbdb6;
+    position: relative;
+}
+
+.tablero__policia h2{
+    font-family: monopoly;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: rotate(230deg);
+    position: absolute;
+    bottom: 30%;
+    left: 1%;
+    color: #fff;
+}
+.tablero__policia img{
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 4px;
+    transform: rotate(230deg);
+    position: absolute;
+    top:10%;
+    left:35%;
+}
+.tablero__policia .jugador{
+    transform: translate(100%,100%);
+
+}
+/*DESCANSAR*/
+.tablero__descansar{
+    background-color: #ff2d11;
+    position: relative;
+}
+.tablero__descansar h2{
+    font-family: monopoly;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: rotate(130deg);
+    position: absolute;
+    bottom: 30%;
+    right: 1%;
+    color: #fff;
+}
+.tablero__descansar img{
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 4px;
+    transform: rotate(130deg);
+    position: absolute;
+    top:10%;
+    right:35%;
+}
+
+.tablero__descansar .jugador{
+    transform: translate(100%,100%);
+
+}
+
+
+
+/*Jugador*/
+
+.fondo-jugador{
+    background-color: gray;
+    height: 200px;
+}
+
