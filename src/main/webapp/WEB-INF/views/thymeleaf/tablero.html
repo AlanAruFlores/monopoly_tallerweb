@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/tablero.css}">
+    <title>Monopoly</title>
+</head>
+<body>
+<main class="tablero">
+    <!-- INTERIOR DE LA TABLA -->
+    <div class="tabla__interior">
+        <h1 class="interior__titulo">Monopoly</h1>
+        <div class ="interior_cartas_propiedades">
+        </div>
+        <div class="interior_cartas_comodines">
+        </div>
+    </div>
+
+    <!-- PROPIEDADES -->
+    <div class="tablero__inicio" id="1">
+        <h2>GO</h2>
+        <i class="fa-solid fa-arrow-left"></i>
+    </div>
+    <div class="tablero__casa casa__celeste celeste1" id="2">
+        <div class="franja"></div>
+        <h2>Celeste 1</h2>
+        <p class="precio">$100</p>
+
+    </div>
+    <div class="tablero__casa casa__celeste celeste2" id="3">
+        <div class="franja"></div>
+        <h2>Celeste 2</h2>
+        <p class="precio">$100</p>
+    </div>
+    <div class="tablero__tren tren1" id="4">
+        <h2>Tren 1</h2>
+        <img th:src="@{/imagenes/tren.png}" alt="tren">
+        <p class="precio">$500</p>
+    </div>
+    <div class="tablero__carcel" id="5">
+        <div class="carcel">
+            <img th:src="@{/imagenes/carcel.png}" alt="carcel">
+        </div>
+        <h3>Visita</h3>
+        <h3>Visita</h3>
+
+    </div>
+    <div class="tablero__casa casa__rosa rosa1" id="6">
+        <div class="franja"></div>
+        <h2>Rosa 1</h2>
+        <p class="precio">$200</p>
+
+    </div>
+    <div class="tablero__casa casa__rosa rosa2" id="7">
+        <div class="franja"></div>
+        <h2>Rosa 2</h2>
+        <p class="precio">$200</p>
+
+    </div>
+    <div class="tablero__servicio servicio_luz" id="8">
+        <h2>Servicio de Luz</h2>
+        <img th:src="@{/imagenes/luz.png}" alt="lu">
+        <p class="precio">$250</p>
+
+    </div>
+    <div class="tablero__descansar" id="9">
+        <h2>Descansar</h2>
+        <img th:src="@{/imagenes/descansar.png}" alt="descansar">
+
+    </div>
+    <div class="tablero__casa casa__roja roja1" id="10">
+        <div class="franja"></div>
+        <h2>Roja 1</h2>
+        <p class="precio">$400</p>
+
+    </div>
+    <div class="tablero__casa casa__roja roja2" id="11">
+        <div class="franja"></div>
+        <h2>Roja 2</h2>
+        <p class="precio">$400</p>
+
+    </div>
+    <div class="tablero__tren tren2" id="12">
+        <h2>Tren 2</h2>
+        <img th:src="@{/imagenes/tren.png}" alt="tren">
+        <p class="precio">$500</p>
+
+    </div>
+    <div class="tablero__policia" id="13">
+        <h2>Ir Carcel</h2>
+        <img th:src="@{/imagenes/policia.png}" alt="policia">
+
+    </div>
+    <div class="tablero__casa casa__verde verde1" id="14">
+        <div class="franja"></div>
+        <h2>Verde 1</h2>
+        <p class="precio">$600</p>
+
+    </div>
+    <div class="tablero__casa casa__verde verde2" id="15">
+        <div class="franja"></div>
+        <h2>Verde 2</h2>
+        <p class="precio">$600</p>
+
+    </div>
+    <div class="tablero__servicio servicio_agua" id="16">
+        <h2>Servicio de Agua</h2>
+        <img th:src="@{/imagenes/agua.png}" alt="agua">
+        <p class="precio">$350</p>
+    </div>
+</main>
+
+<a th:href="@{/obtenerNumeroRandom}" id="moverBtn">Mover</a>
+<p id="resultado"></p>
+
+<script>
+    let posicion = ""+([[${posicion}]] + 0);
+    console.log(posicion);
+
+
+    let casilla = document.getElementById(posicion);
+    const jugadorElemento = document.createElement("div");
+    jugadorElemento.classList.add("jugador");
+
+    casilla.insertAdjacentElement("beforeend", jugadorElemento);
+
+</script>
+
+</body>
+</html>
