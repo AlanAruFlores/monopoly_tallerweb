@@ -13,7 +13,7 @@ public class MenuControlador {
     }
     @RequestMapping("/ir-jugar")
     public ModelAndView irAJugar(){
-        return new ModelAndView("monopoly.html");
+        return new ModelAndView("redirect:/monopoly");
     }
     @RequestMapping("/ir-salir")
     public ModelAndView irASalir(){

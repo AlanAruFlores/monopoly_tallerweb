@@ -1,6 +1,6 @@
 @font-face {
     font-family: monopoly;
-    src: url("../fuentes/monopoly.ttf");
+    src: url(../fuentes/monopoly.ttf);
 }
 
 
@@ -13,21 +13,22 @@
 
 /*CSS TABLERO*/
 .tablero{
-    width: 80%;
-    margin: 0 auto;
+    width: 95%;
+    margin: 20px auto;
+    max-width: 1260px;
     /* border: black solid 1px; */
     display: grid;
 
-    grid-template-columns: repeat(5,20%);
-    grid-template-rows: repeat(5,150px);
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: repeat(6,150px);
 
     grid-template-areas:
-    "descanso casaroja1 casaroja2 tren2 cafeteria"
-    "servicio1 interior interior interior casaverde1"
-    "casarosa2 interior interior interior casaverde2"
-    "casarosa1 interior interior interior servicio2"
-    "carcel tren1 casaceleste2 casaceleste1 inicio";
-    max-width: 1100px;
+    "descanso casaroja1 casaroja2 tren2 casaroja3 policia"
+    "casarosa3 interior interior interior interior casaverde1"
+    "servicio1 interior interior interior interior casaverde2"
+    "casarosa2 interior interior interior interior servicio2"
+    "casarosa1 interior interior interior interior casaverde3"
+    "carcel casaceleste3 tren1 casaceleste2 casaceleste1 inicio";
 
     background-image: url(../imagenes/fondo3.jpg);
     background-color: rgba(255,255, 255, 0.7);
@@ -38,6 +39,11 @@
     /* background-color: #f3f3f3; */
 
 }
+.tablero h2{
+    color:#000;
+    font-weight:bold;
+}
+
 .tabla__interior{
     grid-area: interior;
     position: relative;
@@ -54,9 +60,9 @@
     text-transform: uppercase;
     position: absolute;
     left: 50%;
-    margin-left: -27%;
+    margin-left: -21%;
     top: 50%;
-    margin-top: -50px;
+    margin-top: -40px;
 }
 
 /*BORDEAMOS*/
@@ -72,7 +78,7 @@
     height: 150px;
     border: 0px solid !important;
     right: 0;
-    top: 0;
+    top: 20px;
     margin-top: 40px;
     margin-right: 25%;
     border-radius: 10px;
@@ -102,17 +108,6 @@
 
 }
 
-/*jugador*/
-.jugador{
-    width: 60px;
-    height: 60px;
-    background-color: rgb(153, 0, 255);
-    border-radius: 50%;
-    box-shadow: 0px 0px 10px black;
-    position: absolute;
-    z-index: 999;
-    transform: translateY(30%);
-}
 /* PROPIEDADES  */
 
 /* INICIO */
@@ -156,6 +151,7 @@
     font-family: monopoly;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-size: 18px;
 }
 .tablero__casa .franja{
     width: 100%;
@@ -168,6 +164,9 @@
 .celeste2{
     grid-area: casaceleste2;
 }
+.celeste3{
+    grid-area: casaceleste3;
+}
 .casa__celeste .franja{
     background-color: #51bcf5;
 }
@@ -179,6 +178,9 @@
 }
 .rosa2{
     grid-area: casarosa2;
+}
+.rosa3{
+    grid-area: casarosa3;
 }
 .casa__rosa .franja{
     background-color: #f1004e;
@@ -195,6 +197,9 @@
 .roja2{
     grid-area: casaroja2;
 }
+.roja3{
+    grid-area: casaroja3;
+}
 .casa__roja .franja{
     background-color: #d1001f;
 }
@@ -205,6 +210,9 @@
 }
 .verde2{
     grid-area: casaverde2;
+}
+.verde3{
+    grid-area: casaverde3;
 }
 .casa__verde .franja{
     background-color: #16914f;
@@ -224,11 +232,15 @@
     font-family: monopoly;
     letter-spacing: 1px;
     text-transform: uppercase;
+    font-size: 18px;
+
 }
 
 .tablero__tren img{
     width: 60px;
     height: 60px;
+    border:none;
+
 }
 
 .tablero__tren .precio{
@@ -252,7 +264,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:20px;
+    gap:6px;
     position: relative;
 }
 
@@ -261,10 +273,14 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     padding-top: 10px;
+    font-size: 18px;
+
 }
 .tablero__servicio img{
     width: 60px;
     height: 60px;
+    border:none;
+
 }
 
 .tablero__servicio .precio{
@@ -323,18 +339,21 @@
     height: 70px;
     margin: 0 auto;
     background-color: white;
+    border:none;
     border-radius: 50%;
     padding: 4px;
 }
 
 /*POLICIA*/
 .tablero__policia{
+    grid-area: policia;
     background-color: #054fbdb6;
     position: relative;
 }
 
 .tablero__policia h2{
     font-family: monopoly;
+    font-size:25px;
     text-transform: uppercase;
     letter-spacing: 1px;
     transform: rotate(230deg);
@@ -347,12 +366,16 @@
     width: 100px;
     height: 100px;
     background-color: #fff;
+    border:none;
     border-radius: 50%;
     padding: 4px;
     transform: rotate(230deg);
     position: absolute;
+    /*
     top:10%;
-    left:35%;
+    left:35%;*/
+    top:3%;
+    right:10%;
 }
 .tablero__policia .jugador{
     transform: translate(100%,100%);
@@ -364,6 +387,7 @@
     position: relative;
 }
 .tablero__descansar h2{
+    font-size:25px;
     font-family: monopoly;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -377,12 +401,17 @@
     width: 100px;
     height: 100px;
     background-color: #fff;
+    border:none;
     border-radius: 50%;
     padding: 4px;
     transform: rotate(130deg);
     position: absolute;
+    /*
     top:10%;
     right:35%;
+*/
+    top:2%;
+    left:10%;
 }
 
 .tablero__descansar .jugador{
@@ -390,12 +419,67 @@
 
 }
 
+/*jugador*/
+.jugador{
+    width: 20%;
+    height: 30px;
+    background-color: rgb(15, 135, 190);
+    border-radius: 30%;
+    box-shadow: 0px 0px 10px black;
+    position: absolute;
+    z-index: 999;
+    transform: translateY(30%);
+}
+.techo{
+    background-color: #e2e2e2;
+    width: 50%;
+    height: 70%;
+    border-radius: 30%;
+    /*Centramos*/
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto auto
+}
+.rueda{
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    z-index: 888;
+    background-color: #000;
+    border-radius: 30%;
 
-
-/*Jugador*/
-
-.fondo-jugador{
-    background-color: gray;
-    height: 200px;
+}
+.rueda1{
+    top: 0;
+    left: 0;
+}
+.rueda2{
+    left: 0;
+    bottom: 0;
+}
+.rueda3{
+    right: 0;
+    top: 0;
+}
+.rueda4{
+    right: 0;
+    bottom: 0;
+}
+/*Boton Tirar*/
+.moverBtn{
+    display: block;
+    width: 20%;
+    text-align: center;
+    margin: 10px auto;
+    background-color: #ff3f22;
+    color:white;
+    padding: 10px 40px;
+    text-decoration:none;
+    font-family: monopoly;
+    letter-spacing: 1px;
+    border-radius: 20px;
 }
 

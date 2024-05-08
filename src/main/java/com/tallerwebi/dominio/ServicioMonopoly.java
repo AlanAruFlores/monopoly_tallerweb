@@ -6,6 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
-public interface ServicioTablero {
-    public void obtenerRandom(HttpSession session);
+public interface ServicioMonopoly {
+    public void obtenerPosicionCasillero(HttpSession session);
 }
