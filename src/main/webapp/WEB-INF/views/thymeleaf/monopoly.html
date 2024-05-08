@@ -7,9 +7,12 @@
     <title>Monopoly</title>
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/monopoly.css}" />
+    <link rel="stylesheet" th:href="@{/css/tablero.css}">
+
   </head>
   <body>
     <!-- Barra de navegacion -->
@@ -35,9 +38,129 @@
       </div>
     </nav>
     <!-- Parte superior con la imagen del tablero de Monopoly -->
-    <div class="container-fluid p-0 mt-3 text-center tablero">
-      <img th:src="@{/imagenes/tablero.png}" class="img-fluid" id="tablero" alt="Tablero de Monopoly" />
-    </div>
+
+    <!-- INTERIOR DE LA TABLA -->
+    <main class="tablero">
+      <!-- INTERIOR DE LA TABLA -->
+      <div class="tabla__interior">
+        <h1 class="interior__titulo">Monopoly</h1>
+        <div class ="interior_cartas_propiedades">
+        </div>
+        <div class="interior_cartas_comodines">
+        </div>
+      </div>
+
+      <!-- PROPIEDADES -->
+      <div class="tablero__inicio" id = "1">
+        <h2>GO</h2>
+        <i class="fa-solid fa-arrow-left"></i>
+      </div>
+      <div class="tablero__casa casa__celeste celeste1" id="2">
+        <div class="franja"></div>
+        <h2>Calle Balcarce</h2>
+        <p class="precio">$100</p>
+
+      </div>
+      <div class="tablero__casa casa__celeste celeste2" id="3">
+        <div class="franja"></div>
+        <h2>Avenida Belgrano</h2>
+        <p class="precio">$100</p>
+
+      </div>
+      <div class="tablero__tren tren1" id="4">
+        <h2>Tren 1</h2>
+        <img th:src="@{/imagenes/tren.png}" alt="tren">
+        <p class="precio">$500</p>
+      </div>
+      <div class="tablero__casa casa__celeste celeste3" id="5">
+        <div class="franja"></div>
+        <h2>Calle Juramento</h2>
+        <p class="precio">$100</p>
+      </div>
+      <div class="tablero__carcel" id="6">
+        <div class="carcel">
+          <img th:src="@{/imagenes/carcel.png}" alt="carcel">
+        </div>
+        <h3>Visita</h3>
+        <h3>Visita</h3>
+
+      </div>
+      <div class="tablero__casa casa__rosa rosa1" id="7">
+        <div class="franja"></div>
+        <h2>Avenida 9 de julio</h2>
+        <p class="precio">$200</p>
+      </div>
+      <div class="tablero__casa casa__rosa rosa2" id="8">
+        <div class="franja"></div>
+        <h2>Calle Aribeño</h2>
+        <p class="precio">$200</p>
+      </div>
+      <div class="tablero__servicio servicio_luz" id="9">
+        <h2>Servicio Luz</h2>
+        <img th:src="@{imagenes/luz.png}" alt="lu">
+        <p class="precio">$250</p>
+      </div>
+      <div class="tablero__casa casa__rosa rosa3" id="10">
+        <div class="franja"></div>
+        <h2>Calle Mendoza</h2>
+        <p class="precio">$200</p>
+      </div>
+      <div class="tablero__descansar" id="11">
+        <h2>Descansar</h2>
+        <img th:src="@{/imagenes/descansar.png}" alt="descansar">
+      </div>
+      <div class="tablero__casa casa__roja roja1" id="12">
+        <div class="franja"></div>
+        <h2>Avenida de Mayo</h2>
+        <p class="precio">$400</p>
+
+      </div>
+      <div class="tablero__casa casa__roja roja2" id="13">
+        <div class="franja"></div>
+        <h2>Avenida Rivadavia</h2>
+        <p class="precio">$400</p>
+      </div>
+      <div class="tablero__casa casa__roja roja3" id="14">
+        <div class="franja"></div>
+        <h2>Florencio Varela</h2>
+        <p class="precio">$400</p>
+      </div>
+      <div class="tablero__tren tren2" id="15">
+        <h2>Tren 2</h2>
+        <img th:src="@{/imagenes/tren.png}" alt="tren">
+        <p class="precio">$500</p>
+      </div>
+      <div class="tablero__policia" id="16">
+        <h2>Ir Carcel</h2>
+        <img th:src="@{/imagenes/policia.png}" alt="policia">
+      </div>
+      <div class="tablero__casa casa__verde verde1" id="17">
+        <div class="franja"></div>
+        <h2>Avenida Corrientes</h2>
+        <p class="precio">$600</p>
+      </div>
+      <div class="tablero__casa casa__verde verde2" id="18">
+        <div class="franja"></div>
+        <h2>Avenida Florida</h2>
+        <p class="precio">$600</p>
+      </div>
+      <div class="tablero__servicio servicio_agua" id="19">
+        <h2>Servicio Agua</h2>
+        <img th:src="@{/imagenes/agua.png}" alt="agua">
+        <p class="precio">$350</p>
+      </div>
+      <div class="tablero__casa casa__verde verde3" id="20">
+        <div class="franja"></div>
+        <h2>Avenida Santa Fé</h2>
+        <p class="precio">$600</p>
+      </div>
+
+
+    </main>
+
+    <!--Movimiento jugador (Ejemplo)-->
+    <a th:href="@{/moverJugador}" id="moverBtn" class="moverBtn">Tirar</a>
+    <p id="resultado"></p>
 
     <!-- Parte central con los billetes y propiedades -->
     <div class="container">
@@ -95,7 +218,33 @@
       </div>
     </div>
 
+
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+
+    <script>
+      /*Extraigo el atributo "posicion" del ModelAndView*/
+      let posicion = ""+([[${posicion}]] + 0);
+      console.log(posicion);
+
+      /*Ubico al jugador en el casillero*/
+      let casilla = document.getElementById(posicion);
+      /*Creo al jugador con sus divs correspondientes*/
+      const jugadorElemento = document.createElement("div");
+      jugadorElemento.classList.add("jugador");
+      jugadorElemento.innerHTML = `
+             <div class="rueda rueda1"></div>
+                <div class="rueda rueda2"></div>
+                <div class="rueda rueda3"></div>
+                <div class="rueda rueda4"></div>
+                <div class="techo">
+             </div>
+      `;
+      /*Lo inserto en dentro de la casilla*/
+      casilla.insertAdjacentElement("beforeend", jugadorElemento);
+
+      /*Sirve para siempre apuntar al jugador*/
+      jugadorElemento.scrollIntoView();
+    </script>
   </body>
 </html>
