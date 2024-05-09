@@ -40,12 +40,11 @@ body{
   padding: 0px 20px;
   display:flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items:center;
 }
 .header__logo{
   display: inline-block;
-  position: absolute;
   width: 80px ;
 }
 .header__links{
@@ -75,6 +74,7 @@ body{
   text-align: start;
   font-family: monopoly;
   margin-bottom: 25px;
+  color:#fff;
 }
 .footer__subtitulo{
   margin-bottom: 10px;
