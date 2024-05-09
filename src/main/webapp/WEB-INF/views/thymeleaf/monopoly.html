@@ -20,8 +20,7 @@
     <header class="header">
       <img th:src="@{/imagenes/monopoly.png}" class="header__logo">
       <div class="header__links">
-          <a class="nav-link text-light" href="../Perfil.html" th:href="@{/perfil}">Mi perfil</a>
-          <a class="nav-link text-light" href="#">Salir</a>
+          <a class="nav-link text-light" th:href="@{/ir-menu}">Salir</a>
       </div>
     </header>
     <!-- Parte superior con la imagen del tablero de Monopoly -->
@@ -146,7 +145,7 @@
 
       <!--Movimiento jugador (Ejemplo)-->
       <a th:href="@{/moverJugador}" id="moverBtn" class="moverBtn">Tirar Dado</a>
-      <p id="resultado"></p>
+      <p  class="text-center"th:if="${dado}" id="dado" th:text="'Dado:'+${dado}"></p>
 
       <!-- Parte central con los billetes y propiedades -->
       <div class="container">
@@ -233,7 +232,6 @@
     <script>
       /*Extraigo el atributo "posicion" del ModelAndView*/
       let posicion = ""+([[${posicion}]] + 0);
-      console.log(posicion);
 
       /*Ubico al jugador en el casillero*/
       let casilla = document.getElementById(posicion);
