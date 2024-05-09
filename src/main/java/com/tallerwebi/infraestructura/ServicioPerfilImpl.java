@@ -3,6 +3,7 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.excepcion.ContraseniaInvalidaException;
 import com.tallerwebi.dominio.excepcion.EmailInvalidoException;
+import com.tallerwebi.dominio.excepcion.CamposVaciosException;
 import com.tallerwebi.presentacion.DatosPerfil;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -14,7 +15,14 @@ public class ServicioPerfilImpl implements ServicioPerfil {
 
 
     @Override
-    public void actualizarPerfil(DatosPerfil datosPerfil) throws ContraseniaInvalidaException, EmailInvalidoException {
+    public void actualizarPerfil(DatosPerfil datosPerfil) throws ContraseniaInvalidaException, EmailInvalidoException, CamposVaciosException {
+
+        //Validamos que ningun campo este Vacio
+        if(datosPerfil.getNombre().isEmpty() || datosPerfil.getEmail().isEmpty() || datosPerfil.getContraseniaActual().isEmpty() ||
+                datosPerfil.getContraseniaNueva().isEmpty() || datosPerfil.getRepiteContraseniaNueva().isEmpty()){
+            throw new CamposVaciosException();
+        }
+
         // Validar si la nueva contraseña coincide con la repetición
         if (datosPerfil.getContraseniaNueva() != null && datosPerfil.getRepiteContraseniaNueva() != null &&
                 !datosPerfil.getContraseniaNueva().equals(datosPerfil.getRepiteContraseniaNueva())) {

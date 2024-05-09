@@ -4,6 +4,8 @@ import com.tallerwebi.dominio.ServicioPerfil;
 
 import com.tallerwebi.dominio.excepcion.ContraseniaInvalidaException;
 import com.tallerwebi.dominio.excepcion.EmailInvalidoException;
+import com.tallerwebi.dominio.excepcion.CamposVaciosException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -58,10 +60,13 @@ public class ControladorPerfil {
             model.put("error", "El email proporcionado no es válido");
             return new ModelAndView("editarPerfil", model);
 
-        } catch (Exception e) {
+        }catch(CamposVaciosException e){
+            model.put("error", "No se aceptan campos vacios");
+            return new ModelAndView("editarPerfil", model);
+        }
+        catch (Exception e) {
             model.put("error", "Error al actualizar el perfil");
             return new ModelAndView("editarPerfil", model);
-
         }
 
 
