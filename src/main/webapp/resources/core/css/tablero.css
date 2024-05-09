@@ -478,8 +478,8 @@
     color:white;
     padding: 10px 40px;
     text-decoration:none;
-    font-family: monopoly;
     letter-spacing: 1px;
     border-radius: 20px;
+    text-transform: uppercase;
+    font-family: monopoly;
 }
-

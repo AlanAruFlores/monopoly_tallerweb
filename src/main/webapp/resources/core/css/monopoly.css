@@ -1,3 +1,97 @@
+@font-face {
+  font-family: monopoly;
+  src: url(../fuentes/monopoly.ttf);
+}
+
+@font-face {
+  font-family: monopoly;
+  src: url(../fuentes/monopoly.ttf);
+}
+
+
+*{
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+body{
+  background: url(../imagenes/fondo.jpg);
+  background-size:cover;
+  background-color: rgba(255,255,255,0.8);
+  background-blend-mode: lighten;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: grid;
+
+  grid-template-columns: auto;
+  grid-template-rows: 100px auto auto;
+
+  grid-template-areas: "header" "main" "footer";
+}
+
+
+.header{
+  grid-area: header;
+  background-color: #ff4122;
+
+  color: white;
+  padding: 0px 20px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items:center;
+}
+.header__logo{
+  display: inline-block;
+  position: absolute;
+  width: 80px ;
+}
+.header__links{
+  display:flex;
+  gap:20px;
+}
+
+.main{
+  grid-area:main;
+  background-color: #fff;
+}
+
+/*FOOTER*/
+.footer{
+  background-color: #ff4122;
+  grid-area: footer;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+}
+
+.footer__titulo{
+  font-weight: bolder;
+  letter-spacing: 2px;
+  text-align: start;
+  font-family: monopoly;
+  margin-bottom: 25px;
+}
+.footer__subtitulo{
+  margin-bottom: 10px;
+}
+.footer__div p{
+  margin-bottom: 10px;
+}
+
+
+@media(min-width: 600px){
+  .footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+
 .billetes img {
   width: 100%;
 }
