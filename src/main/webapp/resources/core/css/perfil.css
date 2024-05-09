@@ -254,6 +254,9 @@ body{
     margin-bottom: 10px;
 }
 
+.mensaje-error {
+    color: red;
+}
 
 
 @media (max-width:650px){

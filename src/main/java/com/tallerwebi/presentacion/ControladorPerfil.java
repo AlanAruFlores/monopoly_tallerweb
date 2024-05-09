@@ -1,6 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioPerfil;
+
 import com.tallerwebi.dominio.excepcion.ContraseniaInvalidaException;
 import com.tallerwebi.dominio.excepcion.EmailInvalidoException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorPerfil {
 
-    private ServicioPerfil servicioPerfil;
+
+    private  ServicioPerfil servicioPerfil;
 
     @Autowired
     public ControladorPerfil(ServicioPerfil servicioPerfil) {
         this.servicioPerfil = servicioPerfil;
     }
+
     public ControladorPerfil() {}
 
 
@@ -27,6 +30,7 @@ public class ControladorPerfil {
     public ModelAndView irAlperfil() {
         return new ModelAndView("perfil");
     }
+
 
     @RequestMapping("/editar-perfil")
     public ModelAndView editarPerfil() {
@@ -40,20 +44,23 @@ public class ControladorPerfil {
 
     @RequestMapping(path = "/editar-perfil", method = RequestMethod.POST)
     public ModelAndView actualizarPerfil(@ModelAttribute("datosPerfil") DatosPerfil datosPerfil) {
-        ModelAndView mv = new ModelAndView("editarPerfil");
         ModelMap model = new ModelMap();
 
         try {
             servicioPerfil.actualizarPerfil(datosPerfil);
             model.put("mensaje", "Perfil actualizado exitosamente");
+
         } catch (ContraseniaInvalidaException e) {
-            model.put("error", "Las contraseñas no coinciden");
+            model.put("error", "Las contraseñas no coinciden o tienen menos de 5 caracteres");
+            return new ModelAndView("editarPerfil", model);
 
         } catch (EmailInvalidoException e) {
             model.put("error", "El email proporcionado no es válido");
+            return new ModelAndView("editarPerfil", model);
 
         } catch (Exception e) {
             model.put("error", "Error al actualizar el perfil");
+            return new ModelAndView("editarPerfil", model);
 
         }
 
