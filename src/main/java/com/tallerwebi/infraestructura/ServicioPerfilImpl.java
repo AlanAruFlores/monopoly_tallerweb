@@ -6,7 +6,7 @@ import com.tallerwebi.dominio.excepcion.EmailInvalidoException;
 import com.tallerwebi.presentacion.DatosPerfil;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-import java.util.Objects;
+
 
 @Service
 @Transactional
@@ -16,13 +16,21 @@ public class ServicioPerfilImpl implements ServicioPerfil {
     @Override
     public void actualizarPerfil(DatosPerfil datosPerfil) throws ContraseniaInvalidaException, EmailInvalidoException {
         // Validar si la nueva contraseña coincide con la repetición
-        if (datosPerfil.getContraseniaNueva() != null && datosPerfil.getRepiteContraseniaNueva() != null && !datosPerfil.getRepiteContraseniaNueva().equals(datosPerfil.getRepiteContraseniaNueva())) {
-            throw new ContraseniaInvalidaException("Las contraseñas no coinciden");
+        if (datosPerfil.getContraseniaNueva() != null && datosPerfil.getRepiteContraseniaNueva() != null &&
+                !datosPerfil.getContraseniaNueva().equals(datosPerfil.getRepiteContraseniaNueva())) {
+            throw new ContraseniaInvalidaException();
         }
+
+        //validar si la contraseña tiene mas de 5 caracteres
+        if(datosPerfil.getContraseniaNueva().length() < 5){
+            throw new ContraseniaInvalidaException();
+        }
+
         // Validar el formato del email
         if (datosPerfil.getEmail() != null && !datosPerfil.getEmail().contains("@") && !datosPerfil.getEmail().contains(".com")) {
-            throw new EmailInvalidoException("El email proporcionado no es válido");
+            throw new EmailInvalidoException();
         }
+
 
     }
 

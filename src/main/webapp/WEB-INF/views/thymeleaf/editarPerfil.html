@@ -9,14 +9,14 @@
 
 <div class="actualizar-perfil">
 
-    <form action="#" th:action="@{/editar-perfil}" method="POST" th:object="${datosPerfil}" enctype="multipart/form-data">
+    <form action="#" th:action="@{/editar-perfil}" method="POST" th:object="${datosPerfil}" >
 
         <!-- Espacio para la imagen -->
         <img id="update_image" th:src="@{/imagenes/fondo.jpg}">
 
         <!-- Mensaje de éxito o error -->
         <div th:if="${mensaje}" class="success-message" th:text="${mensaje}"></div>
-        <div th:if="${error}" class="error-message" th:text="${error}"></div>
+        <div th:if="${error}" class="mensaje-error" th:text="${error}"></div>
 
         <!-- Campos de entrada -->
         <div class="flex">
