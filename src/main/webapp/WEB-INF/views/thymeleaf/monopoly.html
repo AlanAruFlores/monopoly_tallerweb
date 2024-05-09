@@ -145,8 +145,10 @@
 
       <!--Movimiento jugador (Ejemplo)-->
       <a th:href="@{/moverJugador}" id="moverBtn" class="moverBtn">Tirar Dado</a>
+      <img th:if="${dado}" th:src="@{${dado}}" alt ="dado" class="dado__imagen">
+      <!--
       <p  class="text-center"th:if="${dado}" id="dado" th:text="'Dado:'+${dado}"></p>
-
+-->
       <!-- Parte central con los billetes y propiedades -->
       <div class="container">
         <div class="row">
@@ -248,9 +250,6 @@
       `;
       /*Lo inserto en dentro de la casilla*/
       casilla.insertAdjacentElement("beforeend", jugadorElemento);
-
-      /*Sirve para siempre apuntar al jugador*/
-      jugadorElemento.scrollIntoView();
     </script>
   </body>
 </html>
