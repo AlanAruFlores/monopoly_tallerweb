@@ -1,8 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioPerfil;
-import com.tallerwebi.dominio.Usuario;
-import com.tallerwebi.dominio.excepcion.ContraseñaInvalidaException;
+import com.tallerwebi.dominio.excepcion.ContraseniaInvalidaException;
 import com.tallerwebi.dominio.excepcion.EmailInvalidoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ControladorPerfil {
@@ -33,29 +30,40 @@ public class ControladorPerfil {
 
     @RequestMapping("/editar-perfil")
     public ModelAndView editarPerfil() {
-        return new ModelAndView("editarPerfil");
+        ModelMap mp = new ModelMap();
+        mp.put("datosPerfil", new DatosPerfil());
+        return new ModelAndView("editarPerfil",mp);
+
     }
 
 
 
     @RequestMapping(path = "/editar-perfil", method = RequestMethod.POST)
-   public ModelAndView actualizarPerfil(@ModelAttribute("DatosPerfil") DatosPerfil datosPerfil) {
-        ModelAndView modelAndView = new ModelAndView("editarPerfil");
+    public ModelAndView actualizarPerfil(@ModelAttribute("datosPerfil") DatosPerfil datosPerfil) {
+        ModelAndView mv = new ModelAndView("editarPerfil");
+        ModelMap model = new ModelMap();
 
         try {
             servicioPerfil.actualizarPerfil(datosPerfil);
-            modelAndView.addObject("mensaje", "Perfil actualizado exitosamente");
-        } catch (ContraseñaInvalidaException e) {
-            modelAndView.addObject("error", "La contraseña proporcionada no es válida");
+            model.put("mensaje", "Perfil actualizado exitosamente");
+        } catch (ContraseniaInvalidaException e) {
+            model.put("error", "Las contraseñas no coinciden");
+
         } catch (EmailInvalidoException e) {
-            modelAndView.addObject("error", "El email proporcionado no es válido");
+            model.put("error", "El email proporcionado no es válido");
+
         } catch (Exception e) {
-            modelAndView.addObject("error", "Error al actualizar el perfil");
-            e.printStackTrace();
+            model.put("error", "Error al actualizar el perfil");
+
         }
 
-        return modelAndView;
+
+        return new ModelAndView("editarPerfil", model);
     }
+
+
+
+
 
 
 }
