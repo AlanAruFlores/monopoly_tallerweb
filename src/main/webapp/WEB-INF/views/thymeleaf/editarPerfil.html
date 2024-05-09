@@ -9,18 +9,20 @@
 
 <div class="actualizar-perfil">
 
-
-    <form action="#" th:action="@{/editar-perfil}" method="POST" th:object="${DatosPerfil}" enctype="multipart/form-data">
+    <form action="#" th:action="@{/editar-perfil}" method="POST" th:object="${datosPerfil}" enctype="multipart/form-data">
 
         <!-- Espacio para la imagen -->
         <img id="update_image" th:src="@{/imagenes/fondo.jpg}">
 
+        <!-- Mensaje de éxito o error -->
+        <div th:if="${mensaje}" class="success-message" th:text="${mensaje}"></div>
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
 
-            <!-- Campos de entrada -->
+        <!-- Campos de entrada -->
         <div class="flex">
             <div class="inputBox">
                 <span>Nombre de usuario :</span>
-                <input  th:field="*{nombre}" type="text" id="actualizar-nombre" name="actualizar-nombre" placeholder="UsuarioX" class="box">
+                <input th:field="*{nombre}" type="text" id="actualizar-nombre" name="actualizar-nombre" placeholder="UsuarioX" class="box">
                 <span>Tu email :</span>
                 <input th:field="*{email}" type="email" id="actualizar_email" name="actualizar_email" placeholder="usuarioX@gmail.com" class="box">
                 <span>Actualiza tu foto:</span>
@@ -32,9 +34,10 @@
                 <span>Actual contraseña:</span>
                 <input th:field="*{contraseniaActual}" type="password" id="update_pass" name="update_pass" placeholder="Contraseña actual" class="box">
                 <span>Nueva contraseña :</span>
-                <input th:field="*{contraseniaNueva}" type="password" id="new_pass" name="new_pass" placeholder="Nueva contraseña" class="box">
+                <input th:field="*{contraseniaNueva}" type="password" id="new_pass" name="contraseniaNueva" placeholder="Nueva contraseña" class="box">
                 <span>Confirmar contraseña :</span>
-                <input th:field="*{repiteContraseniaNueva}" type="password" id="confirm_pass" name="confirm_pass" placeholder="confirmar nueva contraseña" class="box">
+                <input th:field="*{repiteContraseniaNueva}" type="password" id="confirm_pass" name="repiteContraseniaNueva" placeholder="confirmar nueva contraseña" class="box">
+
             </div>
         </div>
         <input type="submit" value="Guardar cambios" name="cambiar_perfil" class="btn">
