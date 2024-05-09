@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio;
 
+import com.tallerwebi.dominio.excepcion.CamposVaciosException;
 import com.tallerwebi.dominio.excepcion.ContraseniaInvalidaException;
 import com.tallerwebi.dominio.excepcion.EmailInvalidoException;
 import com.tallerwebi.infraestructura.ServicioPerfilImpl;
@@ -38,7 +39,7 @@ public class ServicioPerfilTest {
     }
 
     @Test
-    public void actualizarPerfil_SinExcepciones() throws EmailInvalidoException, ContraseniaInvalidaException {
+    public void actualizarPerfil_SinExcepciones() throws EmailInvalidoException, ContraseniaInvalidaException, CamposVaciosException {
         DatosPerfil datosPerfil = new DatosPerfil();
         datosPerfil.setContraseniaNueva("password");
         datosPerfil.setRepiteContraseniaNueva("password");

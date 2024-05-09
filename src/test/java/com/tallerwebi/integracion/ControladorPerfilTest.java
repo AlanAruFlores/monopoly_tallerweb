@@ -1,6 +1,7 @@
 package com.tallerwebi.integracion;
 
 import com.tallerwebi.dominio.ServicioPerfil;
+import com.tallerwebi.dominio.excepcion.CamposVaciosException;
 import com.tallerwebi.dominio.excepcion.ContraseniaInvalidaException;
 import com.tallerwebi.dominio.excepcion.EmailInvalidoException;
 import com.tallerwebi.presentacion.ControladorPerfil;
@@ -29,7 +30,7 @@ public class ControladorPerfilTest {
     }
 
     @Test
-    public void testActualizarPerfil_ContraseniaInvalidaException() throws EmailInvalidoException, ContraseniaInvalidaException {
+    public void testActualizarPerfil_ContraseniaInvalidaException() throws EmailInvalidoException, ContraseniaInvalidaException, CamposVaciosException {
         DatosPerfil datosPerfil = new DatosPerfil();
         datosPerfil.setContraseniaNueva("password1");
         datosPerfil.setRepiteContraseniaNueva("password2");
@@ -43,7 +44,7 @@ public class ControladorPerfilTest {
     }
 
     @Test
-    public void testActualizarPerfil_EmailInvalidoException() throws EmailInvalidoException, ContraseniaInvalidaException {
+    public void testActualizarPerfil_EmailInvalidoException() throws EmailInvalidoException, ContraseniaInvalidaException,CamposVaciosException {
         DatosPerfil datosPerfil = new DatosPerfil();
         datosPerfil.setEmail("invalid-email");
 
@@ -57,7 +58,7 @@ public class ControladorPerfilTest {
 
 
     @Test
-    public void testActualizarPerfil_OtroError() throws EmailInvalidoException, ContraseniaInvalidaException {
+    public void testActualizarPerfil_OtroError() throws EmailInvalidoException, ContraseniaInvalidaException, CamposVaciosException {
         DatosPerfil datosPerfil = new DatosPerfil();
 
         // Simulando otro tipo de excepción que no sea ContraseniaInvalidaException ni EmailInvalidoException
