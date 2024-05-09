@@ -40,7 +40,7 @@ public class ControladorPerfilTest {
         ModelAndView result = controladorPerfil.actualizarPerfil(datosPerfil);
 
         assertEquals("editarPerfil", result.getViewName());
-        assertEquals("Las contraseñas no coinciden", result.getModel().get("error"));
+        assertEquals("Las contraseñas no coinciden o tienen menos de 5 caracteres", result.getModel().get("error"));
     }
 
     @Test
