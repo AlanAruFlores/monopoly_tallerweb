@@ -12,6 +12,8 @@
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/monopoly.css}" />
     <link rel="stylesheet" th:href="@{/css/tablero.css}">
+    <link rel="stylesheet" th:href="@{/css/ventanas_emergentes.css}">
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
 
   </head>
   <body>
@@ -20,7 +22,7 @@
     <header class="header">
       <img th:src="@{/imagenes/monopoly.png}" class="header__logo">
       <div class="header__links">
-          <a class="nav-link text-light" th:href="@{/ir-menu}">Salir</a>
+          <a title="Salir del juego" class="nav-link text-light header__link__menu" th:href="@{/ir-menu}"><i class="fa-solid fa-door-open"></i></a>
       </div>
     </header>
     <!-- Parte superior con la imagen del tablero de Monopoly -->
@@ -146,9 +148,10 @@
       <!--Movimiento jugador (Ejemplo)-->
       <a th:href="@{/moverJugador}" id="moverBtn" class="moverBtn">Tirar Dado</a>
       <img th:if="${dado}" th:src="@{${dado}}" alt ="dado" class="dado__imagen">
-      <!--
-      <p  class="text-center"th:if="${dado}" id="dado" th:text="'Dado:'+${dado}"></p>
--->
+
+
+
+
       <!-- Parte central con los billetes y propiedades -->
       <div class="container">
         <div class="row">
@@ -188,6 +191,10 @@
             <hr />
             <h4 class="text-center">Total: $X</h4>
           </div>
+
+
+
+
           <!-- Propiedades -->
           <div class="col-md-6 p-0 propiedades-container">
             <div class="container p-0">
@@ -228,9 +235,52 @@
     </footer>
 
 
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+    <!--Botones en la pantalla-->
+    <button class="boton boton__chat">
+      <i class="fa-regular fa-comment"></i>
+    </button>
 
+    <!-- Ventana Comprar / Anular Propiedad o Servicio -->
+    <div class="ventana__emergente comprar_propiedad_servicio">
+      <h1 class="ventana__titulo">Propiedad Disponible!!</h1>
+      <img class="ventana__imagen" th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
+      <p class="ventana__parrafo">Precio: $200</p>
+      <div class="ventana__botones">
+        <a class="ventana__boton" href="#">Comprar</a>
+        <a class="ventana__boton">Cancelar</a>
+      </div>
+    </div>
+
+    <div class="ventana__emergente pagar">
+      <h1 class="ventana__titulo">JUGADOR 1 CAYO EN UNA PROPIEDAD!!</h1>
+      <div class="ventana__imagenes">
+        <img class="ventana__imagen" th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
+        <img src="monopolyman.svg" alt="" class="ventana__imagen">
+      </div>
+
+      <p class="ventana__parrafo">DEBE PAGAR AL JUGADOR 2 $30 POR CAER EN SU PROPIEDAD</p>
+      <a class="ventana__boton">Aceptar</a>
+    </div>
+
+    <!--Ventana del Chat-->
+    <div class="ventana__emergente chat__ventana">
+      <div class="boton__cerrar boton__chat__cerrar">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      <div class="chat">
+        <div class="chat__cabecera">
+          <h1>Chat Grupal</h1>
+        </div>
+        <div class="chat__mensajes">
+        </div>
+        <div class="chat__input">
+          <input type="text" name="mensaje">
+          <button type="submit"><i class="fa-regular fa-message"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!--Scripts del monopoly-->
     <script>
       /*Extraigo el atributo "posicion" del ModelAndView*/
       let posicion = ""+([[${posicion}]] + 0);
@@ -251,5 +301,10 @@
       /*Lo inserto en dentro de la casilla*/
       casilla.insertAdjacentElement("beforeend", jugadorElemento);
     </script>
+
+    <script th:src="@{/js/main.js}" type="module"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+
   </body>
 </html>
