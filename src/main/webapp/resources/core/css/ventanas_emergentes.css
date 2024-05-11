@@ -1,0 +1,70 @@
+@font-face {
+    font-family: monopoly;
+    src: url(../fuentes/monopoly.ttf);
+}
+
+/*VENTANAS EMERGENTES*/
+.ventana__emergente{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffffd0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+.ventana__titulo{
+    color: #fff;
+    background-color: #ff2d11;
+    width: 100%;
+    text-align: center;
+    font-family: monopoly;
+    padding: 20px 0px;
+    letter-spacing: 2px;
+}
+
+.ventana__imagenes{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+.ventana__imagen{
+    width: 23%;
+    object-fit: fill;
+}
+.ventana__botones{
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.ventana__boton{
+    background-color: #ff2d11;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 40px;
+    border-radius: 40px;
+    font-family: monopoly;
+    letter-spacing: 1px;
+}
+
+.ventana__parrafo{
+    font-weight: bold;
+    font-family: monopoly;
+    letter-spacing: 1px;
+    font-size: 25px;
+}
+
+/*PROPIEDADES VENTANA*/
+.comprar_propiedad_servicio{
+    display: none;
+}
+.pagar{
+    display: none;
+}
+
