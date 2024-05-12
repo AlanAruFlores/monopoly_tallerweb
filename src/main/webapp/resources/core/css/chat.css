@@ -28,10 +28,9 @@
 .chat__ventana{
     justify-content: center;
     gap: 40px;
-    visibility:hidden;
-    opacity:0;
     transition: 1s;
-    z-index:1099;
+    visibility: hidden;
+    opacity: 0;
 }
 .boton__cerrar{
     width: 40px;
