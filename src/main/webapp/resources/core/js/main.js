@@ -1,18 +1,32 @@
-import {abrirChat,cerrarChat} from "./chat.js";
-import {cerrarVentanaEmergente} from "./cerrar_ventana.js";
+import {cerrarVentana,abrirVentana} from "./cerrar_abrir_ventana.js";
+import {reproducir,pausar} from "./reproducir_musica.js";
+
+
+const audioMusica = new Audio("/spring/audio/monopoly_audio.mp3");
+audioMusica.loop=true;
 
 document.addEventListener("click",(e)=>{
-    console.log(e);
+   // console.log(e);
     //Evento si abre ventana
    if(e.target.matches(".boton__chat") || e.target.matches(".boton__chat *"))
-       abrirChat(".chat__ventana");
+       abrirVentana(".chat__ventana");
    //Evento si cierra ventana
    if(e.target.matches(".boton__chat__cerrar") || e.target.matches(".boton__chat__cerrar *"))
-       cerrarChat(".chat__ventana");
+       cerrarVentana(".chat__ventana");
 
    if(e.target.matches("#aceptar_dado") || e.target.matches("#aceptar_dado *"))
-        cerrarVentanaEmergente(".dado__ventana");
+        cerrarVentana(".dado__ventana");
 
    if(e.target.matches(".cancelar_propiedad_boton") || e.target.matches(".cancelar_propiedad_boton *"))
-       cerrarVentanaEmergente(".comprar_propiedad_servicio");
+       cerrarVentana(".comprar_propiedad_servicio");
+
+   if(e.target.matches(".boton__musica") || e.target.matches(".boton__musica *")){
+        let $iconAudio = document.querySelector(".boton__musica i");
+        console.log($iconAudio);
+        if($iconAudio.classList.contains("fa-music-note-slash"))
+            reproducir($iconAudio,audioMusica);
+        else
+            pausar($iconAudio,audioMusica);
+
+   }
 });

@@ -11,6 +11,8 @@
     transition: 1s;
     line-height:60px;
     text-align:center;
+    cursor:pointer;
+    z-index:1000;
 }
 .boton:hover{
     background-color: #fff;
@@ -37,3 +39,8 @@
     transform: scale(1.1,1.1);
 }
 
+.boton__musica{
+    right:0;
+    bottom:0;
+    transform: translateX(-120%);
+}
