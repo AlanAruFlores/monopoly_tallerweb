@@ -1,0 +1,39 @@
+.boton{
+    height: 60px;
+    width: 60px;
+    font-size: 25px;
+    border-radius: 50%;
+    background-color:#ff3f22;
+    color:white;
+    position:fixed;
+    margin: 10px;
+    box-shadow: 0px 0px 20px #ff3f22;
+    transition: 1s;
+    line-height:60px;
+    text-align:center;
+}
+.boton:hover{
+    background-color: #fff;
+    color:#ff3f22;
+}
+
+/*BOTON CHAT*/
+.boton__chat{
+    right:0;
+    bottom:0;
+}
+
+/*BOTON TIRAR DADOS*/
+
+.boton__dado{
+    bottom:0;
+    left:50%;
+    height:70px;
+    width:70px;
+    font-size:35px;
+    line-height:70px;
+}
+.boton__dado:hover{
+    transform: scale(1.1,1.1);
+}
+
