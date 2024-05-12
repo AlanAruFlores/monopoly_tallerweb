@@ -30,6 +30,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
         /*Registrando rutas imagenes y fuentes*/
         registry.addResourceHandler("/imagenes/**").addResourceLocations("/resources/core/imagenes/");
         registry.addResourceHandler("/fuentes/**").addResourceLocations("/resources/core/fuentes/");
+        registry.addResourceHandler("/audio/**").addResourceLocations("/resources/core/audio/");
 
         registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
     }
