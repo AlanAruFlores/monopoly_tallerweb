@@ -147,10 +147,6 @@
 
       <!--Movimiento jugador (Ejemplo)-->
       <a th:href="@{/moverJugador}" id="moverBtn" class="moverBtn">Tirar Dado</a>
-      <img th:if="${dado}" th:src="@{${dado}}" alt ="dado" class="dado__imagen">
-
-
-
 
       <!-- Parte central con los billetes y propiedades -->
       <div class="container">
@@ -241,13 +237,13 @@
     </button>
 
     <!-- Ventana Comprar / Anular Propiedad o Servicio -->
-    <div class="ventana__emergente comprar_propiedad_servicio">
-      <h1 class="ventana__titulo">Propiedad Disponible!!</h1>
-      <img class="ventana__imagen" th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
-      <p class="ventana__parrafo">Precio: $200</p>
+    <div th:if="${propiedad != null}" class="ventana__emergente comprar_propiedad_servicio">
+      <h1 class="ventana__titulo" th:text="${propiedad.propiedad}+' Disponible !!'"> </h1>
+      <img class="ventana__imagen" th:src="@{${propiedad.imagen}}" alt="propiedad">
+      <p class="ventana__parrafo" th:text="'Precio:$'+${propiedad.precio}"></p>
       <div class="ventana__botones">
-        <a class="ventana__boton" href="#">Comprar</a>
-        <a class="ventana__boton">Cancelar</a>
+        <a class="ventana__boton">Comprar</a>
+        <a class="ventana__boton cancelar_propiedad_boton">Cancelar</a>
       </div>
     </div>
 
@@ -278,6 +274,13 @@
           <button type="submit"><i class="fa-regular fa-message"></i></button>
         </div>
       </div>
+    </div>
+
+    <!--Ventana cuando tira el jugador-->
+    <div th:if="${dado}" class="ventana__emergente dado__ventana">
+      <h1 class="ventana__titulo">El Jugador 1 tiro el dado!!</h1>
+      <img th:src="@{${dado}}" alt="dado" class="ventana__imagen imagen__dado">
+      <a id="aceptar_dado" class="ventana__boton">Aceptar</a>
     </div>
 
     <!--Scripts del monopoly-->

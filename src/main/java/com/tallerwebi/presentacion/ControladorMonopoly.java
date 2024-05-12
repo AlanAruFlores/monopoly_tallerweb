@@ -36,8 +36,11 @@ public class ControladorMonopoly {
         HttpSession session = request.getSession();
         this.servicioMonopoly.obtenerPosicionCasillero(session);
         ModelMap mp = new ModelMap();
+        /*Establezco la posicion , imagen del dado y la aparicion de la ventana emergente*/
         mp.put("posicion", session.getAttribute("numeroRandom"));
         mp.put("dado",session.getAttribute("dado"));
+        mp.put("propiedad", session.getAttribute("propiedad"));
+
         return new ModelAndView("monopoly.html",mp);
     }
 }

@@ -12,9 +12,13 @@
     right: 0;
     background-color: #ffffffd0;
     display: flex;
+    visibility:visible;
+    opacity:1;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
+    transition:.5s;
+    z-index: 1099;
 }
 .ventana__titulo{
     color: #fff;
@@ -47,12 +51,18 @@
     color: #fff;
     text-align: center;
     text-decoration: none;
-    padding: 10px 40px;
+    padding: 13px 100px;
+    font-size: 20px;
     border-radius: 40px;
     font-family: monopoly;
     letter-spacing: 1px;
+    transition: .5s;
+    cursor: pointer;
 }
-
+.ventana__boton:hover{
+    background-color: #fff;
+    color: #ff3f22;
+}
 .ventana__parrafo{
     font-weight: bold;
     font-family: monopoly;
@@ -61,10 +71,17 @@
 }
 
 /*PROPIEDADES VENTANA*/
-.comprar_propiedad_servicio{
-    display: none;
+.comprar_propiedad_servicio {
+}
+.comprar_propiedad_servicio .ventana__boton{
+    padding: 10px 20px;
 }
 .pagar{
-    display: none;
+    display:none
 }
 
+/*DADO VENTANA*/
+.imagen__dado{
+    width: 18%;
+    object-fit: fill;
+}
