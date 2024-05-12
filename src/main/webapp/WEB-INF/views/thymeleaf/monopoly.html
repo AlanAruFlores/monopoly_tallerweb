@@ -7,13 +7,14 @@
     <title>Monopoly</title>
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/monopoly.css}" />
     <link rel="stylesheet" th:href="@{/css/tablero.css}">
     <link rel="stylesheet" th:href="@{/css/ventanas_emergentes.css}">
     <link rel="stylesheet" th:href="@{/css/chat.css}">
+    <link rel="stylesheet" th:href="@{/css/botones_pantalla.css}">
 
   </head>
   <body>
@@ -145,8 +146,6 @@
         </div>
       </div>
 
-      <!--Movimiento jugador (Ejemplo)-->
-      <a th:href="@{/moverJugador}" id="moverBtn" class="moverBtn">Tirar Dado</a>
 
       <!-- Parte central con los billetes y propiedades -->
       <div class="container">
@@ -211,7 +210,7 @@
     </main>
 
 
-
+<!--
     <footer class="footer">
       <div class="footer__div">
         <h2 class="footer__titulo">MONOPOLY</h2>
@@ -229,13 +228,20 @@
         <p>Universidad Nacional de la Matanza</p>
       </div>
     </footer>
-
+-->
 
     <!--Botones en la pantalla-->
-    <button class="boton boton__chat">
-      <i class="fa-regular fa-comment"></i>
-    </button>
+    <a class="boton boton__chat">
+      <i class="fa-regular fa-messages"></i>
+      <!--<i class="fa-regular fa-comment"></i>-->
+    </a>
 
+    <a th:href="@{/moverJugador}" class="boton boton__dado">
+      <i class="fa-sharp fa-thin fa-dice"></i>
+    </a>
+
+    <!--Movimiento jugador (Ejemplo)
+    <a th:href="@{/moverJugador}" id="moverBtn" class="moverBtn">Tirar Dado</a>-->
     <!-- Ventana Comprar / Anular Propiedad o Servicio -->
     <div th:if="${propiedad != null}" class="ventana__emergente comprar_propiedad_servicio">
       <h1 class="ventana__titulo" th:text="${propiedad.propiedad}+' Disponible !!'"> </h1>
