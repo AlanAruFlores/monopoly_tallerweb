@@ -18,6 +18,9 @@ public class ServicioPerfilTest {
     @Test
     public void actualizarPerfil_ContraseniaInvalidaException() {
         DatosPerfil datosPerfil = new DatosPerfil();
+        datosPerfil.setNombre("usuario");
+        datosPerfil.setEmail("usuario@gmail.com");
+        datosPerfil.setContraseniaActual("passwordActual");
         datosPerfil.setContraseniaNueva("password1");
         datosPerfil.setRepiteContraseniaNueva("password2");
 
@@ -29,6 +32,9 @@ public class ServicioPerfilTest {
     @Test
     public void actualizarPerfil_EmailInvalidoException() {
         DatosPerfil datosPerfil = new DatosPerfil();
+        datosPerfil.setNombre("usuario");
+        datosPerfil.setEmail("usuario@gmail.com");
+        datosPerfil.setContraseniaActual("passwordActual");
         datosPerfil.setContraseniaNueva("password");
         datosPerfil.setRepiteContraseniaNueva("password");
         datosPerfil.setEmail("emailincorrecto");
@@ -41,6 +47,9 @@ public class ServicioPerfilTest {
     @Test
     public void actualizarPerfil_SinExcepciones() throws EmailInvalidoException, ContraseniaInvalidaException, CamposVaciosException {
         DatosPerfil datosPerfil = new DatosPerfil();
+        datosPerfil.setNombre("usuario");
+        datosPerfil.setEmail("usuario@gmail.com");
+        datosPerfil.setContraseniaActual("passwordActual");
         datosPerfil.setContraseniaNueva("password");
         datosPerfil.setRepiteContraseniaNueva("password");
         datosPerfil.setEmail("usuario@example.com");
