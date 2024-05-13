@@ -23,14 +23,14 @@ public class EjemploControladorLogin {
         this.servicioLogin = servicioLogin;
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/ogin")
     public ModelAndView irALogin() {
         ModelMap modelo = new ModelMap();
         modelo.put("datosLogin", new DatosLogin());
-        return new ModelAndView("login", modelo);
+        return new ModelAndView("ogin", modelo);
     }
 
-    @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
+    @RequestMapping(path = "/alidar-login", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin datosLogin, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
@@ -41,39 +41,39 @@ public class EjemploControladorLogin {
         } else {
             model.put("error", "Usuario o clave incorrecta");
         }
-        return new ModelAndView("login", model);
+        return new ModelAndView("ogin", model);
     }
 
-    @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
+    @RequestMapping(path = "/egistrarme", method = RequestMethod.POST)
     public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario) {
         ModelMap model = new ModelMap();
         try{
             servicioLogin.registrar(usuario);
         } catch (UsuarioExistente e){
             model.put("error", "El usuario ya existe");
-            return new ModelAndView("nuevo-usuario", model);
+            return new ModelAndView("nevo-usuario", model);
         } catch (Exception e){
             model.put("error", "Error al registrar el nuevo usuario");
-            return new ModelAndView("nuevo-usuario", model);
+            return new ModelAndView("nevo-usuario", model);
         }
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/ogin");
     }
 
-    @RequestMapping(path = "/nuevo-usuario", method = RequestMethod.GET)
+    @RequestMapping(path = "/nevo-usuario", method = RequestMethod.GET)
     public ModelAndView nuevoUsuario() {
         ModelMap model = new ModelMap();
         model.put("usuario", new Usuario());
-        return new ModelAndView("nuevo-usuario", model);
+        return new ModelAndView("nevo-usuario", model);
     }
 
-    @RequestMapping(path = "/home", method = RequestMethod.GET)
+    @RequestMapping(path = "/hme", method = RequestMethod.GET)
     public ModelAndView irAHome() {
-        return new ModelAndView("home");
+        return new ModelAndView("hme");
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/lgin");
     }
 }
 

@@ -1,3 +1,14 @@
+package com.tallerwebi.dominio;
+
+import com.tallerwebi.dominio.excepcion.*;
+
+public interface ServicioLogin2 {
+
+    Usuario2 consultarUsuario(String email, String password);
+    void registrar(Usuario2 usuario) throws CamposIncompletosException,
+            LongitudContraseñaException, MayusculaNumeroException, MailRegistradoException,
+            ContraseñasNoCoincidenException, EmailInvalidoException;
+}
 import {cerrarVentana,abrirVentana} from "./cerrar_abrir_ventana.js";
 import {reproducir,pausar} from "./reproducir_musica.js";
 
