@@ -2,6 +2,7 @@ package com.tallerwebi.presentacion;
 
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,6 +18,8 @@ public class MenuControlador {
     }
     @RequestMapping("/ir-salir")
     public ModelAndView irASalir(){
-        return new ModelAndView("login.html");
+        ModelMap model = new ModelMap();
+        model.put("datosLogin", new DatosLogin2());
+        return new ModelAndView("login", model);
     }
 }

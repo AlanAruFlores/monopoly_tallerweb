@@ -8,7 +8,6 @@ import com.tallerwebi.presentacion.DatosPerfil;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
-
 @Service
 @Transactional
 public class ServicioPerfilImpl implements ServicioPerfil {
@@ -41,9 +40,4 @@ public class ServicioPerfilImpl implements ServicioPerfil {
 
 
     }
-
-
-
-
-
 }

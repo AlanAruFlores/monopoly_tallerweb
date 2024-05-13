@@ -4,36 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro - Monopoly Online</title>
-
-  <!-- Boostrap core css
-  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
-   -->
-  <!-- custom style
-  <link rel="stylesheet" th:href="@{/css/main.css}"/>
-  -->
   <link rel="stylesheet" th:href="@{/css/stylesRegistro.css}">
-  </head>
-
-
+</head>
 <body>
 <div class="container">
   <div class="color"></div>
   <h2>Registro - Monopoly Online</h2>
-  <form th:action="@{/login}" method="post">
+  <form th:action="@{/verificar-registro}" method="post" th:object="${usuario}">
+    <div th:if="${error}" class="mensaje-error" th:text="${error}" style="font-size: small; color: red; text-align: center"></div>
+
     <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" required>
+    <input th:field="*{nombre}" type="text" id="nombre" name="nombre" >
+
     <label for="apellido">Apellido:</label>
-    <input type="text" id="apellido" name="apellido" required>
-    <label for="dni">DNI:</label>
-    <input type="text" id="dni" name="dni" required>
-    <label for="usuario">Usuario:</label>
-    <input type="text" id="usuario" name="usuario" required>
+    <input th:field="*{apellido}" type="text" id="apellido" name="apellido" >
+
+    <label for="apellido">Correo electrónico:</label>
+    <input th:field="*{email}" type="email" id="email" name="apellido" >
+
+    <label for="apellido">Nombre de Usuario:</label>
+    <input th:field="*{nombreUsuario}" type="text" id="nombreUsuario" name="apellido" >
+
     <label for="contrasena">Contraseña:</label>
-    <input type="password" id="contrasena" name="contrasena" required>
+    <input th:field="*{password}" type="password" id="contrasena" name="contrasena" >
+
     <label for="confirmar_contrasena">Repetir Contraseña:</label>
-    <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" required>
+    <input th:field="*{repitePassword}" type="password" id="confirmar_contrasena" name="confirmar_contrasena" >
+
     <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+
     <input type="submit" value="Registrarse">
   </form>
 </div>
