@@ -28,7 +28,7 @@ public class ServiceMonopolyImpl implements ServicioMonopoly {
         mapaDado.put(5,"/imagenes/dados/dado5.png");
         mapaDado.put(6,"/imagenes/dados/dado6.png");
 
-        /*Llenamos datos al mapa de propiedades*/
+        /*Llenamos datos al mapa de propiedades
         mapaPropiedades.put(2, new Propiedad(2, 100,"/imagenes/propiedades/celeste/balcarce.png", "Calle Balcarce"));
         mapaPropiedades.put(3, new Propiedad(3, 100,"/imagenes/propiedades/celeste/belgrano.png", "Avenida Belgrano"));
         mapaPropiedades.put(4, new Propiedad(4, 500,"/imagenes/propiedades/trenes/roca.png","Tren Roca"));
@@ -46,7 +46,9 @@ public class ServiceMonopolyImpl implements ServicioMonopoly {
         mapaPropiedades.put(18, new Propiedad(18, 600,"/imagenes/propiedades/verde/florida.png", "Avenida Florida"));
         mapaPropiedades.put(19, new Propiedad(19, 350,"/imagenes/propiedades/utilidades/aysa.png", "Aysa"));
         mapaPropiedades.put(20, new Propiedad(20, 400,"/imagenes/propiedades/verde/santafe.png", "Avenida Santa Fe"));
+        */
     }
+
 
     @Override
     public void obtenerPosicionCasillero(HttpSession session) {
