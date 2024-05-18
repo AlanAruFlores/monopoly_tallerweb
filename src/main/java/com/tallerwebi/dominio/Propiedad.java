@@ -1,18 +1,46 @@
 package com.tallerwebi.dominio;
 
+import javax.persistence.*;
+import com.tallerwebi.dominio.Jugador;
+
+@Entity
 public class Propiedad {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String propiedad;
+    private String nombre;
     private String imagen;
     private Integer precio;
+    private Boolean disponibilidad;
+
+    @ManyToOne
+    private Jugador propietario;
+
+    public Propiedad(Integer id, Integer precio, String imagen, String nombre, Boolean disponibilidad, Jugador propietario) {
+        this.id = id;
+        this.precio = precio;
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.disponibilidad = disponibilidad;
+        this.propietario = propietario;
+    }
 
     public Propiedad(){}
 
-    public Propiedad(Integer id, Integer precio, String imagen,String propiedad) {
-        this.id = id;
-        this.precio = precio;
-        this.propiedad = propiedad;
-        this.imagen = imagen;
+    public Jugador getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(Jugador propietario) {
+        this.propietario = propietario;
+    }
+
+    public Boolean getDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(Boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
     }
 
     public String getImagen() {
@@ -31,12 +59,12 @@ public class Propiedad {
         this.id = id;
     }
 
-    public String getPropiedad() {
-        return propiedad;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setPropiedad(String propiedad) {
-        this.propiedad = propiedad;
+    public void setNombre(String propiedad) {
+        this.nombre = propiedad;
     }
 
     public Integer getPrecio() {

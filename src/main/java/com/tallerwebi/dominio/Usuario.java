@@ -11,26 +11,26 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
+    private String apellido;
     private String email;
     private String password;
-    private String rol;
-    private Boolean activo = false;
+    private Integer victorias;
+    private String nombreUsuario;
 
-    public Usuario(String nombre, String email, String password) {
+    public Usuario(String nombre, String email, String password, String apellido,
+                    String nombreUsuario,Integer victorias, String repitePassword) {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
+        this.apellido = apellido;
+        this.nombreUsuario = nombreUsuario;
+        this.victorias = 0;
     }
 
     public Usuario(){}
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
     public String getEmail() {
         return email;
     }
@@ -43,32 +43,35 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getRol() {
-        return rol;
-    }
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-    public Boolean getActivo() {
-        return activo;
-    }
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
-    }
-
-    public boolean activo() {
-        return activo;
-    }
-
-    public void activar() {
-        activo = true;
-    }
-
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    public String getApellido() {
+        return this.apellido;
+    }
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Integer getVictorias() {
+        return victorias;
+    }
+    public void setVictorias(Integer victorias) {
+        this.victorias = victorias;
+    }
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 }
