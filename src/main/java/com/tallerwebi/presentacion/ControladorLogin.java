@@ -1,8 +1,10 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.ServicioLogin2;
 import com.tallerwebi.dominio.Usuario2;
 import com.tallerwebi.dominio.excepcion.*;
 import com.tallerwebi.infraestructura.ServicioLoginImpl2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,7 +18,12 @@ import java.util.List;
 
 @Controller
 public class ControladorLogin {
-    private ServicioLoginImpl2 servicioLogin = new ServicioLoginImpl2();
+    private ServicioLogin2 servicioLogin;
+
+    @Autowired
+    public ControladorLogin(ServicioLogin2 servicioLogin) {
+        this.servicioLogin = servicioLogin;
+    }
 
     @RequestMapping("/login")
     public ModelAndView irAlLogin() {
