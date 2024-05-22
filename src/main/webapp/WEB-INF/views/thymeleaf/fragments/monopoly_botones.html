@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="tablero_botones">
+        <a class="boton boton__chat">
+            <i class="fa-regular fa-messages"></i>
+        </a>
+
+        <a th:href="@{/moverJugador}" class="boton boton__dado">
+            <i class="fa-sharp fa-thin fa-dice"></i>
+        </a>
+
+        <a class="boton boton__musica">
+            <i class="fa-regular fa-music-note-slash"></i>
+        </a>
+    </div>
+</body>
+</html>

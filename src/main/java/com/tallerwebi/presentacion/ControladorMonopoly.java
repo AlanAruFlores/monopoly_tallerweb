@@ -23,6 +23,7 @@ public class ControladorMonopoly {
         this.servicioMonopoly = servicioMonopoly;
     }
 
+    /*Ir al inicio del monopoly*/
     @RequestMapping("/monopoly")
     public ModelAndView showMonopolyPage(HttpServletRequest request) {
         //Obtengo la sesion
@@ -36,6 +37,7 @@ public class ControladorMonopoly {
         return new ModelAndView("monopoly.html",mp);
     }
 
+    /*Mover el jugador*/
     @RequestMapping("/moverJugador")
     public ModelAndView moverJugador(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -49,6 +51,7 @@ public class ControladorMonopoly {
         return new ModelAndView("monopoly.html",mp);
     }
 
+    /*Adquirir una propiedad*/
     @RequestMapping("/adquirirPropiedad")
     public ModelAndView adquirirPropiedad(HttpServletRequest request){
         HttpSession session = request.getSession();
