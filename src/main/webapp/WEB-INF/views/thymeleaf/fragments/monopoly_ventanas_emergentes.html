@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="tablero_ventanas_emergentes">
+    <div th:if="${propiedad != null}" class="ventana__emergente comprar_propiedad_servicio">
+        <h1 class="ventana__titulo" th:text="${propiedad.nombre}+' Disponible !!'"> </h1>
+        <img class="ventana__imagen" th:src="@{${propiedad.imagen}}" alt="propiedad">
+        <p class="ventana__parrafo" th:text="'Precio:$'+${propiedad.precio}"></p>
+        <div class="ventana__botones">
+            <a th:href="@{/adquirirPropiedad}" class="ventana__boton">Comprar</a>
+            <a class="ventana__boton cancelar_propiedad_boton">Cancelar</a>
+        </div>
+    </div>
+
+    <div class="ventana__emergente pagar">
+        <h1 class="ventana__titulo">JUGADOR 1 CAYO EN UNA PROPIEDAD!!</h1>
+        <div class="ventana__imagenes">
+            <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.png}" alt="propiedad">
+            <!--<img src="monopolyman.svg" alt="" class="ventana__imagen">-->
+        </div>
+
+        <p class="ventana__parrafo">DEBE PAGAR AL JUGADOR 2 $30 POR CAER EN SU PROPIEDAD</p>
+        <a class="ventana__boton">Aceptar</a>
+    </div>
+
+    <!--Ventana del Chat-->
+    <div class="ventana__emergente chat__ventana">
+        <div class="boton__cerrar boton__chat__cerrar">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="chat">
+            <div class="chat__cabecera">
+                <h1>Chat Grupal</h1>
+            </div>
+            <div class="chat__mensajes">
+            </div>
+            <div class="chat__input">
+                <input type="text" name="mensaje">
+                <button type="submit"><i class="fa-regular fa-message"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!--Ventana cuando tira el jugador-->
+    <div th:if="${dado}" class="ventana__emergente dado__ventana">
+        <h1 class="ventana__titulo">El Jugador 1 tiro el dado!!</h1>
+        <img th:src="@{${dado}}" alt="dado" class="ventana__imagen imagen__dado">
+        <a id="aceptar_dado" class="ventana__boton">Aceptar</a>
+    </div>
+
+    <!--Ventana para errores -->
+    <div th:if="${mensaje}" class="ventana__emergente ventana__mensaje">
+        <h1 class="ventana__titulo" th:text="${mensaje}"></h1>
+        <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.svg}" alt="monopolyman">
+        <a id="mensaje_boton" class="ventana__boton boton__error">Aceptar</a>
+    </div>
+
+</div>
+</body>
+</html>

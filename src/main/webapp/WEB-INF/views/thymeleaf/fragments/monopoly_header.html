@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <header class="header" th:fragment="header">
+        <img th:src="@{/imagenes/monopoly.png}" class="header__logo">
+        <div class="header__links">
+            <a title="Salir del juego" class="nav-link text-light header__link__menu" th:href="@{/ir-menu}"><i class="fa-solid fa-door-open"></i></a>
+        </div>
+    </header>
+</body>
+</html>
