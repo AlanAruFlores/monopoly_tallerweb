@@ -20,7 +20,7 @@ public class Usuario {
     private String nombreUsuario;
 
     public Usuario(String nombre, String email, String password, String apellido,
-                    String nombreUsuario,Integer victorias, String repitePassword) {
+                    String nombreUsuario) {
         this.nombre = nombre;
         this.email = email;
         this.password = password;

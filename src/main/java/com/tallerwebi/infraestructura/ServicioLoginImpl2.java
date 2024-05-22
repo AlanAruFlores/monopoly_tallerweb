@@ -1,16 +1,26 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.ServicioLogin2;
+import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.Usuario2;
 import com.tallerwebi.dominio.excepcion.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 
+@Service ("servicioLogin")
+@Transactional
 public class ServicioLoginImpl2 implements ServicioLogin2 {
     private ArrayList<Usuario2> usuarios;
+    private RepositorioUsuario respositorioUsuario;
 
-    public ServicioLoginImpl2() {
+    @Autowired
+    public ServicioLoginImpl2(RepositorioUsuario respositorioUsuario) {
         this.usuarios = new ArrayList<>();
+        this.respositorioUsuario = respositorioUsuario;
     }
 
     @Override
@@ -69,7 +79,10 @@ public class ServicioLoginImpl2 implements ServicioLogin2 {
         }
     }
 
-    public void agregarUsuario(Usuario2 usuario) {
-        usuarios.add(usuario);
+    @Override
+    public void agregarUsuario(Usuario2 dtoUsuario) {
+       // usuarios.add(usuario);
+        Usuario usarioNuevo = new Usuario(dtoUsuario.getNombre(), dtoUsuario.getEmail(),dtoUsuario.getPassword(),dtoUsuario.getApellido(),dtoUsuario.getNombreUsuario());
+        this.respositorioUsuario.guardar(usarioNuevo);
     }
 }

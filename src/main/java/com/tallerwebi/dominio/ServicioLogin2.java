@@ -8,4 +8,5 @@ public interface ServicioLogin2 {
     void registrar(Usuario2 usuario) throws CamposIncompletosException,
             LongitudContraseñaException, MayusculaNumeroException, MailRegistradoException,
             ContraseñasNoCoincidenException, EmailInvalidoException;
+    void agregarUsuario(Usuario2 dtousuario);
 }
