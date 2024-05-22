@@ -1,7 +1,10 @@
-INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario) VALUES(1,"asd","asd2","sad","asd@gmail.com",0,"asd");
+/*INSERT DE UN USUARIO POR DEFECTO*/
+INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario) VALUES(1,"usuario","usuario","usuario@gmail.com","usuario1234",0,"UsuarioNombre1");
 
-/*INSERCION DE LAS PROPIEDADES*/
+/*INSERT DE UN JUGADOR POR DEFECTO*/
+INSERT INTO jugador(usuario_id,posicionCasilla,saldo) VALUES (1,1,1000);
 
+/*INSERCION DE LAS PROPIEDADES (no eliminar)*/
 /*CASAS CELESTES Y SU TREN*/
 insert into propiedad(nombre,imagen,precio,disponibilidad,nroCasilla) values("Calle Balcarce", "/imagenes/propiedades/celeste/balcarce.png",100,true,2);
 insert into propiedad(nombre,imagen,precio,disponibilidad,nroCasilla) values("Avenida Belgrano", "/imagenes/propiedades/celeste/belgrano.png",100,true,3);

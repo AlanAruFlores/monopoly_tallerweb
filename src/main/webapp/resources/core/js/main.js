@@ -20,6 +20,10 @@ document.addEventListener("click",(e)=>{
     if(e.target.matches(".cancelar_propiedad_boton") || e.target.matches(".cancelar_propiedad_boton *"))
         cerrarVentana(".comprar_propiedad_servicio");
 
+    /*Cerramos la ventana emergente con el mensaje especifico*/
+    if(e.target.matches("#mensaje_boton") || e.target.matches("#mensaje_boton *"))
+        cerrarVentana(".ventana__mensaje");
+
     if(e.target.matches(".boton__musica") || e.target.matches(".boton__musica *")){
         let $iconAudio = document.querySelector(".boton__musica i");
         console.log($iconAudio);

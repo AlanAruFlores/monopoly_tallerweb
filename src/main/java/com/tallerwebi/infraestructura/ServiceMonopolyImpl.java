@@ -1,8 +1,7 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.Propiedad;
-import com.tallerwebi.dominio.RepositorioPropiedad;
-import com.tallerwebi.dominio.ServicioMonopoly;
+import com.tallerwebi.dominio.*;
+import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +15,17 @@ import java.util.Map;
 public class ServiceMonopolyImpl implements ServicioMonopoly {
 
     private RepositorioPropiedad repositorioPropiedad;
+    private RepositorioJugador repositorioJugador;
+
     /*Enlace de Dados y Su numero*/
     Map<Integer, String> mapaDado = new HashMap<Integer, String>();
 
-    /*Mapa de Propiedades/Servicios*/
-//    Map<Integer, Propiedad> mapaPropiedades = new HashMap<Integer,Propiedad>();
-
     @Autowired
-    public ServiceMonopolyImpl(RepositorioPropiedad repositorioPropiedad) {
-        /*Llenamos datos al mapa */
+    public ServiceMonopolyImpl(RepositorioPropiedad repositorioPropiedad, RepositorioJugador repositorioJugador) {
         this.repositorioPropiedad = repositorioPropiedad;
+        this.repositorioJugador = repositorioJugador;
+
+        /*Llenamos datos al mapa */
         mapaDado.put(1,"/imagenes/dados/dado1.png");
         mapaDado.put(2,"/imagenes/dados/dado2.png");
         mapaDado.put(3,"/imagenes/dados/dado3.png");
@@ -36,20 +36,50 @@ public class ServiceMonopolyImpl implements ServicioMonopoly {
 
 
     @Override
+    public void registrarJugador(Jugador jugador) {
+      this.repositorioJugador.guardar(jugador);
+    }
+
+    @Override
+    public Jugador obtenerJugadorPorUsuarioId(Long usuarioId){
+        return this.repositorioJugador.obtenerJugador(usuarioId);
+    }
+
+    @Override
     public void obtenerPosicionCasillero(HttpSession session) {
         Integer numeroRandom = (int) (1 + (Math.random() * (6 - 1)));
-        session.setAttribute("dado",mapaDado.get(numeroRandom));
+        //Obtengo el jugador
+        Jugador jugador = (Jugador) session.getAttribute("jugador");
 
+        session.setAttribute("dado",mapaDado.get(numeroRandom));
         /*Actualizo posicion*/
-        Integer numeroSesion;
-        numeroSesion = (Integer) session.getAttribute("numeroRandom");
-        numeroRandom += numeroSesion;
+        Integer posicionJugador;
+        posicionJugador = jugador.getPosicionCasilla();
+        numeroRandom += posicionJugador;
         if(numeroRandom > 20){
             numeroRandom = (numeroRandom-20) ;
         }
+        jugador.setPosicionCasilla(numeroRandom);
+        //Actualizo la posicion
+        this.repositorioJugador.actualizar(jugador);
+        session.setAttribute("jugador", jugador);
 
-        session.setAttribute("numeroRandom", numeroRandom);
         //Agrego propiedad
         session.setAttribute("propiedad", repositorioPropiedad.obtenerPropiedadPorNroCasillero(numeroRandom));
+    }
+
+    /*Metodo para adquirir la propiedad/servicio al jugador*/
+    @Override
+    public void adquirirPropiedadPorElJugador(Jugador jugador,Propiedad propiedad) throws SaldoInsuficienteException{
+        if(propiedad.getPrecio() > jugador.getSaldo())
+            throw new SaldoInsuficienteException();
+
+        jugador.setSaldo(jugador.getSaldo()-propiedad.getPrecio());
+
+        propiedad.setDisponibilidad(false);
+        propiedad.setPropietario(jugador);
+
+        this.repositorioJugador.actualizar(jugador);
+        this.repositorioPropiedad.actualizar(propiedad);
     }
 }
