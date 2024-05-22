@@ -9,31 +9,38 @@ import com.tallerwebi.dominio.Usuario;
 public class Jugador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @OneToOne
     private Usuario usuario;
 
+    private Integer posicionCasilla;
+
     private Double saldo;
 
-    /*
-    @OneToMany
-    private List<Propiedad> propiedades;
-*/
-    public Jugador(Usuario usuario, Integer id, Double saldo) {
+    public Jugador(Usuario usuario, Long id, Integer posicionCasilla,Double saldo) {
         this.usuario = usuario;
         this.id = id;
+        this.posicionCasilla = posicionCasilla;
         this.saldo = saldo;
     }
 
     public Jugador() {
     }
 
-    public Integer getId() {
+    public Integer getPosicionCasilla() {
+        return posicionCasilla;
+    }
+
+    public void setPosicionCasilla(Integer posicionCasilla) {
+        this.posicionCasilla = posicionCasilla;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -7,7 +7,7 @@ import com.tallerwebi.dominio.Jugador;
 public class Propiedad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String nombre;
     private String imagen;
     private Integer precio;
@@ -17,7 +17,7 @@ public class Propiedad {
     @ManyToOne
     private Jugador propietario;
 
-    public Propiedad(Integer id, Integer precio, String imagen, String nombre, Boolean disponibilidad,Integer nroCasilla, Jugador propietario) {
+    public Propiedad(Long id, Integer precio, String imagen, String nombre, Boolean disponibilidad,Integer nroCasilla, Jugador propietario) {
         this.id = id;
         this.precio = precio;
         this.nombre = nombre;
@@ -61,11 +61,11 @@ public class Propiedad {
         this.imagen = imagen;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

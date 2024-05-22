@@ -1,6 +1,9 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.Jugador;
+import com.tallerwebi.dominio.Propiedad;
 import com.tallerwebi.dominio.ServicioMonopoly;
+import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,10 +27,12 @@ public class ControladorMonopoly {
     public ModelAndView showMonopolyPage(HttpServletRequest request) {
         //Obtengo la sesion
         HttpSession session = request.getSession();
-        //Establezco como valor inicial la casilla 1
-        session.setAttribute("numeroRandom",1);
+        //Obtener Jugador
+        Jugador jugador = servicioMonopoly.obtenerJugadorPorUsuarioId(1L);
+        //Establezco como valor inicial la casilla
+        session.setAttribute("jugador",jugador);
         ModelMap mp  = new ModelMap();
-        mp.put("posicion", session.getAttribute("numeroRandom"));
+        mp.put("jugador", session.getAttribute("jugador"));
         return new ModelAndView("monopoly.html",mp);
     }
 
@@ -37,9 +42,28 @@ public class ControladorMonopoly {
         this.servicioMonopoly.obtenerPosicionCasillero(session);
         ModelMap mp = new ModelMap();
         /*Establezco la posicion , imagen del dado y la aparicion de la ventana emergente*/
-        mp.put("posicion", session.getAttribute("numeroRandom"));
-        mp.put("dado",session.getAttribute("dado"));
+        mp.put("jugador", session.getAttribute("jugador"));
         mp.put("propiedad", session.getAttribute("propiedad"));
+
+        mp.put("dado",session.getAttribute("dado"));
+        return new ModelAndView("monopoly.html",mp);
+    }
+
+    @RequestMapping("/adquirirPropiedad")
+    public ModelAndView adquirirPropiedad(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Jugador jugador = (Jugador)session.getAttribute("jugador");
+        Propiedad propiedad = (Propiedad)session.getAttribute("propiedad");
+
+        ModelMap mp  = new ModelMap();
+        mp.put("jugador", session.getAttribute("jugador"));
+
+        try {
+            this.servicioMonopoly.adquirirPropiedadPorElJugador(jugador, propiedad);
+            mp.put("mensaje",propiedad.getNombre()+ " comprada");
+        }catch(SaldoInsuficienteException ex){
+            mp.put("mensaje", jugador.getUsuario().getNombreUsuario()+" no posee saldo suficiente");
+        }
 
         return new ModelAndView("monopoly.html",mp);
     }

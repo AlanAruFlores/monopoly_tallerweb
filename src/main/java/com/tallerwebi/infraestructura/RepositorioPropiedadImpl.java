@@ -20,6 +20,12 @@ public class RepositorioPropiedadImpl implements RepositorioPropiedad {
     }
 
     @Override
+    public void actualizar(Propiedad propiedad) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.update(propiedad);
+    }
+
+    @Override
     public List<Propiedad> obtenerTodasPropiedades() {
         final Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Propiedad.class).list();

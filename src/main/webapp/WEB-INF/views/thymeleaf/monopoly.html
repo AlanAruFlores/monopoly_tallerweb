@@ -187,9 +187,6 @@
             <h4 class="text-center">Total: $X</h4>
           </div>
 
-
-
-
           <!-- Propiedades -->
           <div class="col-md-6 p-0 propiedades-container">
             <div class="container p-0">
@@ -206,29 +203,7 @@
           </div>
         </div>
       </div>
-
     </main>
-
-
-<!--
-    <footer class="footer">
-      <div class="footer__div">
-        <h2 class="footer__titulo">MONOPOLY</h2>
-        <h3 class="footer__subtitulo">Integrantes</h3>
-        <p>Gavagnin Lucas Daniel</p>
-        <p>Pessino Milagros</p>
-        <p>Aruquipa Alan</p>
-        <p>Vargas Mariano Luis</p>
-        <p>Vargas Franco</p>
-      </div>
-      <div class="footer__div">
-        <h3 class="footer__subtitulo">Materia</h3>
-        <p>Taller Web I</p>
-        <h3 class="footer__subtitulo">Universidad</h3>
-        <p>Universidad Nacional de la Matanza</p>
-      </div>
-    </footer>
--->
 
     <!--Botones en la pantalla-->
     <a class="boton boton__chat">
@@ -243,15 +218,13 @@
       <i class="fa-regular fa-music-note-slash"></i>
     </a>
 
-    <!--Movimiento jugador (Ejemplo)
-    <a th:href="@{/moverJugador}" id="moverBtn" class="moverBtn">Tirar Dado</a>-->
     <!-- Ventana Comprar / Anular Propiedad o Servicio -->
     <div th:if="${propiedad != null}" class="ventana__emergente comprar_propiedad_servicio">
       <h1 class="ventana__titulo" th:text="${propiedad.nombre}+' Disponible !!'"> </h1>
       <img class="ventana__imagen" th:src="@{${propiedad.imagen}}" alt="propiedad">
       <p class="ventana__parrafo" th:text="'Precio:$'+${propiedad.precio}"></p>
       <div class="ventana__botones">
-        <a class="ventana__boton">Comprar</a>
+        <a th:href="@{/adquirirPropiedad}" class="ventana__boton">Comprar</a>
         <a class="ventana__boton cancelar_propiedad_boton">Cancelar</a>
       </div>
     </div>
@@ -259,7 +232,7 @@
     <div class="ventana__emergente pagar">
       <h1 class="ventana__titulo">JUGADOR 1 CAYO EN UNA PROPIEDAD!!</h1>
       <div class="ventana__imagenes">
-        <img class="ventana__imagen" th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
+        <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.png}" alt="propiedad">
         <!--<img src="monopolyman.svg" alt="" class="ventana__imagen">-->
       </div>
 
@@ -292,10 +265,20 @@
       <a id="aceptar_dado" class="ventana__boton">Aceptar</a>
     </div>
 
+    <!--Ventana para errores -->
+    <div th:if="${mensaje}" class="ventana__emergente ventana__mensaje">
+      <h1 class="ventana__titulo" th:text="${mensaje}"></h1>
+      <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.svg}" alt="monopolyman">
+      <a id="mensaje_boton" class="ventana__boton boton__error">Aceptar</a>
+    </div>
+
+
+
+
     <!--Scripts del monopoly-->
     <script>
       /*Extraigo el atributo "posicion" del ModelAndView*/
-      let posicion = ""+([[${posicion}]] + 0);
+      let posicion = ""+([[${jugador.posicionCasilla}]] + 0);
 
       /*Ubico al jugador en el casillero*/
       let casilla = document.getElementById(posicion);
