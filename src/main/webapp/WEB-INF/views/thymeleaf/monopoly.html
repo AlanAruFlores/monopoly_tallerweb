@@ -247,7 +247,7 @@
     <a th:href="@{/moverJugador}" id="moverBtn" class="moverBtn">Tirar Dado</a>-->
     <!-- Ventana Comprar / Anular Propiedad o Servicio -->
     <div th:if="${propiedad != null}" class="ventana__emergente comprar_propiedad_servicio">
-      <h1 class="ventana__titulo" th:text="${propiedad.propiedad}+' Disponible !!'"> </h1>
+      <h1 class="ventana__titulo" th:text="${propiedad.nombre}+' Disponible !!'"> </h1>
       <img class="ventana__imagen" th:src="@{${propiedad.imagen}}" alt="propiedad">
       <p class="ventana__parrafo" th:text="'Precio:$'+${propiedad.precio}"></p>
       <div class="ventana__botones">

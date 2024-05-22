@@ -12,16 +12,18 @@ public class Propiedad {
     private String imagen;
     private Integer precio;
     private Boolean disponibilidad;
+    private Integer nroCasilla;
 
     @ManyToOne
     private Jugador propietario;
 
-    public Propiedad(Integer id, Integer precio, String imagen, String nombre, Boolean disponibilidad, Jugador propietario) {
+    public Propiedad(Integer id, Integer precio, String imagen, String nombre, Boolean disponibilidad,Integer nroCasilla, Jugador propietario) {
         this.id = id;
         this.precio = precio;
         this.nombre = nombre;
         this.imagen = imagen;
         this.disponibilidad = disponibilidad;
+        this.nroCasilla = nroCasilla;
         this.propietario = propietario;
     }
 
@@ -41,6 +43,14 @@ public class Propiedad {
 
     public void setDisponibilidad(Boolean disponibilidad) {
         this.disponibilidad = disponibilidad;
+    }
+
+    public Integer getNroCasilla() {
+        return nroCasilla;
+    }
+
+    public void setNroCasilla(Integer nroCasilla) {
+        this.nroCasilla = nroCasilla;
     }
 
     public String getImagen() {
