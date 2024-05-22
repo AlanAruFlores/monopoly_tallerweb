@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="tablero_perfiles">
+        <div class="perfil">
+            <img th:src="@{imagenes/foto_perfil.jpg}" alt="foto" class="perfil__foto">
+            <p th:text="${jugador.usuario.nombreUsuario}+':$'+${jugador.saldo}"></p>
+        </div>
+
+    </div>
+</body>
+</html>

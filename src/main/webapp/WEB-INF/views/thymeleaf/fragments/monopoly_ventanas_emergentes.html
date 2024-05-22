@@ -52,13 +52,32 @@
         <a id="aceptar_dado" class="ventana__boton">Aceptar</a>
     </div>
 
-    <!--Ventana para errores -->
+    <!--Ventana para mensajes u errores -->
     <div th:if="${mensaje}" class="ventana__emergente ventana__mensaje">
         <h1 class="ventana__titulo" th:text="${mensaje}"></h1>
         <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.svg}" alt="monopolyman">
         <a id="mensaje_boton" class="ventana__boton boton__error">Aceptar</a>
     </div>
 
+    <!--Ventana para ver propiedades de un jugador -->
+    <div class="ventana__emergente ventana__propiedades">
+        <div class="boton__cerrar boton__propiedades__cerrar">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="propiedades">
+            <div class="propiedades__cabecera">
+                <h1>Mis Propiedades</h1>
+            </div>
+            <div class="propiedades__contenedor">
+                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
+                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
+                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
+                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
+                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
+                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

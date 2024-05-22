@@ -85,3 +85,29 @@
     width: 18%;
     object-fit: fill;
 }
+
+/*PROPIEDADES DE UN JUGADOR VENTANA*/
+.ventana__propiedades{
+    visibility: hidden;
+    opacity:0;
+}
+.propiedades{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+    padding: 10px 20px;
+    overflow: scroll;
+}
+.propiedades h1{
+    color:#ff3f22;
+    font-family:monopoly;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+.propiedades__contenedor img{
+    width:300px;
+}
+.propiedades__cabecera{
+    color:#ff3f22;
+}
