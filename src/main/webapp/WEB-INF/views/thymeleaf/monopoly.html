@@ -15,6 +15,7 @@
     <link rel="stylesheet" th:href="@{/css/ventanas_emergentes.css}">
     <link rel="stylesheet" th:href="@{/css/chat.css}">
     <link rel="stylesheet" th:href="@{/css/botones_pantalla.css}">
+    <link rel="stylesheet" th:href="@{/css/monopoly_perfil.css}">
 
   </head>
   <body>
@@ -27,6 +28,9 @@
 
     <!--Botones en la pantalla-->
     <div th:replace="fragments/monopoly_botones :: tablero_botones"></div>
+
+    <!--Perfiles jugadores-->
+    <div th:replace="fragments/monopoly_perfiles :: tablero_perfiles"></div>
 
     <!-- Ventana Comprar / Anular Propiedad o Servicio -->
     <div th:replace="fragments/monopoly_ventanas_emergentes :: tablero_ventanas_emergentes"></div>

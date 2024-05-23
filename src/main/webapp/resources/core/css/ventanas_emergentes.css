@@ -85,3 +85,47 @@
     width: 18%;
     object-fit: fill;
 }
+
+/*PROPIEDADES DE UN JUGADOR VENTANA*/
+.ventana__propiedades{
+    visibility: hidden;
+    opacity:0;
+}
+.propiedades{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+    padding: 10px 20px;
+    overflow: scroll;
+    width:100%;
+    height:100%
+
+}
+.propiedades h1{
+    color:#ff3f22;
+    font-family:monopoly;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+.propiedades__contenedor img{
+    width:250px;
+}
+.propiedades__contenedor{
+    width: 90%;
+    display:flex;
+    flex-direction:row;
+}
+
+.propiedades__cabecera{
+    color:#ff3f22;
+}
+
+.propiedades__texto{
+    color:#d1001f;
+    font-family: monopoly;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size:38px;
+    text-align:center;
+}

@@ -24,6 +24,13 @@ document.addEventListener("click",(e)=>{
     if(e.target.matches("#mensaje_boton") || e.target.matches("#mensaje_boton *"))
         cerrarVentana(".ventana__mensaje");
 
+    /*Abrimos y cerramos la ventana de propiedades*/
+    if(e.target.matches(".boton__propiedades") || e.target.matches(".boton__propiedades *"))
+        abrirVentana(".ventana__propiedades")
+
+    if(e.target.matches(".boton__propiedades__cerrar") || e.target.matches(".boton__propiedades__cerrar *"))
+        cerrarVentana(".ventana__propiedades");
+
     if(e.target.matches(".boton__musica") || e.target.matches(".boton__musica *")){
         let $iconAudio = document.querySelector(".boton__musica i");
         console.log($iconAudio);

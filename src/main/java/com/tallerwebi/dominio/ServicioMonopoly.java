@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface ServicioMonopoly {
     public void registrarJugador(Jugador jugador);
     public Jugador obtenerJugadorPorUsuarioId(Long usuarioId);
     public void obtenerPosicionCasillero(HttpSession session);
     public void adquirirPropiedadPorElJugador(Jugador jugador,Propiedad propiedad) throws SaldoInsuficienteException;
+    public List<Propiedad> obtenerPropiedadesPorJugadorId(Long jugadorId);
 }

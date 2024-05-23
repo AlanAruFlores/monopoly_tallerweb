@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service("servicioMonopoly")
@@ -65,7 +66,11 @@ public class ServiceMonopolyImpl implements ServicioMonopoly {
         session.setAttribute("jugador", jugador);
 
         //Agrego propiedad
-        session.setAttribute("propiedad", repositorioPropiedad.obtenerPropiedadPorNroCasillero(numeroRandom));
+        Propiedad propiedadEncontrada = repositorioPropiedad.obtenerPropiedadPorNroCasillero(numeroRandom);
+        if(propiedadEncontrada != null && propiedadEncontrada.getDisponibilidad())
+            session.setAttribute("propiedad", propiedadEncontrada);
+        else
+            session.setAttribute("propiedad",null);
     }
 
     /*Metodo para adquirir la propiedad/servicio al jugador*/
@@ -81,5 +86,10 @@ public class ServiceMonopolyImpl implements ServicioMonopoly {
 
         this.repositorioJugador.actualizar(jugador);
         this.repositorioPropiedad.actualizar(propiedad);
+    }
+
+    @Override
+    public List<Propiedad> obtenerPropiedadesPorJugadorId(Long jugadorId) {
+        return this.repositorioPropiedad.obtenerPropiedadesPorJugadorId(jugadorId);
     }
 }
