@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class ControladorMonopoly {
@@ -30,10 +31,13 @@ public class ControladorMonopoly {
         HttpSession session = request.getSession();
         //Obtener Jugador
         Jugador jugador = servicioMonopoly.obtenerJugadorPorUsuarioId(1L);
+        List<Propiedad> propiedades = servicioMonopoly.obtenerPropiedadesPorJugadorId(jugador.getId());
         //Establezco como valor inicial la casilla
+        session.setAttribute("propiedades", propiedades);
         session.setAttribute("jugador",jugador);
         ModelMap mp  = new ModelMap();
         mp.put("jugador", session.getAttribute("jugador"));
+        mp.put("propiedades", session.getAttribute("propiedades"));
         return new ModelAndView("monopoly.html",mp);
     }
 
@@ -46,6 +50,7 @@ public class ControladorMonopoly {
         /*Establezco la posicion , imagen del dado y la aparicion de la ventana emergente*/
         mp.put("jugador", session.getAttribute("jugador"));
         mp.put("propiedad", session.getAttribute("propiedad"));
+        mp.put("propiedades", session.getAttribute("propiedades"));
 
         mp.put("dado",session.getAttribute("dado"));
         return new ModelAndView("monopoly.html",mp);
@@ -59,15 +64,17 @@ public class ControladorMonopoly {
         Propiedad propiedad = (Propiedad)session.getAttribute("propiedad");
 
         ModelMap mp  = new ModelMap();
-        mp.put("jugador", session.getAttribute("jugador"));
 
         try {
             this.servicioMonopoly.adquirirPropiedadPorElJugador(jugador, propiedad);
+            List<Propiedad> propiedades = servicioMonopoly.obtenerPropiedadesPorJugadorId(jugador.getId());
+            session.setAttribute("propiedades", propiedades);
             mp.put("mensaje",propiedad.getNombre()+ " comprada");
         }catch(SaldoInsuficienteException ex){
             mp.put("mensaje", jugador.getUsuario().getNombreUsuario()+" no posee saldo suficiente");
         }
-
+        mp.put("jugador", jugador);
+        mp.put("propiedades", session.getAttribute("propiedades"));
         return new ModelAndView("monopoly.html",mp);
     }
 }

@@ -68,13 +68,13 @@
             <div class="propiedades__cabecera">
                 <h1>Mis Propiedades</h1>
             </div>
-            <div class="propiedades__contenedor">
-                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
-                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
-                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
-                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
-                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
-                <img th:src="@{/imagenes/propiedades/celeste/balcarce.png}" alt="propiedad">
+            <div th:if="${!propiedades.isEmpty()}"  class="propiedades__contenedor">
+                <div th:each="propiedad:${propiedades}">
+                    <img  th:src="@{${propiedad.imagen}}" alt="propiedad">
+                </div>
+            </div>
+            <div th:if="${propiedades.isEmpty()}" class="propiedades__contenedor">
+                <p class="propiedades__texto">No tiene propiedades</p>
             </div>
         </div>
     </div>
