@@ -11,21 +11,22 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
     private String apellido;
     private String email;
     private String password;
-    private Integer victorias;
+    private String repitePassword;
     private String nombreUsuario;
+    private Integer victorias;
 
     public Usuario(String nombre, String email, String password, String apellido,
-                    String nombreUsuario) {
+                   String nombreUsuario, String repitePassword) {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
         this.apellido = apellido;
         this.nombreUsuario = nombreUsuario;
+        this.repitePassword = repitePassword;
         this.victorias = 0;
     }
 
@@ -44,23 +45,28 @@ public class Usuario {
         this.password = password;
     }
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
     public String getApellido() {
-        return this.apellido;
+        return apellido;
     }
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
-    public Long getId() {
-        return id;
+    public String getRepitePassword() {
+        return repitePassword;
     }
-    public void setId(Long id) {
-        this.id = id;
+    public void setRepitePassword(String repitePassword) {
+        this.repitePassword = repitePassword;
+    }
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
     public Integer getVictorias() {
         return victorias;
@@ -68,10 +74,10 @@ public class Usuario {
     public void setVictorias(Integer victorias) {
         this.victorias = victorias;
     }
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public Long getId() {
+        return id;
     }
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

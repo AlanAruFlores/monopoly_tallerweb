@@ -4,9 +4,9 @@ import com.tallerwebi.dominio.excepcion.*;
 
 public interface ServicioLogin2 {
 
-    Usuario2 consultarUsuario(String email, String password);
-    void registrar(Usuario2 usuario) throws CamposIncompletosException,
+    Usuario consultarUsuario(String email, String password);
+    void registrar(Usuario usuario) throws CamposIncompletosException,
             LongitudContraseñaException, MayusculaNumeroException, MailRegistradoException,
             ContraseñasNoCoincidenException, EmailInvalidoException;
-    void agregarUsuario(Usuario2 dtousuario);
+    void agregarUsuario(Usuario dtousuario);
 }

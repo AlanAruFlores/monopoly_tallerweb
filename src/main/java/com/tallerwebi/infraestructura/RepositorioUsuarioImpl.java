@@ -1,7 +1,6 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.RepositorioUsuario;
-import com.tallerwebi.infraestructura.RepositorioUsuarioImpl;
 import com.tallerwebi.dominio.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,6 +24,19 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         session.save(usuario);
     }
 
-
-
+    // Verifico si el mail ya está en uso en la bdd
+    @Override
+    public Boolean existeUsuarioConEmail(String email) {
+        try (Session session = sessionFactory.openSession()) {
+            // Creamos la consulta para verificar si hay algún usuario con el mismo correo electrónico
+            String sql = "SELECT COUNT(u) FROM Usuario u WHERE u.email = :email";
+            Long count = (Long) session.createQuery(sql).setParameter("email", email).uniqueResult();
+            // Si count es mayor que 0, significa que hay al menos un usuario con el mismo correo electrónico
+            return count != null && count > 0;
+        } catch (Exception e) {
+            // Manejo de excepciones si ocurre algún error en la consulta
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

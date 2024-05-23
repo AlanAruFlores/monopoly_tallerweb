@@ -3,47 +3,50 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.ServicioLogin2;
 import com.tallerwebi.dominio.Usuario;
-import com.tallerwebi.dominio.Usuario2;
 import com.tallerwebi.dominio.excepcion.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service ("servicioLogin")
 @Transactional
 public class ServicioLoginImpl2 implements ServicioLogin2 {
-    private ArrayList<Usuario2> usuarios;
-    private RepositorioUsuario respositorioUsuario;
+    private RepositorioUsuario repositorioUsuario;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Autowired
-    public ServicioLoginImpl2(RepositorioUsuario respositorioUsuario) {
-        this.usuarios = new ArrayList<>();
-        this.respositorioUsuario = respositorioUsuario;
+    public ServicioLoginImpl2(RepositorioUsuario repositorioUsuario) {
+        this.repositorioUsuario = repositorioUsuario;
     }
 
+    // Método consultar usuario para verificar el Login
     @Override
-    public Usuario2 consultarUsuario(String email, String password) {
-        for (Usuario2 usuario : usuarios) {
-            if (usuario != null && usuario.getEmail().equals(email) && usuario.getPassword().equals(password)) {
-                return usuario;
-            }
+    public Usuario consultarUsuario(String email, String password) {
+        // Crear una consulta para buscar el usuario por email y contraseña
+        Query<Usuario> query = this.sessionFactory.getCurrentSession().createQuery(
+                "FROM Usuario WHERE email = :email AND password = :password", Usuario.class);
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+
+        // Obtener el resultado de la consulta y verificar si se encontró algún usuario
+        List<Usuario> usuarios = query.getResultList();
+        if (!usuarios.isEmpty()) {
+            return usuarios.get(0); // Devolver el primer usuario encontrado si hay
+        } else {
+            return null; // No se encontró ningún usuario
         }
-        return null;
     }
 
-    public boolean isEmailLibre(String email) {
-        for (Usuario2 usuario : usuarios) {
-            if (usuario != null && usuario.getEmail().equals(email)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
+    // Método registrar para validar el Login
     @Override
-    public void registrar(Usuario2 usuario) throws CamposIncompletosException,
+    public void registrar(Usuario usuario) throws CamposIncompletosException,
             LongitudContraseñaException, MayusculaNumeroException, MailRegistradoException,
             ContraseñasNoCoincidenException, EmailInvalidoException {
         // Verificar que todos los campos hayan sido completados
@@ -68,8 +71,8 @@ public class ServicioLoginImpl2 implements ServicioLogin2 {
             throw new EmailInvalidoException();
         }
 
-        // Verificar si el email está libre
-        if(!this.isEmailLibre(usuario.getEmail())){
+        // Verificar si el correo ya está en uso
+        if (this.repositorioUsuario.existeUsuarioConEmail(usuario.getEmail())) {
             throw new MailRegistradoException();
         }
 
@@ -80,9 +83,9 @@ public class ServicioLoginImpl2 implements ServicioLogin2 {
     }
 
     @Override
-    public void agregarUsuario(Usuario2 dtoUsuario) {
+    public void agregarUsuario(Usuario dtoUsuario) {
        // usuarios.add(usuario);
-        Usuario usarioNuevo = new Usuario(dtoUsuario.getNombre(), dtoUsuario.getEmail(),dtoUsuario.getPassword(),dtoUsuario.getApellido(),dtoUsuario.getNombreUsuario());
-        this.respositorioUsuario.guardar(usarioNuevo);
+        Usuario usarioNuevo = new Usuario(dtoUsuario.getNombre(), dtoUsuario.getEmail(),dtoUsuario.getPassword(),dtoUsuario.getApellido(),dtoUsuario.getNombreUsuario(), dtoUsuario.getRepitePassword());
+        this.repositorioUsuario.guardar(usarioNuevo);
     }
 }

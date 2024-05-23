@@ -2,9 +2,6 @@ package com.tallerwebi.dominio;
 
 import javax.persistence.*;
 
-import java.util.List;
-import com.tallerwebi.dominio.Usuario;
-
 @Entity
 public class Jugador {
     @Id
