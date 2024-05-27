@@ -31,6 +31,14 @@ document.addEventListener("click",(e)=>{
     if(e.target.matches(".boton__propiedades__cerrar") || e.target.matches(".boton__propiedades__cerrar *"))
         cerrarVentana(".ventana__propiedades");
 
+
+    /*Abrir boton para crear partida*/
+    if(e.target.matches("#crear__partida__boton") || e.target.matches("#crear__partida__boton *"))
+        abrirVentana("#crear__partida__ventana");
+
+    if(e.target.matches("#cerrar__partida__ventana") || e.target.matches("#cerrar__partida__ventana *"))
+        cerrarVentana("#crear__partida__ventana");
+
     if(e.target.matches(".boton__musica") || e.target.matches(".boton__musica *")){
         let $iconAudio = document.querySelector(".boton__musica i");
         console.log($iconAudio);

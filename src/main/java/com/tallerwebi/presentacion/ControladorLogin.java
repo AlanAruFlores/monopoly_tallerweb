@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class ControladorLogin {
     private ServicioLogin2 servicioLogin;
@@ -42,16 +46,21 @@ public class ControladorLogin {
     }
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
-    public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin2 datosLogin) {
+    public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin2 datosLogin, HttpServletRequest request) {
         ModelMap model = new ModelMap();
-
+        //Obtengo el usuario
         Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
-        if(usuarioBuscado != null) {
+        System.out.println(usuarioBuscado);
+
+        //Guarda ese usuario en una sesion
+        HttpSession session = request.getSession();
+        session.setAttribute("usuarioLogeado", usuarioBuscado);
+
+        if(usuarioBuscado != null)
             return new ModelAndView("redirect:/ir-menu");
-        } else {
-            model.put("error", "Usuario o contraseña incorrectos.");
-            return new ModelAndView("login", model);
-        }
+
+        model.put("error", "Usuario o contraseña incorrectos.");
+        return new ModelAndView("login", model);
     }
 
     @RequestMapping(path = "/verificar-registro", method = RequestMethod.POST)

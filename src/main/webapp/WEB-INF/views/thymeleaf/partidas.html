@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" th:href="@{/css/ventanas_emergentes.css}">
+    <link rel="stylesheet" th:href="@{/css/jugar.css}">
+    <title>Jugar</title>
+</head>
+
+<body>
+<header class="header">
+    <img src="imagenes/monopoly.png" class="header__logo">
+    <h1 class="header__titulo">MONOPOLY</h1>
+</header>
+
+<main class="main">
+    <div class="main__div__titulo">
+        <h2 class="main__titulo">LISTA DE PARTIDAS
+        </h2>
+        <a id="crear__partida__boton" class="partida__boton agregar__boton">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+    </div>
+
+    <table class="partidas">
+        <thead class="partidas__encabezado">
+        <tr>
+            <th>NOMBRE</th>
+            <th>JUGADORES</th>
+            <th>CREADOR</th>
+            <th>UNETE</th>
+
+        </tr>
+        </thead>
+        <tbody class="partidas__registros">
+        <tr>
+            <td>Partida bros</td>
+            <td>1/4</td>
+            <td>Alan</td>
+            <td>
+                <a href="" class="partida__boton">
+                    <i class="fa-thin fa-arrow-right-to-bracket"></i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Partida bros</td>
+            <td>2/4</td>
+            <td>Alan</td>
+            <td>
+                <a href="" class="partida__boton">
+                    <i class="fa-thin fa-arrow-right-to-bracket"></i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Partida bros</td>
+            <td>2/4</td>
+            <td>Alan</td>
+            <td>
+                <a href="" class="partida__boton">
+                    <i class="fa-thin fa-arrow-right-to-bracket"></i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Partida bros</td>
+            <td>4/4</td>
+            <td>Alan</td>
+            <td>
+                <a href="" class="partida__boton boton__disabled">
+                    <i class="fa-thin fa-arrow-right-to-bracket"></i>
+                </a>
+                <!-- <a href="#" class="partida__boton">Unete</a> -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer class="footer">
+    <div class="footer__div">
+        <h2 class="footer__titulo">MONOPOLY</h2>
+        <h3 class="footer__subtitulo">Integrantes</h3>
+        <p>Integrante 1</p>
+        <p>Integrante 2</p>
+        <p>Integrante 3</p>
+        <p>Integrante 4</p>
+        <p>Integrante 5</p>
+    </div>
+    <div class="footer__div">
+        <h3 class="footer__subtitulo">Materia</h3>
+        <p>Taller Web I</p>
+        <h3 class="footer__subtitulo">Universidad</h3>
+        <p>Universidad Nacional de la Matanza</p>
+    </div>
+</footer>
+
+<!-- Popup crear partida -->
+<div class="ventana__emergente" id="crear__partida__ventana">
+    <a href="#" class="ventana__cerrar" id="cerrar__partida__ventana">
+        <i class="fa-solid fa-xmark"></i>
+    </a>
+    <h2 class="ventana__subtitulo">Crear Partida</h2>
+    <form action="" class="formulario__crear__partida">
+        <label for="nombre">Nombre de la partida</label>
+        <input type="text" name="nombre" placeholder="Nombre de la partida" id="nombre">
+        <label for="numero">Numero maximo de jugadores</label>
+        <input type="number" name="numero_jugadores" placeholder="2" id="numero" min="2" max="4">
+
+        <button type="submit">Crear</button>
+    </form>
+</div>
+
+<script th:src="@{/js/main.js}" type="module"></script>
+</body>
+
+</html>

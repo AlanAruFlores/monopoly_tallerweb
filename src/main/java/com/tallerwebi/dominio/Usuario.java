@@ -80,4 +80,18 @@ public class Usuario {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", repitePassword='" + repitePassword + '\'' +
+                ", nombreUsuario='" + nombreUsuario + '\'' +
+                ", victorias=" + victorias +
+                '}';
+    }
 }

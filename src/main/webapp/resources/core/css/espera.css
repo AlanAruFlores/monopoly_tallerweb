@@ -1,0 +1,156 @@
+@font-face {
+    font-family: monopoly;
+    src: url(../fuentes/monopoly.ttf);
+}
+
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+body{
+    background: url(../imagenes/fondo.jpg);
+    background-size:cover;
+    background-color: rgba(255,255,255,0.8);
+    background-blend-mode: lighten;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: grid;
+
+    grid-template-columns: auto;
+    grid-template-rows: 100px 700px auto;
+
+    grid-template-areas: "header" "main" "footer";
+}
+
+
+.header{
+    grid-area: header;
+    background-color: #ff4122;
+
+    color: white;
+    padding: 0px 20px;
+}
+.header__logo{
+    display: inline-block;
+    position: absolute;
+    width: 80px ;
+}
+.header__titulo{
+    line-height: 100px;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    text-align: center;
+    font-family: monopoly;
+}
+
+/*MAIN*/
+
+.main{
+    grid-area: main;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 60px;
+    gap: 40px;
+    background-color: #ff4d31b4;
+}
+
+.sala__titulo{
+    font-size: 30px;
+    font-family: monopoly;
+    letter-spacing: 2px;
+    color: #fff;
+    border-bottom: 3px solid #fff;
+}
+.sala__subtitulo{
+    color: #fff;
+
+}
+
+.sala__jugador{
+    background-color: #fff;
+    margin: 30px 0px;
+    padding: 10px 70px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.sala__jugador h4{
+    font-family: monopoly;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 25px;
+    color: #ff4122;
+}
+
+.sala__jugador i{
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sala__boton{
+    text-decoration: none;
+    background-color: #ff4122;
+    color: white;
+    max-width: 400px;
+    padding: 15px 40px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 50px;
+    display: inline-block;
+    transition: 500ms all;
+}
+
+
+.boton__disabled{
+    background-color: #ff3f2275;
+    cursor: default;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+
+.sala__boton:hover{
+    background-color: white;
+    color:#ff4122;
+}
+
+.footer{
+    background-color: #ff4122;
+    grid-area: footer;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+}
+
+.footer__titulo{
+    font-weight: bolder;
+    letter-spacing: 2px;
+    text-align: start;
+    font-family: monopoly;
+    margin-bottom: 25px;
+}
+.footer__subtitulo{
+    margin-bottom: 10px;
+}
+.footer__div p{
+    margin-bottom: 10px;
+}
+
+
+@media(min-width: 600px){
+    .footer{
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}

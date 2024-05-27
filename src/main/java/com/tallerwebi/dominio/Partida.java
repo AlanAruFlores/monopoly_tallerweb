@@ -1,43 +1,34 @@
 package com.tallerwebi.dominio;
 
+import com.google.protobuf.Enum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Partida {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    private List<Jugador> jugadores;
+    @OneToOne
+    private Usuario creadorJugador;
 
-    @OneToMany
-    private List<Propiedad> propiedades;
+    private LocalDate fechaApertura;
 
-    public Partida() {}
+    @OneToOne
+    private Usuario turnoJugador;
 
-    public Long getId() {
-        return id;
-    }
+    @Enumerated(EnumType.STRING)
+    private EstadoPartida estadoPartida;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<Jugador> getJugadores() {
-        return jugadores;
-    }
-
-    public void setJugadores(List<Jugador> jugadores) {
-        this.jugadores = jugadores;
-    }
-
-    public List<Propiedad> getPropiedades() {
-        return propiedades;
-    }
-
-    public void setPropiedades(List<Propiedad> propiedades) {
-        this.propiedades = propiedades;
-    }
 }
