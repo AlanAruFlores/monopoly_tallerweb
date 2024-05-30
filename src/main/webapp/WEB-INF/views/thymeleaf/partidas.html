@@ -72,16 +72,27 @@
         <i class="fa-solid fa-xmark"></i>
     </a>
     <h2 class="ventana__subtitulo">Crear Partida</h2>
-    <form th:action="@{/crearPartida}" class="formulario__crear__partida" method="POST" th:object="${partida}">
+    <form th:action="@{/crearPartida}" id="formularioCrearPartida" class="formulario__crear__partida" method="POST" th:object="${partida}">
         <label for="nombre">Nombre de la partida</label>
         <input type="text" name="nombre" placeholder="Nombre de la partida" th:field="*{nombre}" id="nombre">
         <label for="numero">Numero maximo de jugadores</label>
         <input type="number" name="numero_jugadores" placeholder="2" id="numero" min="2" max="4" th:field="*{numeroJugadores}">
-        <button type="submit">Crear</button>
+        <button type="submit" id="botonCrearPartida">Crear</button>
     </form>
 </div>
 
 <script th:src="@{/js/main.js}" type="module"></script>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+<script>
+    const stompClient = new StompJs.Client({
+        brokerURL: 'ws://localhost:8080/spring/wspartida',
+        headers:{
+            idClienteStomp: [[${usuario.}]]
+        }
+    });
 
+</script>
+<script th:src="@{/js/webSocketPartida.js}"></script>
+
+</body>
 </html>

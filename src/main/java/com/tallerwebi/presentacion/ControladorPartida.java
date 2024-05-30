@@ -1,10 +1,10 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.EstadoPartida;
-import com.tallerwebi.dominio.Partida;
-import com.tallerwebi.dominio.ServicioPartida;
-import com.tallerwebi.dominio.Usuario;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tallerwebi.dominio.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,6 +31,7 @@ public class ControladorPartida {
         //Obtengo las partidas para mostrarlos a los jugadores
         List<Partida> partidasCreadas = this.servicioPartida.obtenerTodasLasPartidas();
 
+        mp.put("usuario", session.getAttribute("usuarioLogeado"));
         mp.put("partida", new Partida());
         mp.put("partidasCreadas",partidasCreadas);
 
@@ -53,5 +54,16 @@ public class ControladorPartida {
     @RequestMapping("/espera")
     public ModelAndView irSalaEspera(){
         return new ModelAndView("sala_espera.html", new ModelMap());
+    }
+
+    //WEB SOCKET METODOS
+    @MessageMapping("/partidaNueva")
+    @SendTo("/topic/notificacionPartida")
+    public String mostrarMensaje(MensajeRecibido mensaje) throws Exception {
+        System.out.println(mensaje);
+        MensajeEnviado mensajeEnviado = new MensajeEnviado(mensaje.getIdEmisor(),mensaje.getMessage());
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(mensajeEnviado);
+        return json;
     }
 }
