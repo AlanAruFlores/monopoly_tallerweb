@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,49 +31,17 @@
             <th>JUGADORES</th>
             <th>CREADOR</th>
             <th>UNETE</th>
-
         </tr>
         </thead>
         <tbody class="partidas__registros">
-        <tr>
-            <td>Partida bros</td>
-            <td>1/4</td>
-            <td>Alan</td>
+        <tr th:each="partida : ${partidasCreadas}">
+            <td th:text="${partida.nombre}"></td>
+            <td th:text="${partida.numeroJugadores}"></td>
+            <td th:text="${partida.creador.nombreUsuario}"></td>
             <td>
                 <a href="" class="partida__boton">
                     <i class="fa-thin fa-arrow-right-to-bracket"></i>
                 </a>
-            </td>
-        </tr>
-        <tr>
-            <td>Partida bros</td>
-            <td>2/4</td>
-            <td>Alan</td>
-            <td>
-                <a href="" class="partida__boton">
-                    <i class="fa-thin fa-arrow-right-to-bracket"></i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>Partida bros</td>
-            <td>2/4</td>
-            <td>Alan</td>
-            <td>
-                <a href="" class="partida__boton">
-                    <i class="fa-thin fa-arrow-right-to-bracket"></i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>Partida bros</td>
-            <td>4/4</td>
-            <td>Alan</td>
-            <td>
-                <a href="" class="partida__boton boton__disabled">
-                    <i class="fa-thin fa-arrow-right-to-bracket"></i>
-                </a>
-                <!-- <a href="#" class="partida__boton">Unete</a> -->
             </td>
         </tr>
         </tbody>
@@ -105,12 +72,11 @@
         <i class="fa-solid fa-xmark"></i>
     </a>
     <h2 class="ventana__subtitulo">Crear Partida</h2>
-    <form action="" class="formulario__crear__partida">
+    <form th:action="@{/crearPartida}" class="formulario__crear__partida" method="POST" th:object="${partida}">
         <label for="nombre">Nombre de la partida</label>
-        <input type="text" name="nombre" placeholder="Nombre de la partida" id="nombre">
+        <input type="text" name="nombre" placeholder="Nombre de la partida" th:field="*{nombre}" id="nombre">
         <label for="numero">Numero maximo de jugadores</label>
-        <input type="number" name="numero_jugadores" placeholder="2" id="numero" min="2" max="4">
-
+        <input type="number" name="numero_jugadores" placeholder="2" id="numero" min="2" max="4" th:field="*{numeroJugadores}">
         <button type="submit">Crear</button>
     </form>
 </div>

@@ -46,21 +46,19 @@ public class ControladorLogin {
     }
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
-    public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin2 datosLogin, HttpServletRequest request) {
+    public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin2 datosLogin, HttpSession session) {
         ModelMap model = new ModelMap();
         //Obtengo el usuario
         Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
         System.out.println(usuarioBuscado);
 
-        //Guarda ese usuario en una sesion
-        HttpSession session = request.getSession();
+        if(usuarioBuscado ==null){
+            model.put("error", "Usuario o contraseña incorrectos.");
+            return new ModelAndView("login", model);
+        }
+        //Establezco al usuario logeado en la sesion
         session.setAttribute("usuarioLogeado", usuarioBuscado);
-
-        if(usuarioBuscado != null)
-            return new ModelAndView("redirect:/ir-menu");
-
-        model.put("error", "Usuario o contraseña incorrectos.");
-        return new ModelAndView("login", model);
+        return new ModelAndView("redirect:/ir-menu");
     }
 
     @RequestMapping(path = "/verificar-registro", method = RequestMethod.POST)

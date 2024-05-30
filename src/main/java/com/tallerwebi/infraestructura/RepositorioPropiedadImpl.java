@@ -32,15 +32,6 @@ public class RepositorioPropiedadImpl implements RepositorioPropiedad {
     }
 
     @Override
-    public List<Propiedad> obtenerPropiedadesPorJugadorId(Long jugadorId) {
-        final Session session = sessionFactory.getCurrentSession();
-        return  (List<Propiedad>)session.createCriteria(Propiedad.class)
-                .createAlias("propietario", "j")
-                .add(Restrictions.eq("j.id", jugadorId))
-                .list();
-    }
-
-    @Override
     public Propiedad obtenerPropiedadPorNroCasillero(Integer nroCasiillero) {
         final Session session = sessionFactory.getCurrentSession();
         return (Propiedad) session.createCriteria(Propiedad.class)

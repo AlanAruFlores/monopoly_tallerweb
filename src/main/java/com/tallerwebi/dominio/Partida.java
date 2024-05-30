@@ -20,8 +20,10 @@ public class Partida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String nombre;
+
     @OneToOne
-    private Usuario creadorJugador;
+    private Usuario creador;
 
     private LocalDate fechaApertura;
 
@@ -30,5 +32,7 @@ public class Partida {
 
     @Enumerated(EnumType.STRING)
     private EstadoPartida estadoPartida;
+
+    private Integer numeroJugadores;
 
 }

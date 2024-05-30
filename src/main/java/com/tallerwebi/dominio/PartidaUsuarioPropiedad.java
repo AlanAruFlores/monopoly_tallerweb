@@ -1,23 +1,27 @@
 package com.tallerwebi.dominio;
 
-import javax.persistence.*;
+import jdk.jfr.Unsigned;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Propiedad {
+public class PartidaUsuarioPropiedad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nombre;
-    private String imagen;
-    private Integer precio;
-    private Integer nroCasilla;
+    private Integer id;
 
+    @ManyToOne
+    private Propiedad propiedad;
+
+    //Jugador en la partida
+    @ManyToOne
+    private PartidaUsuario partidaUsuario;
 }

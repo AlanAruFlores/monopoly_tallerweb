@@ -1,6 +1,5 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.Jugador;
 import com.tallerwebi.dominio.Propiedad;
 import com.tallerwebi.dominio.ServicioMonopoly;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
@@ -30,11 +29,7 @@ public class ControladorMonopoly {
         //Obtengo la sesion
         HttpSession session = request.getSession();
         //Obtener Jugador
-        Jugador jugador = servicioMonopoly.obtenerJugadorPorUsuarioId(1L);
-        List<Propiedad> propiedades = servicioMonopoly.obtenerPropiedadesPorJugadorId(jugador.getId());
         //Establezco como valor inicial la casilla
-        session.setAttribute("propiedades", propiedades);
-        session.setAttribute("jugador",jugador);
         ModelMap mp  = new ModelMap();
         mp.put("jugador", session.getAttribute("jugador"));
         mp.put("propiedades", session.getAttribute("propiedades"));
@@ -59,23 +54,7 @@ public class ControladorMonopoly {
     /*Adquirir una propiedad*/
     @RequestMapping("/adquirirPropiedad")
     public ModelAndView adquirirPropiedad(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        Jugador jugador = (Jugador)session.getAttribute("jugador");
-        Propiedad propiedad = (Propiedad)session.getAttribute("propiedad");
-
-        ModelMap mp  = new ModelMap();
-
-        try {
-            this.servicioMonopoly.adquirirPropiedadPorElJugador(jugador, propiedad);
-            List<Propiedad> propiedades = servicioMonopoly.obtenerPropiedadesPorJugadorId(jugador.getId());
-            session.setAttribute("propiedades", propiedades);
-            mp.put("mensaje",propiedad.getNombre()+ " comprada");
-        }catch(SaldoInsuficienteException ex){
-            mp.put("mensaje", jugador.getUsuario().getNombreUsuario()+" no posee saldo suficiente");
-        }
-        mp.put("jugador", jugador);
-        mp.put("propiedades", session.getAttribute("propiedades"));
-        return new ModelAndView("monopoly.html",mp);
+        return null;
     }
 }
 
