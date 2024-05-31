@@ -8,12 +8,11 @@ stompClient.debug = function(str) {
 
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
-    console.log("ID: "+frame.headers['user-name']);
-
     //Estado de escucha
     stompClient.subscribe('/topic/notificacionPartida', (m) => {
         console.log(JSON.parse(m.body).message);
         console.log(m);
+        location.href="http://localhost:8080/spring/partida"
     });
 };
 
@@ -33,7 +32,6 @@ function notificarALosJugadoresDeNuevaPartida(message){
     stompClient.publish({
         destination: "/app/partidaNueva",
         body: JSON.stringify({
-            idEmisor: 0,
             message: message
         })
     });

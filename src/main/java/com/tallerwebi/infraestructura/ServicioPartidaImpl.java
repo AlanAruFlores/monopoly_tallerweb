@@ -1,8 +1,7 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.Partida;
-import com.tallerwebi.dominio.RepositorioPartida;
-import com.tallerwebi.dominio.ServicioPartida;
+import com.tallerwebi.dominio.*;
+import com.tallerwebi.dominio.excepcion.ExcesoDeJugadoresException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +12,14 @@ import java.util.List;
 @Transactional
 public class ServicioPartidaImpl implements ServicioPartida {
     private RepositorioPartida  repositorioPartida;
+    private RepositorioPartidaUsuario repositorioPartidaUsuario;
 
     @Autowired
-    public ServicioPartidaImpl(RepositorioPartida repositorioPartida) {
+    public ServicioPartidaImpl(RepositorioPartida repositorioPartida, RepositorioPartidaUsuario repositorioPartidaUsuario) {
         this.repositorioPartida = repositorioPartida;
+        this.repositorioPartidaUsuario = repositorioPartidaUsuario;
     }
+
 
     @Override
     public void crearUnaPartidaNueva(Partida partida) {
@@ -29,5 +31,23 @@ public class ServicioPartidaImpl implements ServicioPartida {
         return this.repositorioPartida.obtenerPartidas();
     }
 
+    @Override
+    public void unirseAPartida(Long partidaId, Usuario usuario) throws ExcesoDeJugadoresException {
+        /*Verifico la cantidad de jugadores en la partida con su limite*/
+        Partida partidaBuscada = this.repositorioPartida.obtenerPartidaPorId(partidaId);
+        Integer cantidadUsuariosEnLaPartida = this.repositorioPartidaUsuario.obtenerUsuariosEnUnaPartida(partidaId).size();
+
+        if(cantidadUsuariosEnLaPartida >= partidaBuscada.getNumeroJugadores())
+            throw new ExcesoDeJugadoresException();
+
+        PartidaUsuario nuevoUsuarioEnLaPartida = new PartidaUsuario(null,partidaBuscada,usuario,0,1500.0,null);
+        this.repositorioPartidaUsuario.crearPartidaUsuario(nuevoUsuarioEnLaPartida);
+    }
+
+    @Override
+    public List<Usuario> verUsuariosEnlaPartidaEspera(Long partidaId){
+        List<Usuario> usuariosEnLaPartida = this.repositorioPartidaUsuario.obtenerUsuariosEnUnaPartida(partidaId);
+        return  usuariosEnLaPartida;
+    }
 
 }

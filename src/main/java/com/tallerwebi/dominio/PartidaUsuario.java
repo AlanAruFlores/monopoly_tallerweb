@@ -16,8 +16,8 @@ import java.util.List;
 public class PartidaUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
     @OneToOne
     private Partida partida;
 

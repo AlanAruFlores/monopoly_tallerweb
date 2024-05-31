@@ -18,6 +18,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/wspartida");
+        registry.addEndpoint("/wsespera");
         registry.addEndpoint("/wsmonopoly");
     }
 

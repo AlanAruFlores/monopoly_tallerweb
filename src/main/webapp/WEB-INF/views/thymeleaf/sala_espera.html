@@ -12,20 +12,24 @@
 
 <body>
 <header class="header">
-  <img src="imagenes/monopoly.png" class="header__logo">
+  <img th:src="@{/imagenes/monopoly.png}" class="header__logo">
   <h1 class="header__titulo">MONOPOLY</h1>
 </header>
 
 <main class="main sala__espera">
   <h2 class="sala__titulo">PARTIDA BROS</h2>
   <h3 class="sala__subtitulo">SALA DE ESPERA</h3>
-  <div>
+  <div th:each="usuario : ${usuariosConectados}">
+    <div class="sala__jugador">
+      <i class='fa-solid fa-user'></i>
+      <h4 th:text="${usuario.nombreUsuario}"></h4>
+    </div>
+
+    <!--
     <div class="sala__jugador">
       <h4><i class="fa-solid fa-user"></i> ElPro1234</h4>
     </div>
-    <div class="sala__jugador">
-      <h4><i class="fa-solid fa-user"></i> ElMata3000</h4>
-    </div>
+    -->
   </div>
   <a href="" class="sala__boton">
     Empezar
@@ -49,6 +53,7 @@
     <p>Universidad Nacional de la Matanza</p>
   </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+<script th:src="@{/js/webSocketEspera.js}" th:partida-actual-id="${partidaIdActual}"></script>
 </body>
-
 </html>

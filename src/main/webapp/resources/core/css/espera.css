@@ -68,12 +68,10 @@ body{
 }
 .sala__subtitulo{
     color: #fff;
-
 }
 
 .sala__jugador{
     background-color: #fff;
-    margin: 30px 0px;
     padding: 10px 70px;
     border-radius: 10px;
     position: relative;

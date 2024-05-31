@@ -30,4 +30,10 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         final Session session = this.sessionFactory.getCurrentSession();
         return session.createCriteria(Partida.class).list();
     }
+
+    @Override
+    public Partida obtenerPartidaPorId(Long partidaId) {
+        final Session session = this.sessionFactory.getCurrentSession();
+        return session.get(Partida.class, partidaId);
+    }
 }
