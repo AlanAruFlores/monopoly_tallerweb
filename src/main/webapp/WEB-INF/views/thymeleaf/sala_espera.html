@@ -24,16 +24,16 @@
       <i class='fa-solid fa-user'></i>
       <h4 th:text="${usuario.nombreUsuario}"></h4>
     </div>
-
-    <!--
-    <div class="sala__jugador">
-      <h4><i class="fa-solid fa-user"></i> ElPro1234</h4>
-    </div>
-    -->
   </div>
-  <a href="" class="sala__boton">
+
+  <a th:if="${usuarioActual.id == creadorUsuario.id}" id="boton_iniciar_partida" class="sala__boton">
     Empezar
   </a>
+
+  <div th:if="${usuarioActual.id != creadorUsuario.id}">
+    Esperando a que el creador inicie la partida ....
+  </div>
+
 </main>
 
 <footer class="footer">

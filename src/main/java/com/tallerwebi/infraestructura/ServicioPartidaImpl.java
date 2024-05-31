@@ -50,4 +50,17 @@ public class ServicioPartidaImpl implements ServicioPartida {
         return  usuariosEnLaPartida;
     }
 
+
+    @Override
+    public Usuario obtenerCreadoUsuarioDeUnaPartida(Long partidaId){
+        Usuario usuarioCreador= this.repositorioPartida.obtenerPartidaPorId(partidaId).getCreador();
+        return usuarioCreador;
+    }
+
+    @Override
+    public void salirDeLaPartida(Long partidaId, Long usuarioId) {
+        this.repositorioPartidaUsuario.eliminarPartidaUsuarioPorPartidaIdYUsuarioId(partidaId,usuarioId);
+    }
+
+
 }

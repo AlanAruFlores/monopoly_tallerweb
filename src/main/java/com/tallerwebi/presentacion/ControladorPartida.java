@@ -67,19 +67,32 @@ public class ControladorPartida {
     }
 
     @RequestMapping("/espera")
-    public ModelAndView irSalaEspera(@RequestParam("id") Long partidaId){
+    public ModelAndView irSalaEspera(@RequestParam("id") Long partidaId, HttpSession session){
         ModelMap mp = new ModelMap();
         List<Usuario> usuarioEnLaSalaEspera = this.servicioPartida.verUsuariosEnlaPartidaEspera(partidaId);
         mp.put("usuariosConectados",usuarioEnLaSalaEspera);
         mp.put("partidaIdActual",partidaId);
+
+        Usuario creadorUsuario  = this.servicioPartida.obtenerCreadoUsuarioDeUnaPartida(partidaId);
+        mp.put("creadorUsuario", creadorUsuario);
+        mp.put("usuarioActual", session.getAttribute("usuarioLogeado"));
+
+        System.out.println(creadorUsuario);
+        System.out.println((Usuario)session.getAttribute("usuarioLogeado"));
         return new ModelAndView("sala_espera.html", mp);
     }
 
+    @RequestMapping("/salirPartida")
+    public ModelAndView salirPartidaUsuario(@RequestParam("id") Long partidaId, HttpSession session){
+        /*Si quiere salir, lo saco de la sala de espera*/
+        this.servicioPartida.salirDeLaPartida(partidaId,((Usuario)session.getAttribute("usuarioLogeado")).getId());
+        return new ModelAndView("redirect:/ir-menu");
+    }
 
     //WEB SOCKET METODOS
     @MessageMapping("/partidaNueva")
     @SendTo("/topic/notificacionPartida")
-    public String mostrarMensajePartida(MensajeRecibido mensaje) throws Exception {
+    public String notificarCreacionDeNuevaPartida(MensajeRecibido mensaje) throws Exception {
         MensajeEnviado mensajeEnviado = new MensajeEnviado(mensaje.getMessage());
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(mensajeEnviado);
@@ -88,7 +101,16 @@ public class ControladorPartida {
 
     @MessageMapping("/enviarNotificacionSalaEspera")
     @SendTo("/topic/recibirNotificacionSalaEspera")
-    public String mostrarMensajeSalaEspera(MensajeRecibido mensaje) throws Exception {
+    public String notificarUsuarioNuevoEnLaPartida(MensajeRecibido mensaje) throws Exception {
+        MensajeEnviado mensajeEnviado = new MensajeEnviado(mensaje.getMessage());
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(mensajeEnviado);
+        return json;
+    }
+
+    @MessageMapping("/enviarEmpezoJuego")
+    @SendTo("/topic/recibirEmpezoJuego")
+    public String notificarEmpezarElJuego(MensajeRecibido mensaje) throws Exception {
         MensajeEnviado mensajeEnviado = new MensajeEnviado(mensaje.getMessage());
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(mensajeEnviado);
