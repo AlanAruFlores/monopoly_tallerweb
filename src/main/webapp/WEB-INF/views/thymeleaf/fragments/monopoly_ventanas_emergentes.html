@@ -39,8 +39,8 @@
             <div class="chat__mensajes">
             </div>
             <div class="chat__input">
-                <input type="text" name="mensaje">
-                <button type="submit"><i class="fa-regular fa-message"></i></button>
+                <input type="text" name="mensaje" id="inputMensaje">
+                <button type="submit" id="enviarMensaje"><i class="fa-regular fa-message"></i></button>
             </div>
         </div>
     </div>
@@ -68,12 +68,12 @@
             <div class="propiedades__cabecera">
                 <h1>Mis Propiedades</h1>
             </div>
-            <div th:if="${!propiedades.isEmpty()}"  class="propiedades__contenedor">
-                <div th:each="propiedad:${propiedades}">
-                    <img  th:src="@{${propiedad.imagen}}" alt="propiedad">
+            <div th:if="${!usuarioPropiedadesActual.isEmpty()}"  class="propiedades__contenedor">
+                <div th:each="usuarioPropiedad:${usuarioPropiedadesActual}">
+                    <img th:src="@{${usuarioPropiedad.propiedad.imagen}}" alt="propiedad">
                 </div>
             </div>
-            <div th:if="${propiedades.isEmpty()}" class="propiedades__contenedor">
+            <div th:if="${usuarioPropiedadesActual.isEmpty()}" class="propiedades__contenedor">
                 <p class="propiedades__texto">No tiene propiedades</p>
             </div>
         </div>

@@ -89,31 +89,4 @@ public class ControladorPartida {
         return new ModelAndView("redirect:/ir-menu");
     }
 
-    //WEB SOCKET METODOS
-    @MessageMapping("/partidaNueva")
-    @SendTo("/topic/notificacionPartida")
-    public String notificarCreacionDeNuevaPartida(MensajeRecibido mensaje) throws Exception {
-        MensajeEnviado mensajeEnviado = new MensajeEnviado(mensaje.getMessage());
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(mensajeEnviado);
-        return json;
-    }
-
-    @MessageMapping("/enviarNotificacionSalaEspera")
-    @SendTo("/topic/recibirNotificacionSalaEspera")
-    public String notificarUsuarioNuevoEnLaPartida(MensajeRecibido mensaje) throws Exception {
-        MensajeEnviado mensajeEnviado = new MensajeEnviado(mensaje.getMessage());
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(mensajeEnviado);
-        return json;
-    }
-
-    @MessageMapping("/enviarEmpezoJuego")
-    @SendTo("/topic/recibirEmpezoJuego")
-    public String notificarEmpezarElJuego(MensajeRecibido mensaje) throws Exception {
-        MensajeEnviado mensajeEnviado = new MensajeEnviado(mensaje.getMessage());
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(mensajeEnviado);
-        return json;
-    }
 }

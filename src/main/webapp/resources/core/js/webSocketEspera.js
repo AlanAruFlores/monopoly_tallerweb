@@ -34,7 +34,7 @@ stompClient.onConnect = (frame) => {
 
     stompClient.subscribe('/topic/recibirEmpezoJuego', (m) => {
         console.log("Recibiendo ir al monopoly.....");
-        location.href = "http://localhost:8080/spring/monopoly";
+        location.href = "http://localhost:8080/spring/monopoly/?id="+partidaIdActual;
     });
 };
 

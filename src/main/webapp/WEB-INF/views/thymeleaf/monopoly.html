@@ -38,7 +38,6 @@
     <!--Scripts JS para el monopoly-->
     <script>
       /*Extraigo el atributo "posicion" del ModelAndView
-      let posicion = ""+([[${jugador.posicionCasilla}]] + 0);
       */
       let posicion = 0;
 
@@ -60,7 +59,10 @@
     </script>
 
     <script th:src="@{/js/main.js}" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+    <script th:src="@{/js/webSocketChatMonopoly.js}" th:usuario-nombre="${usuarioActual.usuario.nombreUsuario}"></script>
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+
   </body>
 </html>

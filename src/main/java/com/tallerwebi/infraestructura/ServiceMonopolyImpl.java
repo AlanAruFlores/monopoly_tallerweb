@@ -13,16 +13,14 @@ import java.util.Map;
 
 @Service("servicioMonopoly")
 @Transactional
-public class ServiceMonopolyImpl  implements ServicioMonopoly{
-
-    private RepositorioPropiedad repositorioPropiedad;
+public class ServiceMonopolyImpl implements ServicioMonopoly{
+    private RepositorioPartidaUsuario repositorioPartidaUsuario;
 
     /*Enlace de Dados y Su numero*/
     Map<Integer, String> mapaDado = new HashMap<Integer, String>();
-
     @Autowired
-    public ServiceMonopolyImpl(RepositorioPropiedad repositorioPropiedad) {
-        this.repositorioPropiedad = repositorioPropiedad;
+    public ServiceMonopolyImpl(RepositorioPartidaUsuario repositorioPartidaUsuario) {
+        this.repositorioPartidaUsuario = repositorioPartidaUsuario;
 
         /*Llenamos datos al mapa */
         mapaDado.put(1,"/imagenes/dados/dado1.png");
@@ -33,11 +31,22 @@ public class ServiceMonopolyImpl  implements ServicioMonopoly{
         mapaDado.put(6,"/imagenes/dados/dado6.png");
     }
 
+
     @Override
     public void obtenerPosicionCasillero(HttpSession session) {
         Integer numeroRandom = (int) (1 + (Math.random() * (6 - 1)));
         if(numeroRandom > 20){
             numeroRandom = (numeroRandom-20) ;
         }
+    }
+
+    @Override
+    public List<PartidaUsuario> obtenerTodosLosUsuariosJugandoEnLaPartidaId(Long partidaId) {
+        return this.repositorioPartidaUsuario.obtenerPartidasUsuariosEnlaPartidaId(partidaId);
+    }
+
+    @Override
+    public PartidaUsuario obtenerUsuarioPartidaPorPartidaIdYUsuarioId(Long partidaId, Long usuarioId) {
+        return this.repositorioPartidaUsuario.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId,usuarioId);
     }
 }

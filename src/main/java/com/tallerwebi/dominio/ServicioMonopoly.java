@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface ServicioMonopoly {
     public void obtenerPosicionCasillero(HttpSession session);
+    public List<PartidaUsuario> obtenerTodosLosUsuariosJugandoEnLaPartidaId(Long partidaId);
+    public PartidaUsuario obtenerUsuarioPartidaPorPartidaIdYUsuarioId(Long partidaId, Long usuarioId);
 }

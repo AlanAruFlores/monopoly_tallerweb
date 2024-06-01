@@ -7,12 +7,10 @@
 <body>
     <div th:fragment="tablero_perfiles">
         <div class="perfil">
-            <img th:src="@{imagenes/foto_perfil.jpg}" alt="foto" class="perfil__foto">
-            <!--
-                <p th:text="${jugador.usuario.nombreUsuario}+':$'+${jugador.saldo}"></p>
-            -->
-        </div>
+            <img th:src="@{/imagenes/foto_perfil.jpg}" alt="foto" class="perfil__foto">
 
+            <p th:text="${usuarioActual.usuario.nombreUsuario}+':$'+${usuarioActual.saldo}"></p>
+        </div>
     </div>
 </body>
 </html>

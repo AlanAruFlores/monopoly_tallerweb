@@ -18,16 +18,16 @@ public class PartidaUsuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private Partida partida;
 
-    @OneToOne
+    @ManyToOne
     private Usuario usuario;
 
     private Integer posicionCasilla;
     private Double saldo;
 
-    @OneToMany(mappedBy = "propiedad")
+    @OneToMany(mappedBy = "partidaUsuario", fetch = FetchType.EAGER)
     private List<PartidaUsuarioPropiedad> propiedades;
 
 }

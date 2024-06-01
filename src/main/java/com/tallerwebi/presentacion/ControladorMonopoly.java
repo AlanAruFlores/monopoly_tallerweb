@@ -1,12 +1,12 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.Propiedad;
-import com.tallerwebi.dominio.ServicioMonopoly;
+import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,14 +25,20 @@ public class ControladorMonopoly {
 
     /*Ir al inicio del monopoly*/
     @RequestMapping("/monopoly")
-    public ModelAndView showMonopolyPage(HttpServletRequest request) {
-        //Obtengo la sesion
-        HttpSession session = request.getSession();
-        //Obtener Jugador
-        //Establezco como valor inicial la casilla
+    public ModelAndView irAlMonopoly(@RequestParam("id") Long partidaId, HttpSession session) {
         ModelMap mp  = new ModelMap();
-        mp.put("jugador", session.getAttribute("jugador"));
-        mp.put("propiedades", session.getAttribute("propiedades"));
+        List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
+        PartidaUsuario usuarioActual = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
+
+        List<PartidaUsuarioPropiedad> propiedadesUsuarioActual = usuarioActual.getPropiedades();
+
+        System.out.println(usuariosJugando);
+        System.out.println(usuarioActual);
+        System.out.println("PROPIEDADES:: "+propiedadesUsuarioActual);
+
+        mp.put("usuariosJugando", usuariosJugando);
+        mp.put("usuarioActual", usuarioActual);
+        mp.put("usuarioPropiedadesActual", propiedadesUsuarioActual);
         return new ModelAndView("monopoly.html",mp);
     }
 
