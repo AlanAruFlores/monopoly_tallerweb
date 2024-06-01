@@ -11,6 +11,7 @@ import java.util.List;
 @Service("servicioPartida")
 @Transactional
 public class ServicioPartidaImpl implements ServicioPartida {
+
     private RepositorioPartida  repositorioPartida;
     private RepositorioPartidaUsuario repositorioPartidaUsuario;
 
@@ -40,7 +41,20 @@ public class ServicioPartidaImpl implements ServicioPartida {
         if(cantidadUsuariosEnLaPartida >= partidaBuscada.getNumeroJugadores())
             throw new ExcesoDeJugadoresException();
 
-        PartidaUsuario nuevoUsuarioEnLaPartida = new PartidaUsuario(null,partidaBuscada,usuario,0,1500.0,null);
+        /*Evaluo el color que le pondremos al auto*/
+
+        List<Color> coloresUsadosPorUsuarios = this.repositorioPartidaUsuario.obtenerColoresJugadoresUsuados(partidaId);
+        Color[] coloresDisponibles = Color.values();
+
+        Color colorSeleccionado = null;
+        for(Color c: coloresDisponibles){
+            if(!coloresUsadosPorUsuarios.contains(c)){
+                colorSeleccionado = c;
+                break;
+            }
+        }
+
+        PartidaUsuario nuevoUsuarioEnLaPartida = new PartidaUsuario(null,partidaBuscada,usuario,1,1500.0,colorSeleccionado,null);
         this.repositorioPartidaUsuario.crearPartidaUsuario(nuevoUsuarioEnLaPartida);
     }
 

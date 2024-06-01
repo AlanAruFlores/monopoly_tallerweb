@@ -33,18 +33,4 @@ public class Usuario {
         this.nombreUsuario = nombreUsuario;
         this.repitePassword = repitePassword;
     }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", repitePassword='" + repitePassword + '\'' +
-                ", nombreUsuario='" + nombreUsuario + '\'' +
-                ", victorias=" + victorias +
-                '}';
-    }
 }

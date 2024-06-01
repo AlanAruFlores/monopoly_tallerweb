@@ -36,28 +36,8 @@
     <div th:replace="fragments/monopoly_ventanas_emergentes :: tablero_ventanas_emergentes"></div>
 
     <!--Scripts JS para el monopoly-->
-    <script>
-      /*Extraigo el atributo "posicion" del ModelAndView
-      */
-      let posicion = 0;
 
-      /*Ubico al jugador en el casillero*/
-      let casilla = document.getElementById(posicion);
-      /*Creo al jugador con sus divs correspondientes*/
-      const jugadorElemento = document.createElement("div");
-      jugadorElemento.classList.add("jugador");
-      jugadorElemento.innerHTML = `
-             <div class="rueda rueda1"></div>
-                <div class="rueda rueda2"></div>
-                <div class="rueda rueda3"></div>
-                <div class="rueda rueda4"></div>
-                <div class="techo">
-             </div>
-      `;
-      /*Lo inserto en dentro de la casilla*/
-      casilla.insertAdjacentElement("beforeend", jugadorElemento);
-    </script>
-
+    <script th:src="@{/js/jugador.js}" th:jugadores="${usuariosJSON}"></script>
     <script th:src="@{/js/main.js}" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
     <script th:src="@{/js/webSocketChatMonopoly.js}" th:usuario-nombre="${usuarioActual.usuario.nombreUsuario}"></script>

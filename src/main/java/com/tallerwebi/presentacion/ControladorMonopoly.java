@@ -1,5 +1,7 @@
 package com.tallerwebi.presentacion;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ public class ControladorMonopoly {
 
     /*Ir al inicio del monopoly*/
     @RequestMapping("/monopoly")
-    public ModelAndView irAlMonopoly(@RequestParam("id") Long partidaId, HttpSession session) {
+    public ModelAndView irAlMonopoly(@RequestParam("id") Long partidaId, HttpSession session) throws JsonProcessingException {
         ModelMap mp  = new ModelMap();
         List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
         PartidaUsuario usuarioActual = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
@@ -36,7 +38,10 @@ public class ControladorMonopoly {
         System.out.println(usuarioActual);
         System.out.println("PROPIEDADES:: "+propiedadesUsuarioActual);
 
+
+        ObjectMapper jackson = new ObjectMapper();
         mp.put("usuariosJugando", usuariosJugando);
+        mp.put("usuariosJSON",jackson.writeValueAsString(usuariosJugando));
         mp.put("usuarioActual", usuarioActual);
         mp.put("usuarioPropiedadesActual", propiedadesUsuarioActual);
         return new ModelAndView("monopoly.html",mp);

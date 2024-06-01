@@ -10,5 +10,6 @@ public interface RepositorioPartidaUsuario {
     public List<Usuario> obtenerUsuariosEnUnaPartida(Long partidaId);
     public List<PartidaUsuario> obtenerPartidasUsuariosEnlaPartidaId(Long partidaId);
     public PartidaUsuario obtenerUsuarioPartidaPorPartidaIdYUsuarioId(Long partidaId, Long usuarioId);
+    public List<Color> obtenerColoresJugadoresUsuados(Long partidaId);
 }
 

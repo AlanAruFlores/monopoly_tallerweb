@@ -27,6 +27,9 @@ public class PartidaUsuario {
     private Integer posicionCasilla;
     private Double saldo;
 
+    @Enumerated(EnumType.STRING)
+    private Color colorUsuario;
+
     @OneToMany(mappedBy = "partidaUsuario", fetch = FetchType.EAGER)
     private List<PartidaUsuarioPropiedad> propiedades;
 

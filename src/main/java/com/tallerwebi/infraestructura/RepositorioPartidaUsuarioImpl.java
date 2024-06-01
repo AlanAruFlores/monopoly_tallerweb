@@ -1,9 +1,6 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.Partida;
-import com.tallerwebi.dominio.PartidaUsuario;
-import com.tallerwebi.dominio.RepositorioPartidaUsuario;
-import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projection;
@@ -57,6 +54,16 @@ public class RepositorioPartidaUsuarioImpl implements RepositorioPartidaUsuario 
                 .add(Restrictions.eq("p.id", partidaId))
                 .add(Restrictions.eq("u.id",usuarioId))
                 .uniqueResult();
+    }
+
+    @Override
+    public List<Color> obtenerColoresJugadoresUsuados(Long partidaId) {
+        final Session session = this.sessionFactory.getCurrentSession();
+        return session.createCriteria(PartidaUsuario.class)
+                .createAlias("partida", "p")
+                .add(Restrictions.eq("p.id", partidaId))
+                .setProjection(Projections.property("colorUsuario"))
+                .list();
     }
 
 

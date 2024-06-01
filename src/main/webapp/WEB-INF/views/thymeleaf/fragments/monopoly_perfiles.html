@@ -6,7 +6,7 @@
 </head>
 <body>
     <div th:fragment="tablero_perfiles">
-        <div class="perfil">
+        <div class="perfil" th:style="'background-color:' + ${usuarioActual.colorUsuario.getCodigoHexadecimal()} + ';'">
             <img th:src="@{/imagenes/foto_perfil.jpg}" alt="foto" class="perfil__foto">
 
             <p th:text="${usuarioActual.usuario.nombreUsuario}+':$'+${usuarioActual.saldo}"></p>
