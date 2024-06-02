@@ -17,7 +17,7 @@
 </header>
 
 <main class="main sala__espera">
-  <h2 class="sala__titulo">PARTIDA BROS</h2>
+  <h2 class="sala__titulo" th:text="'PARTIDA: '+${partidaActual.nombre}"></h2>
   <h3 class="sala__subtitulo">SALA DE ESPERA</h3>
   <div th:each="usuario : ${usuariosConectados}">
     <div class="sala__jugador">
@@ -40,11 +40,11 @@
   <div class="footer__div">
     <h2 class="footer__titulo">MONOPOLY</h2>
     <h3 class="footer__subtitulo">Integrantes</h3>
-    <p>Integrante 1</p>
-    <p>Integrante 2</p>
-    <p>Integrante 3</p>
-    <p>Integrante 4</p>
-    <p>Integrante 5</p>
+    <p>Gavagnin Lucas Daniel</p>
+    <p>Pessino Milagros</p>
+    <p>Aruquipa Alan</p>
+    <p>Vargas Mariano Luis</p>
+    <p>Vargas Franco</p>
   </div>
   <div class="footer__div">
     <h3 class="footer__subtitulo">Materia</h3>
@@ -54,6 +54,6 @@
   </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
-<script th:src="@{/js/webSocketEspera.js}" th:partida-actual-id="${partidaIdActual}"></script>
+<script th:src="@{/js/webSocketEspera.js}" th:partida-actual-id="${partidaActual.id}"></script>
 </body>
 </html>

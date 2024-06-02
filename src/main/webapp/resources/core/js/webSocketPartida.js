@@ -38,15 +38,12 @@ function notificarALosJugadoresDeNuevaPartida(message){
 }
 
 /*Funcion que capta eventos en Javascript*/
-const d = document;
-d.addEventListener("DOMContentLoaded", ()=>{
-    d.addEventListener("click", (e)=>{
-        /*Cuando presione en partida boton*/
-        if(e.target.matches("#botonCrearPartida")){
-            notificarALosJugadoresDeNuevaPartida("Partida Nueva!!")
-        }
-    })
-});
+document.addEventListener("click", (e)=>{
+    /*Cuando presione en partida boton*/
+    if(e.target.matches("#botonCrearPartida")){
+        notificarALosJugadoresDeNuevaPartida("Partida Nueva!!")
+    }
+})
 
 
 

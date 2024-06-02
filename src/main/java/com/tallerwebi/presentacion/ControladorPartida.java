@@ -30,14 +30,13 @@ public class ControladorPartida {
 
     /*Voy a la pantalla de partidas*/
     @RequestMapping("/partida")
-    public ModelAndView irPartida(HttpSession session){
+    public ModelAndView irPartida(){
         ModelMap mp = new ModelMap();
         //Obtengo las partidas para mostrarlos a los jugadores
         List<Partida> partidasCreadas = this.servicioPartida.obtenerTodasLasPartidas();
 
         mp.put("partida", new Partida());
         mp.put("partidasCreadas",partidasCreadas);
-
         return new ModelAndView("partidas.html", mp);
     }
 
@@ -60,7 +59,8 @@ public class ControladorPartida {
     public ModelAndView unirseAUnaPartida(@RequestParam("id") Long partidaId, HttpSession session) throws ExcesoDeJugadoresException {
         try{
             servicioPartida.unirseAPartida(partidaId,(Usuario)session.getAttribute("usuarioLogeado"));
-            /*Establezco en la session que el jugador ya esta en una partida unida*/
+
+            /*Establezco en la session la partida en la que se unio*/
             session.setAttribute("partidaEnJuego", this.servicioPartida.obtenerPartidaPorPartidaId(partidaId));
         }catch(ExcesoDeJugadoresException ex){
             ModelMap mp = new ModelMap();
@@ -68,22 +68,22 @@ public class ControladorPartida {
             return new ModelAndView("redirect:/partida",mp);
         }
 
-        return new ModelAndView("redirect:/espera/?id="+partidaId);
+        return new ModelAndView("redirect:/espera");
     }
 
     @RequestMapping("/espera")
-    public ModelAndView irSalaEspera(@RequestParam("id") Long partidaId, HttpSession session){
+    public ModelAndView irSalaEspera(HttpSession session){
         ModelMap mp = new ModelMap();
-        List<Usuario> usuarioEnLaSalaEspera = this.servicioPartida.verUsuariosEnlaPartidaEspera(partidaId);
-        mp.put("usuariosConectados",usuarioEnLaSalaEspera);
-        mp.put("partidaIdActual",partidaId);
+        Partida partidaEnJuego = (Partida) session.getAttribute("partidaEnJuego");
 
-        Usuario creadorUsuario  = this.servicioPartida.obtenerCreadoUsuarioDeUnaPartida(partidaId);
+        List<Usuario> usuarioEnLaSalaEspera = this.servicioPartida.verUsuariosEnlaPartidaEspera(partidaEnJuego.getId());
+        mp.put("usuariosConectados",usuarioEnLaSalaEspera);
+        mp.put("partidaActual",partidaEnJuego);
+
+        Usuario creadorUsuario  = this.servicioPartida.obtenerCreadoUsuarioDeUnaPartida(partidaEnJuego.getId());
         mp.put("creadorUsuario", creadorUsuario);
         mp.put("usuarioActual", session.getAttribute("usuarioLogeado"));
 
-        System.out.println(creadorUsuario);
-        System.out.println((Usuario)session.getAttribute("usuarioLogeado"));
         return new ModelAndView("sala_espera.html", mp);
     }
 
