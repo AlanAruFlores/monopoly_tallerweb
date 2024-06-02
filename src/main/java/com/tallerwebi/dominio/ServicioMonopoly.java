@@ -9,7 +9,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface ServicioMonopoly {
-    public void obtenerPosicionCasillero(HttpSession session);
+    public void moverJugadorAlCasillero(PartidaUsuario usuarioAMover,HttpSession session);
+    public void hacerCambioTurno(PartidaUsuario partidaUsuario,Partida partidaEnJuego);
     public List<PartidaUsuario> obtenerTodosLosUsuariosJugandoEnLaPartidaId(Long partidaId);
     public PartidaUsuario obtenerUsuarioPartidaPorPartidaIdYUsuarioId(Long partidaId, Long usuarioId);
+    public Partida obtenerPartidaPorPartidaId(Long partidaId);
 }

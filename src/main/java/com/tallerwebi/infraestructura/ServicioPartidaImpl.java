@@ -33,6 +33,11 @@ public class ServicioPartidaImpl implements ServicioPartida {
     }
 
     @Override
+    public Partida obtenerPartidaPorPartidaId(Long partidaId) {
+        return this.repositorioPartida.obtenerPartidaPorId(partidaId);
+    }
+
+    @Override
     public void unirseAPartida(Long partidaId, Usuario usuario) throws ExcesoDeJugadoresException {
         /*Verifico la cantidad de jugadores en la partida con su limite*/
         Partida partidaBuscada = this.repositorioPartida.obtenerPartidaPorId(partidaId);

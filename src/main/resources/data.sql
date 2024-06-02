@@ -4,7 +4,8 @@ INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario) 
 INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario) VALUES(3,"juan","juan","juan@gmail.com","juan1234",0,"juanceto07");
 
 /*INSERT PARTIDA (PRUEBA)*/
-INSERT INTO partida(id,estadoPartida,fechaApertura,nombre,numeroJugadores,creador_id,turnoJugador_id) values (1,"ABIERTA",CURDATE(),"ASDpartida",3,1,null);
+INSERT INTO partida(id,estadoPartida,fechaApertura,nombre,numeroJugadores,creador_id,turnoJugador_id) values (1,"ABIERTA",CURDATE(),"ASDpartida",3,1,1);
+
 /*INSERCION DE LAS PROPIEDADES (no eliminar)*/
 /*CASAS CELESTES Y SU TREN*/
 insert into propiedad(nombre,imagen,precio,nroCasilla) values("Calle Balcarce", "/imagenes/propiedades/celeste/balcarce.png",100,2);

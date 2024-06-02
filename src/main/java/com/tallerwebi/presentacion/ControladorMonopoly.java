@@ -29,6 +29,7 @@ public class ControladorMonopoly {
     @RequestMapping("/monopoly")
     public ModelAndView irAlMonopoly(@RequestParam("id") Long partidaId, HttpSession session) throws JsonProcessingException {
         ModelMap mp  = new ModelMap();
+
         List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
         PartidaUsuario usuarioActual = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
 
@@ -38,22 +39,39 @@ public class ControladorMonopoly {
         System.out.println(usuarioActual);
         System.out.println("PROPIEDADES:: "+propiedadesUsuarioActual);
 
+        Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(partidaId);
 
         ObjectMapper jackson = new ObjectMapper();
+        mp.put("partidaEnJuego",partidaEnJuego);
+        mp.put("dado", session.getAttribute("dado"));
+
         mp.put("usuariosJugando", usuariosJugando);
         mp.put("usuariosJSON",jackson.writeValueAsString(usuariosJugando));
         mp.put("usuarioActual", usuarioActual);
         mp.put("usuarioPropiedadesActual", propiedadesUsuarioActual);
+
+        /*Remuevo el atributo para que no aparezca 2 o más veces*/
+        session.removeAttribute("dado");
+
         return new ModelAndView("monopoly.html",mp);
     }
 
-    /*Mover el jugador*/
+    @RequestMapping("/moverJugador")
+    public ModelAndView moverJugador(@RequestParam("id")Long idPartida,HttpSession session){
+        PartidaUsuario  usuarioQuienTiro = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(idPartida, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
+        Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(idPartida);
+        this.servicioMonopoly.moverJugadorAlCasillero(usuarioQuienTiro,session);
+        this.servicioMonopoly.hacerCambioTurno(usuarioQuienTiro,partidaEnJuego);
+        return new ModelAndView("redirect:/monopoly/?id="+partidaEnJuego.getId());
+    }
+
+    /*Mover el jugador
     @RequestMapping("/moverJugador")
     public ModelAndView moverJugador(HttpServletRequest request){
         HttpSession session = request.getSession();
         this.servicioMonopoly.obtenerPosicionCasillero(session);
         ModelMap mp = new ModelMap();
-        /*Establezco la posicion , imagen del dado y la aparicion de la ventana emergente*/
+        /*Establezco la posicion , imagen del dado y la aparicion de la ventana emergente
         mp.put("jugador", session.getAttribute("jugador"));
         mp.put("propiedad", session.getAttribute("propiedad"));
         mp.put("propiedades", session.getAttribute("propiedades"));
@@ -61,6 +79,8 @@ public class ControladorMonopoly {
         mp.put("dado",session.getAttribute("dado"));
         return new ModelAndView("monopoly.html",mp);
     }
+
+    */
 
     /*Adquirir una propiedad*/
     @RequestMapping("/adquirirPropiedad")

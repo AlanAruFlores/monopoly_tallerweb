@@ -1,5 +1,5 @@
-console.log(document.currentScript.getAttribute("usuario-nombre"));
 const usuarioNombre = document.currentScript.getAttribute("usuario-nombre");
+const partidaIdActual = document.currentScript.getAttribute("partida-id");
 
 const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/spring/wsmonopolychat'
@@ -13,10 +13,14 @@ const chatMensajesElem = document.querySelector('.chat__mensajes');
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
 
-    //Estado de escucha
+    //Estado de escucha del chat
     stompClient.subscribe('/topic/recibirMensajeChat', (m) => {
         chatMensajesElem.innerHTML += `<p>${JSON.parse(m.body).message}</p>`;
     });
+
+    stompClient.subscribe('/topic/recibirActualizacionDeTablero',(m)=>{
+        location.href="http://localhost:8080/spring/monopoly/?id="+partidaIdActual;
+    })
 };
 
 stompClient.onWebSocketError = (error) => {
@@ -30,7 +34,7 @@ stompClient.onStompError = (frame) => {
 stompClient.activate();
 
 
-
+/*Enviar Mensaje por el chat*/
 function enviarMensaje(message){
     stompClient.publish({
         destination: "/app/enviarMensajeChat",
@@ -38,6 +42,18 @@ function enviarMensaje(message){
             message: message
         })
     });
+}
+
+/*Notificar movimiento*/
+function enviarNotificacionMovimiento(message){
+    stompClient.publish(
+        {
+            destination: "/app/enviarActualizacionDeTablero",
+            body: JSON.stringify({
+                message: message
+            })
+        }
+    )
 }
 
 /*Funcion que capta eventos en Javascript*/
@@ -49,6 +65,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
             enviarMensaje(usuarioNombre+":"+inputElem.value);
             inputElem.value="";
         }
+
+        if(e.target.matches("#aceptar_dado") || e.target.matches("#aceptar_dado *")){
+            enviarNotificacionMovimiento("Movimiento hecho");
+        }
+
     })
 });
 

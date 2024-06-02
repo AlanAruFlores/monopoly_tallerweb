@@ -1,10 +1,8 @@
 /*Extraigo el atributo "posicion" del ModelAndView
 */
-let posicion = 1;
 let arrJugadoresJugando = JSON.parse(document.currentScript.getAttribute("jugadores"));
 console.log(arrJugadoresJugando);
-/*Ubico al jugador en el casillero*/
-let casilla = document.getElementById(posicion);
+
 /*Creo a los jugadores con sus divs correspondientes*/
 let indiceJugador =  1;
 for(const jugadorItem of arrJugadoresJugando){
@@ -12,7 +10,10 @@ for(const jugadorItem of arrJugadoresJugando){
 }
 
 function ubicarJugador(jugador){
-    console.log(jugador);
+    /*Ubico al jugador en el casillero*/
+    posicion = jugador.posicionCasilla;
+    casilla = document.getElementById(posicion);
+
     const jugadorElemento = document.createElement("div");
     jugadorElemento.classList.add("jugador");
     jugadorElemento.setAttribute("id", "jugador"+indiceJugador);

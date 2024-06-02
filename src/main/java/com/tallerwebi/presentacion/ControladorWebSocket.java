@@ -42,6 +42,17 @@ public class ControladorWebSocket {
 
     /*Web socket para el chat en el juego del monopoly*/
 
+    //Para actualizar los tableros
+    @MessageMapping("/enviarActualizacionDeTablero")
+    @SendTo("/topic/recibirActualizacionDeTablero")
+    public String recibirActualizacionDeTablero(MensajeEnviado mensaje) throws Exception {
+        MensajeEnviado mensajeEnviado = new MensajeEnviado(mensaje.getMessage());
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(mensajeEnviado);
+        return json;
+    }
+
+    //Para el chat
     @MessageMapping("/enviarMensajeChat")
     @SendTo("/topic/recibirMensajeChat")
     public String recibirEnviarMensajeEnElChat(MensajeEnviado mensaje) throws Exception {

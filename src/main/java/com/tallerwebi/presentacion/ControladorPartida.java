@@ -48,6 +48,9 @@ public class ControladorPartida {
         partida.setFechaApertura(LocalDate.now());
         partida.setEstadoPartida(EstadoPartida.ABIERTA);
 
+        /*El primer turno va a ser del jugador quien creo la partida*/
+        partida.setTurnoJugador((Usuario) session.getAttribute("usuarioLogeado"));
+
         this.servicioPartida.crearUnaPartidaNueva(partida);
         return new ModelAndView("redirect:/partida",new ModelMap());
     }
@@ -57,6 +60,8 @@ public class ControladorPartida {
     public ModelAndView unirseAUnaPartida(@RequestParam("id") Long partidaId, HttpSession session) throws ExcesoDeJugadoresException {
         try{
             servicioPartida.unirseAPartida(partidaId,(Usuario)session.getAttribute("usuarioLogeado"));
+            /*Establezco en la session que el jugador ya esta en una partida unida*/
+            session.setAttribute("partidaEnJuego", this.servicioPartida.obtenerPartidaPorPartidaId(partidaId));
         }catch(ExcesoDeJugadoresException ex){
             ModelMap mp = new ModelMap();
             mp.put("mensaje", "No puede entrar a la partida, ya esta lleno");

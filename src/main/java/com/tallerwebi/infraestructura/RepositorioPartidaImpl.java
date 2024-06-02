@@ -5,6 +5,7 @@ import com.tallerwebi.dominio.Propiedad;
 import com.tallerwebi.dominio.RepositorioPartida;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,14 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
     }
 
     @Override
+    public void actualizarPartida(Partida partida) {
+        final Session session = this.sessionFactory.getCurrentSession();
+        Partida partidaPersistida = session.get(Partida.class, partida.getId());
+        partidaPersistida.setTurnoJugador(partida.getTurnoJugador());
+        session.update(partidaPersistida);
+    }
+
+    @Override
     public List<Partida> obtenerPartidas() {
         final Session session = this.sessionFactory.getCurrentSession();
         return session.createCriteria(Partida.class).list();
@@ -34,6 +43,8 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
     @Override
     public Partida obtenerPartidaPorId(Long partidaId) {
         final Session session = this.sessionFactory.getCurrentSession();
-        return session.get(Partida.class, partidaId);
+        return (Partida) session.createCriteria(Partida.class)
+                .add(Restrictions.eq("id",partidaId))
+                .uniqueResult();
     }
 }
