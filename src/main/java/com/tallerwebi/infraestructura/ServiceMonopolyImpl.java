@@ -48,8 +48,16 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     @Override
     public void moverJugadorAlCasillero(PartidaUsuario usuarioAMover,HttpSession session){
         Integer posicionObtenida = obtenerPosicionCasillero(usuarioAMover.getPosicionCasilla(),session);
+        //Determino si piso en alguna propiedad
+
+        //Establezco su posicion
         usuarioAMover.setPosicionCasilla(posicionObtenida);
         this.repositorioPartidaUsuario.actualizarPartidaUsuario(usuarioAMover);
+    }
+
+    private Propiedad determinarSiPisoEnAlgunaPropiedadDisponible(Integer posicionDelUsuario){
+        
+        return null;
     }
 
     @Override

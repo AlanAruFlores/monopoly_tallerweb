@@ -54,6 +54,8 @@ public class ControladorMonopoly {
         PartidaUsuario  usuarioQuienTiro = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(idPartida, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
         Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(idPartida);
         this.servicioMonopoly.moverJugadorAlCasillero(usuarioQuienTiro,session);
+
+
         this.servicioMonopoly.hacerCambioTurno(usuarioQuienTiro,partidaEnJuego);
         return new ModelAndView("redirect:/monopoly/?id="+partidaEnJuego.getId());
     }
