@@ -38,6 +38,7 @@ public class ControladorMonopoly {
         ObjectMapper jackson = new ObjectMapper();
 
         mp.put("partidaEnJuego",partidaEnJuego);
+        mp.put("propiedad",session.getAttribute("propiedad"));
         mp.put("dado", session.getAttribute("dado"));
         mp.put("usuariosJugando", usuariosJugando);
         mp.put("usuariosJSON",jackson.writeValueAsString(usuariosJugando));
@@ -46,7 +47,13 @@ public class ControladorMonopoly {
 
         /*Remuevo el atributo para que no aparezca 2 o más veces*/
         session.removeAttribute("dado");
+        session.removeAttribute("propiedad");
+
         return new ModelAndView("monopoly.html",mp);
+    }
+    @RequestMapping("/aceptarDado")
+    public void aceptarDado(HttpSession session){
+        session.removeAttribute("dado");
     }
 
     @RequestMapping("/moverJugador")
@@ -54,8 +61,6 @@ public class ControladorMonopoly {
         PartidaUsuario  usuarioQuienTiro = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(idPartida, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
         Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(idPartida);
         this.servicioMonopoly.moverJugadorAlCasillero(usuarioQuienTiro,session);
-
-
         this.servicioMonopoly.hacerCambioTurno(usuarioQuienTiro,partidaEnJuego);
         return new ModelAndView("redirect:/monopoly/?id="+partidaEnJuego.getId());
     }
@@ -66,6 +71,7 @@ public class ControladorMonopoly {
     public ModelAndView adquirirPropiedad(HttpServletRequest request){
         return null;
     }
+
 }
 
 

@@ -8,22 +8,25 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service("servicioMonopoly")
 @Transactional
 public class ServiceMonopolyImpl implements ServicioMonopoly{
     private RepositorioPartidaUsuario repositorioPartidaUsuario;
     private RepositorioPartida repositorioPartida;
-
+    private RepositorioPropiedad repositorioPropiedad;
     /*Enlace de Dados y Su numero*/
     Map<Integer, String> mapaDado = new HashMap<Integer, String>();
     @Autowired
-    public ServiceMonopolyImpl(RepositorioPartidaUsuario repositorioPartidaUsuario, RepositorioPartida repositorioPartida) {
+    public ServiceMonopolyImpl(RepositorioPartidaUsuario repositorioPartidaUsuario, RepositorioPartida repositorioPartida, RepositorioPropiedad repositorioPropiedad) {
         this.repositorioPartidaUsuario = repositorioPartidaUsuario;
         this.repositorioPartida = repositorioPartida;
+        this.repositorioPropiedad = repositorioPropiedad;
 
         /*Llenamos datos al mapa */
         mapaDado.put(1,"/imagenes/dados/dado1.png");
@@ -49,15 +52,33 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     public void moverJugadorAlCasillero(PartidaUsuario usuarioAMover,HttpSession session){
         Integer posicionObtenida = obtenerPosicionCasillero(usuarioAMover.getPosicionCasilla(),session);
         //Determino si piso en alguna propiedad
-
+        Propiedad propiedadEnLaCasilla = determinarSiPisoEnAlgunaPropiedadDisponible(posicionObtenida, usuarioAMover.getPartida());
+        if(propiedadEnLaCasilla != null)
+            session.setAttribute("propiedad",propiedadEnLaCasilla);
         //Establezco su posicion
         usuarioAMover.setPosicionCasilla(posicionObtenida);
         this.repositorioPartidaUsuario.actualizarPartidaUsuario(usuarioAMover);
     }
 
-    private Propiedad determinarSiPisoEnAlgunaPropiedadDisponible(Integer posicionDelUsuario){
-        
-        return null;
+    private Propiedad determinarSiPisoEnAlgunaPropiedadDisponible(Integer posicionDelUsuario,Partida partidaEnJuego){
+        //Obtengo la propiedad
+        Propiedad propiedadEnLaCasilla  = this.repositorioPropiedad.obtenerPropiedadPorNroCasillero(posicionDelUsuario);
+
+        //Obtengo las propiedades de todos los jugadores dentro de una partida
+        List<PartidaUsuario> usuariosEnLaPartida = this.repositorioPartidaUsuario.obtenerPartidasUsuariosEnlaPartidaId(partidaEnJuego.getId());
+        List<PartidaUsuarioPropiedad> partidaUsuarioPropiedades = new ArrayList<PartidaUsuarioPropiedad>();
+        usuariosEnLaPartida.forEach(up -> partidaUsuarioPropiedades.addAll(up.getPropiedades()));
+
+        List<Propiedad> propiedadesNoDisponibles  = partidaUsuarioPropiedades
+                .stream()
+                .map(pup->pup.getPropiedad())
+                .collect(Collectors.toList());
+
+        //Verifico si esta disponible
+        if(propiedadesNoDisponibles.contains(propiedadEnLaCasilla))
+            return null;
+
+        return propiedadEnLaCasilla;
     }
 
     @Override

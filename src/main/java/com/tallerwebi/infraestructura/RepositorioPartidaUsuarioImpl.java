@@ -70,7 +70,11 @@ public class RepositorioPartidaUsuarioImpl implements RepositorioPartidaUsuario 
     @Override
     public void actualizarPartidaUsuario(PartidaUsuario partidaUsuario) {
         final Session session = this.sessionFactory.getCurrentSession();
-        session.update(partidaUsuario);
+        PartidaUsuario partidaUsuarioPersistida = session.get(PartidaUsuario.class,partidaUsuario.getId());
+        partidaUsuarioPersistida.setPosicionCasilla(partidaUsuario.getPosicionCasilla());
+        partidaUsuarioPersistida.setPropiedades(partidaUsuario.getPropiedades());
+        partidaUsuarioPersistida.setSaldo(partidaUsuario.getSaldo());
+        session.update(partidaUsuarioPersistida);
     }
 
     @Override
