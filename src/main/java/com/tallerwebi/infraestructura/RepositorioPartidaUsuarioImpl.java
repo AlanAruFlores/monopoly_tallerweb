@@ -72,7 +72,6 @@ public class RepositorioPartidaUsuarioImpl implements RepositorioPartidaUsuario 
         final Session session = this.sessionFactory.getCurrentSession();
         PartidaUsuario partidaUsuarioPersistida = session.get(PartidaUsuario.class,partidaUsuario.getId());
         partidaUsuarioPersistida.setPosicionCasilla(partidaUsuario.getPosicionCasilla());
-        partidaUsuarioPersistida.setPropiedades(partidaUsuario.getPropiedades());
         partidaUsuarioPersistida.setSaldo(partidaUsuario.getSaldo());
         session.update(partidaUsuarioPersistida);
     }

@@ -1,6 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.*;
+import com.tallerwebi.dominio.RepositorioPartidaUsuarioPropiedad;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,15 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     private RepositorioPartidaUsuario repositorioPartidaUsuario;
     private RepositorioPartida repositorioPartida;
     private RepositorioPropiedad repositorioPropiedad;
+    private RepositorioPartidaUsuarioPropiedad repositorioPartidaUsuarioPropiedad;
     /*Enlace de Dados y Su numero*/
     Map<Integer, String> mapaDado = new HashMap<Integer, String>();
     @Autowired
-    public ServiceMonopolyImpl(RepositorioPartidaUsuario repositorioPartidaUsuario, RepositorioPartida repositorioPartida, RepositorioPropiedad repositorioPropiedad) {
+    public ServiceMonopolyImpl(RepositorioPartidaUsuario repositorioPartidaUsuario, RepositorioPartida repositorioPartida, RepositorioPropiedad repositorioPropiedad, RepositorioPartidaUsuarioPropiedad repositorioPartidaUsuarioPropiedad) {
         this.repositorioPartidaUsuario = repositorioPartidaUsuario;
         this.repositorioPartida = repositorioPartida;
         this.repositorioPropiedad = repositorioPropiedad;
+        this.repositorioPartidaUsuarioPropiedad = repositorioPartidaUsuarioPropiedad;
 
         /*Llenamos datos al mapa */
         mapaDado.put(1,"/imagenes/dados/dado1.png");
@@ -85,7 +88,6 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     public void hacerCambioTurno(PartidaUsuario partidaUsuario, Partida partidaEnJuego) {
         /*obtengo todos los usuarios jugando a la misma partida*/
         List<PartidaUsuario> usuarioJugandoALaMismaPartida = this.repositorioPartidaUsuario.obtenerPartidasUsuariosEnlaPartidaId(partidaEnJuego.getId());
-        System.out.println("JUGADORES::: "+usuarioJugandoALaMismaPartida);
 
         /*Hago el cambio de turno*/
         int ordenTurnoActual = usuarioJugandoALaMismaPartida.indexOf(partidaUsuario);
@@ -99,6 +101,22 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
         this.repositorioPartida.actualizarPartida(partidaEnJuego);
     }
 
+    @Override
+    public void adquirirPropiedad(Long propiedadId, PartidaUsuario usuarioQuienCompra) throws SaldoInsuficienteException {
+        Propiedad propiedad = this.repositorioPropiedad.obtenerPropiedadPorId(propiedadId);
+
+        if(usuarioQuienCompra.getSaldo() < propiedad.getPrecio())
+            throw new SaldoInsuficienteException();
+
+
+        PartidaUsuarioPropiedad usuarioYSuPropiedadNueva = new PartidaUsuarioPropiedad();
+        usuarioYSuPropiedadNueva.setPartidaUsuario(usuarioQuienCompra);
+        usuarioYSuPropiedadNueva.setPropiedad(propiedad);
+        this.repositorioPartidaUsuarioPropiedad.crearPartidaUsuarioPropiedad(usuarioYSuPropiedadNueva);
+
+        usuarioQuienCompra.setSaldo(usuarioQuienCompra.getSaldo() - propiedad.getPrecio());
+        this.repositorioPartidaUsuario.actualizarPartidaUsuario(usuarioQuienCompra);
+    }
 
     @Override
     public List<PartidaUsuario> obtenerTodosLosUsuariosJugandoEnLaPartidaId(Long partidaId) {

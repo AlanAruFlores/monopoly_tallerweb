@@ -1,5 +1,7 @@
 package com.tallerwebi.dominio;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +34,7 @@ public class PartidaUsuario {
     private Color colorUsuario;
 
     @OneToMany(mappedBy = "partidaUsuario", fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<PartidaUsuarioPropiedad> propiedades;
 
     @Override

@@ -38,4 +38,12 @@ public class RepositorioPropiedadImpl implements RepositorioPropiedad {
                 .add(Restrictions.eq("nroCasilla", nroCasiillero))
                 .uniqueResult();
     }
+
+    @Override
+    public Propiedad obtenerPropiedadPorId(Long idPropiedad) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (Propiedad) session.createCriteria(Propiedad.class)
+                .add(Restrictions.eq("id", idPropiedad))
+                .uniqueResult();
+    }
 }

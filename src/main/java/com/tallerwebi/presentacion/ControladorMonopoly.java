@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +41,7 @@ public class ControladorMonopoly {
         mp.put("partidaEnJuego",partidaEnJuego);
         mp.put("propiedad",session.getAttribute("propiedad"));
         mp.put("dado", session.getAttribute("dado"));
+        mp.put("mensaje", session.getAttribute("mensaje"));
         mp.put("usuariosJugando", usuariosJugando);
         mp.put("usuariosJSON",jackson.writeValueAsString(usuariosJugando));
         mp.put("usuarioActual", usuarioActual);
@@ -48,7 +50,7 @@ public class ControladorMonopoly {
         /*Remuevo el atributo para que no aparezca 2 o más veces*/
         session.removeAttribute("dado");
         session.removeAttribute("propiedad");
-
+        session.removeAttribute("mensaje");
         return new ModelAndView("monopoly.html",mp);
     }
     @RequestMapping("/aceptarDado")
@@ -68,8 +70,15 @@ public class ControladorMonopoly {
 
     /*Adquirir una propiedad*/
     @RequestMapping("/adquirirPropiedad")
-    public ModelAndView adquirirPropiedad(HttpServletRequest request){
-        return null;
+    public ModelAndView adquirirPropiedad(@RequestParam("idPartida") Long idPartida, @RequestParam("idPropiedad") Long idPropiedad, HttpSession session){
+        PartidaUsuario  usuarioQuienQuiereComprar = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(idPartida, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
+        try {
+            this.servicioMonopoly.adquirirPropiedad(idPropiedad, usuarioQuienQuiereComprar);
+            session.setAttribute("mensaje", "Propiedad Comprada");
+        } catch (SaldoInsuficienteException e) {
+            session.setAttribute("mensaje","No posee saldo suficiente");
+        }
+        return new ModelAndView("redirect:/monopoly/?id="+idPartida);
     }
 
 }
