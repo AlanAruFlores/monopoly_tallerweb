@@ -6,14 +6,16 @@ import com.tallerwebi.dominio.excepcion.EmailInvalidoException;
 import com.tallerwebi.infraestructura.ServicioPerfilImpl;
 import com.tallerwebi.presentacion.DatosPerfil;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ServicioPerfilTest {
 
+    @Mock
+    private RepositorioUsuario repositorioUsuario;
 
-    private ServicioPerfil servicioPerfil = new ServicioPerfilImpl();
+    private ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
 
     @Test
     public void actualizarPerfil_ContraseniaInvalidaException() {
@@ -23,6 +25,7 @@ public class ServicioPerfilTest {
         datosPerfil.setContraseniaActual("passwordActual");
         datosPerfil.setContraseniaNueva("password1");
         datosPerfil.setRepiteContraseniaNueva("password2");
+        datosPerfil.setImagen("hola.jpg");
 
         assertThrows(ContraseniaInvalidaException.class, () -> {
             servicioPerfil.actualizarPerfil(datosPerfil);
