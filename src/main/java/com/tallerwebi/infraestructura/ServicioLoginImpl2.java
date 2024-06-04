@@ -17,6 +17,7 @@ import java.util.List;
 @Service ("servicioLogin")
 @Transactional
 public class ServicioLoginImpl2 implements ServicioLogin2 {
+
     private RepositorioUsuario repositorioUsuario;
     @Autowired
     private SessionFactory sessionFactory;
