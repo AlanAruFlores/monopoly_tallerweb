@@ -39,7 +39,7 @@ public class RepositorioPartidaUsuarioImpl implements RepositorioPartidaUsuario 
     @Override
     public List<PartidaUsuario> obtenerPartidasUsuariosEnlaPartidaId(Long partidaId) {
         final Session session = this.sessionFactory.getCurrentSession();
-        return session.createCriteria(PartidaUsuario.class)
+        return (List<PartidaUsuario>)session.createCriteria(PartidaUsuario.class)
                 .createAlias("partida", "p")
                 .add(Restrictions.eq("p.id", partidaId))
                 .list();

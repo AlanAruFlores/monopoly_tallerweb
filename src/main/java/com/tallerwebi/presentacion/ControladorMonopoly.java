@@ -44,6 +44,8 @@ public class ControladorMonopoly {
         mp.put("mensaje", session.getAttribute("mensaje"));
         mp.put("usuariosJugando", usuariosJugando);
         mp.put("usuariosJSON",jackson.writeValueAsString(usuariosJugando));
+        System.out.println(jackson.writeValueAsString(usuariosJugando));
+        System.out.println(usuariosJugando.size());
         mp.put("usuarioActual", usuarioActual);
         mp.put("usuarioPropiedadesActual", propiedadesUsuarioActual);
 
