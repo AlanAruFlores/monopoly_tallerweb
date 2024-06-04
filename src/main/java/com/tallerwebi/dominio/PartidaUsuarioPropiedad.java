@@ -1,6 +1,7 @@
 package com.tallerwebi.dominio;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jdk.jfr.Unsigned;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,6 @@ public class PartidaUsuarioPropiedad {
 
     //Jugador en la partida
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnore
     private PartidaUsuario partidaUsuario;
 }

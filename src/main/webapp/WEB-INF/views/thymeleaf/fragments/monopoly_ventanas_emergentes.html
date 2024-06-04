@@ -7,14 +7,16 @@
 <body>
 <div th:fragment="tablero_ventanas_emergentes">
     <!--Ventana cuando tira el jugador-->
-    <div th:if="${dado}" class="ventana__emergente dado__ventana">
+    <div th:if="${dado} and ${propiedad == null}" class="ventana__emergente dado__ventana">
         <h1 class="ventana__titulo">El Jugador 1 tiro el dado!!</h1>
         <img th:src="@{${dado}}" alt="dado" class="ventana__imagen imagen__dado">
-        <a id="aceptar_dado" class="ventana__boton">Aceptar</a>
+        <a id="aceptar_dado" class="ventana__boton aceptar_boton">Aceptar</a>
     </div>
 
     <div th:if="${propiedad != null}" class="ventana__emergente comprar_propiedad_servicio">
-        <h1 class="ventana__titulo" th:text="${propiedad.nombre}+' Disponible !!'"> </h1>
+        <h1 class="ventana__titulo">El Jugador 1 tiro el dado!!</h1>
+        <img th:src="@{${dado}}" alt="dado" class="ventana__imagen imagen__dado">
+        <h2 class="" th:text="${propiedad.nombre}+' Disponible !!'"> </h2>
         <img class="ventana__imagen" th:src="@{${propiedad.imagen}}" alt="propiedad">
         <p class="ventana__parrafo" th:text="'Precio:$'+${propiedad.precio}"></p>
         <div class="ventana__botones">
@@ -56,7 +58,7 @@
     <div th:if="${mensaje}" class="ventana__emergente ventana__mensaje">
         <h1 class="ventana__titulo" th:text="${mensaje}"></h1>
         <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.svg}" alt="monopolyman">
-        <a id="mensaje_boton" class="ventana__boton boton__error">Aceptar</a>
+        <a href="" id="mensaje_boton" class="ventana__boton boton__error aceptar_boton">Aceptar</a>
     </div>
 
     <!--Ventana para ver propiedades de un jugador -->

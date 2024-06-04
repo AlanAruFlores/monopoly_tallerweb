@@ -14,8 +14,8 @@ document.addEventListener("click",(e)=>{
     if(e.target.matches(".boton__chat__cerrar") || e.target.matches(".boton__chat__cerrar *"))
         cerrarVentana(".chat__ventana");
 
-    if(e.target.matches("#aceptar_dado") || e.target.matches("#aceptar_dado *"))
-        cerrarVentana(".dado__ventana");
+    if(e.target.matches(".aceptar_dado") || e.target.matches(".aceptar_dado *"))
+        cerrarVentana(".ventana__emergente");
 
     if(e.target.matches(".cancelar_propiedad_boton") || e.target.matches(".cancelar_propiedad_boton *"))
         cerrarVentana(".comprar_propiedad_servicio");

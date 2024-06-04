@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             inputElem.value="";
         }
 
-        if(e.target.matches("#aceptar_dado") || e.target.matches("#aceptar_dado *")){
+        if(e.target.matches(".aceptar_boton") || e.target.matches(".aceptar_boton *")){
             enviarNotificacionMovimiento("Movimiento hecho");
         }
 

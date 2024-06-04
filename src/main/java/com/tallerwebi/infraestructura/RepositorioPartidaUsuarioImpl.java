@@ -1,6 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.*;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projection;
@@ -42,6 +43,7 @@ public class RepositorioPartidaUsuarioImpl implements RepositorioPartidaUsuario 
         return (List<PartidaUsuario>)session.createCriteria(PartidaUsuario.class)
                 .createAlias("partida", "p")
                 .add(Restrictions.eq("p.id", partidaId))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 
