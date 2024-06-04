@@ -29,7 +29,13 @@
     padding: 20px 0px;
     letter-spacing: 2px;
 }
-
+.ventana__subtitulo{
+    color: #ff2d11;
+    font-family: monopoly;
+    letter-spacing: 2px;
+    font-size: 30px;
+    padding: 20px 0px;
+}
 .ventana__imagenes{
     display: flex;
     flex-direction: row;
@@ -69,7 +75,20 @@
     letter-spacing: 1px;
     font-size: 25px;
 }
-
+.ventana__cerrar{
+    background-color: #ff2d11;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50px;
+}
 /*PROPIEDADES VENTANA*/
 .comprar_propiedad_servicio {
 }
@@ -78,6 +97,11 @@
 }
 .pagar{
     display:none
+}
+/*VENTANA CREAR PARTIDA*/
+#crear__partida__ventana{
+    visibility: hidden;
+    opacity:0;
 }
 
 /*DADO VENTANA*/

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+
+  <link rel="stylesheet" th:href="@{/css/espera.css}">
+  <title>Espera</title>
+</head>
+
+<body>
+<header class="header">
+  <img th:src="@{/imagenes/monopoly.png}" class="header__logo">
+  <h1 class="header__titulo">MONOPOLY</h1>
+</header>
+
+<main class="main sala__espera">
+  <h2 class="sala__titulo" th:text="'PARTIDA: '+${partidaActual.nombre}"></h2>
+  <h3 class="sala__subtitulo">SALA DE ESPERA</h3>
+  <div th:each="usuario : ${usuariosConectados}">
+    <div class="sala__jugador">
+      <i class='fa-solid fa-user'></i>
+      <h4 th:text="${usuario.nombreUsuario}"></h4>
+    </div>
+  </div>
+
+  <a th:if="${usuarioActual.id == creadorUsuario.id}" id="boton_iniciar_partida" class="sala__boton">
+    Empezar
+  </a>
+
+  <div th:if="${usuarioActual.id != creadorUsuario.id}">
+    Esperando a que el creador inicie la partida ....
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__div">
+    <h2 class="footer__titulo">MONOPOLY</h2>
+    <h3 class="footer__subtitulo">Integrantes</h3>
+    <p>Gavagnin Lucas Daniel</p>
+    <p>Pessino Milagros</p>
+    <p>Aruquipa Alan</p>
+    <p>Vargas Mariano Luis</p>
+    <p>Vargas Franco</p>
+  </div>
+  <div class="footer__div">
+    <h3 class="footer__subtitulo">Materia</h3>
+    <p>Taller Web I</p>
+    <h3 class="footer__subtitulo">Universidad</h3>
+    <p>Universidad Nacional de la Matanza</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+<script th:src="@{/js/webSocketEspera.js}" th:partida-actual-id="${partidaActual.id}"></script>
+</body>
+</html>
