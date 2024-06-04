@@ -424,25 +424,12 @@
 .jugador{
     width: 20%;
     height: 30px;
-    /*background-color: rgb(15, 135, 190);*/
+    background-color: rgb(15, 135, 190);
     border-radius: 30%;
     box-shadow: 0px 0px 10px black;
     position: absolute;
     z-index: 999;
-    /*transform: translateY(10%);*/
-}
-#jugador1{
-    transform: translate(-10%,-60%);
-}
-#jugador2{
-    transform: translate(-40%,30%);
-}
-#jugador3{
-    transform: translate(44%,50%);
-}
-
-#jugador4{
-    transform: translate(-10%,70%);
+    transform: translateY(30%);
 }
 .techo{
     background-color: #e2e2e2;

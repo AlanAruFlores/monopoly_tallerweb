@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
@@ -14,16 +13,18 @@ import java.util.Map;
 
 @Service("servicioMonopoly")
 @Transactional
-public class ServiceMonopolyImpl implements ServicioMonopoly{
-    private RepositorioPartidaUsuario repositorioPartidaUsuario;
-    private RepositorioPartida repositorioPartida;
+public class ServiceMonopolyImpl implements ServicioMonopoly {
+
+    private RepositorioPropiedad repositorioPropiedad;
+    private RepositorioJugador repositorioJugador;
 
     /*Enlace de Dados y Su numero*/
     Map<Integer, String> mapaDado = new HashMap<Integer, String>();
+
     @Autowired
-    public ServiceMonopolyImpl(RepositorioPartidaUsuario repositorioPartidaUsuario, RepositorioPartida repositorioPartida) {
-        this.repositorioPartidaUsuario = repositorioPartidaUsuario;
-        this.repositorioPartida = repositorioPartida;
+    public ServiceMonopolyImpl(RepositorioPropiedad repositorioPropiedad, RepositorioJugador repositorioJugador) {
+        this.repositorioPropiedad = repositorioPropiedad;
+        this.repositorioJugador = repositorioJugador;
 
         /*Llenamos datos al mapa */
         mapaDado.put(1,"/imagenes/dados/dado1.png");
@@ -35,56 +36,60 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     }
 
 
-    private Integer obtenerPosicionCasillero(Integer posicionUsuario,HttpSession session) {
-        Integer posicionObtenida = (int) (1 + (Math.random() * (6 - 1)));
-        session.setAttribute("dado",mapaDado.get(posicionObtenida));
-        posicionObtenida += posicionUsuario;
-        if(posicionObtenida > 20)
-            posicionObtenida = (posicionObtenida-20) ;
-
-        return posicionObtenida;
+    @Override
+    public void registrarJugador(Jugador jugador) {
+      this.repositorioJugador.guardar(jugador);
     }
 
     @Override
-    public void moverJugadorAlCasillero(PartidaUsuario usuarioAMover,HttpSession session){
-        Integer posicionObtenida = obtenerPosicionCasillero(usuarioAMover.getPosicionCasilla(),session);
-        usuarioAMover.setPosicionCasilla(posicionObtenida);
-        this.repositorioPartidaUsuario.actualizarPartidaUsuario(usuarioAMover);
+    public Jugador obtenerJugadorPorUsuarioId(Long usuarioId){
+        return this.repositorioJugador.obtenerJugador(usuarioId);
     }
 
     @Override
-    public void hacerCambioTurno(PartidaUsuario partidaUsuario, Partida partidaEnJuego) {
-        /*obtengo todos los usuarios jugando a la misma partida*/
-        List<PartidaUsuario> usuarioJugandoALaMismaPartida = this.repositorioPartidaUsuario.obtenerPartidasUsuariosEnlaPartidaId(partidaEnJuego.getId());
-        System.out.println("JUGADORES::: "+usuarioJugandoALaMismaPartida);
+    public void obtenerPosicionCasillero(HttpSession session) {
+        Integer numeroRandom = (int) (1 + (Math.random() * (6 - 1)));
+        //Obtengo el jugador
+        Jugador jugador = (Jugador) session.getAttribute("jugador");
 
-        /*Hago el cambio de turno*/
-        int ordenTurnoActual = usuarioJugandoALaMismaPartida.indexOf(partidaUsuario);
-        System.out.println(ordenTurnoActual);
-        int siguienteTurno = (ordenTurnoActual + 1) % usuarioJugandoALaMismaPartida.size();
+        session.setAttribute("dado",mapaDado.get(numeroRandom));
+        /*Actualizo posicion*/
+        Integer posicionJugador;
+        posicionJugador = jugador.getPosicionCasilla();
+        numeroRandom += posicionJugador;
+        if(numeroRandom > 20){
+            numeroRandom = (numeroRandom-20) ;
+        }
+        jugador.setPosicionCasilla(numeroRandom);
+        //Actualizo la posicion
+        this.repositorioJugador.actualizar(jugador);
+        session.setAttribute("jugador", jugador);
 
-        PartidaUsuario proximoUsuarioATirar = usuarioJugandoALaMismaPartida.get(siguienteTurno);
-        partidaEnJuego.setTurnoJugador(proximoUsuarioATirar.getUsuario());
-
-        /*Guardo cambios*/
-        this.repositorioPartida.actualizarPartida(partidaEnJuego);
+        //Agrego propiedad
+        Propiedad propiedadEncontrada = repositorioPropiedad.obtenerPropiedadPorNroCasillero(numeroRandom);
+        if(propiedadEncontrada != null && propiedadEncontrada.getDisponibilidad())
+            session.setAttribute("propiedad", propiedadEncontrada);
+        else
+            session.setAttribute("propiedad",null);
     }
 
+    /*Metodo para adquirir la propiedad/servicio al jugador*/
+    @Override
+    public void adquirirPropiedadPorElJugador(Jugador jugador,Propiedad propiedad) throws SaldoInsuficienteException{
+        if(propiedad.getPrecio() > jugador.getSaldo())
+            throw new SaldoInsuficienteException();
+
+        jugador.setSaldo(jugador.getSaldo()-propiedad.getPrecio());
+
+        propiedad.setDisponibilidad(false);
+        propiedad.setPropietario(jugador);
+
+        this.repositorioJugador.actualizar(jugador);
+        this.repositorioPropiedad.actualizar(propiedad);
+    }
 
     @Override
-    public List<PartidaUsuario> obtenerTodosLosUsuariosJugandoEnLaPartidaId(Long partidaId) {
-        return this.repositorioPartidaUsuario.obtenerPartidasUsuariosEnlaPartidaId(partidaId);
+    public List<Propiedad> obtenerPropiedadesPorJugadorId(Long jugadorId) {
+        return this.repositorioPropiedad.obtenerPropiedadesPorJugadorId(jugadorId);
     }
-
-    @Override
-    public PartidaUsuario obtenerUsuarioPartidaPorPartidaIdYUsuarioId(Long partidaId, Long usuarioId) {
-        return this.repositorioPartidaUsuario.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId,usuarioId);
-    }
-
-    @Override
-    public Partida obtenerPartidaPorPartidaId(Long partidaId) {
-        return this.repositorioPartida.obtenerPartidaPorId(partidaId);
-    }
-
-
 }
