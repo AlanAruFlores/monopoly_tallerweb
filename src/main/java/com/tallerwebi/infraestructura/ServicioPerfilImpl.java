@@ -9,8 +9,8 @@ import com.tallerwebi.dominio.excepcion.CamposVaciosException;
 import com.tallerwebi.presentacion.DatosPerfil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 @Service
@@ -27,15 +27,18 @@ public class ServicioPerfilImpl implements ServicioPerfil {
 
 
     @Override
-    public void actualizarPerfil(DatosPerfil datosPerfil) throws ContraseniaInvalidaException, EmailInvalidoException, CamposVaciosException {
-
-        // Validamos que la contraseña actual y el email no estén vacíos
-        if(datosPerfil.getContraseniaActual().isEmpty() || datosPerfil.getEmail().isEmpty()) {
-            throw new CamposVaciosException();
+    public void actualizarPerfil(DatosPerfil datosPerfil, HttpSession session) throws ContraseniaInvalidaException, EmailInvalidoException, CamposVaciosException {
+        // Obtener el usuario actual de la sesión
+        Usuario usuarioActual = (Usuario) session.getAttribute("usuarioActual");
+        if (usuarioActual == null) {
+            // Manejar el caso de que el usuario no esté autenticado
+            throw new RuntimeException("Usuario no autenticado");
         }
 
-        // Buscar el usuario actual (suponiendo que el ID del usuario sea conocido y fijo en este ejemplo)
-        Usuario usuarioActual = this.repositorioUsuario.buscarUsuarioPorId(2L);
+        // Validar que los campos no estén vacíos
+        if (datosPerfil.getContraseniaActual().isEmpty() || datosPerfil.getEmail().isEmpty()) {
+            throw new CamposVaciosException();
+        }
 
         // Validar la contraseña actual
         if (!usuarioActual.getPassword().equals(datosPerfil.getContraseniaActual())) {
@@ -59,20 +62,22 @@ public class ServicioPerfilImpl implements ServicioPerfil {
             throw new EmailInvalidoException();
         }
 
-        // Actualizar solo los campos que no están vacíos
+        // Actualizar los datos del usuario con los datos proporcionados en datosPerfil
         if (!datosPerfil.getNombre().isEmpty()) {
-            usuarioActual.setNombreUsuario(datosPerfil.getNombre());
+            usuarioActual.setNombre(datosPerfil.getNombre());
         }
         usuarioActual.setEmail(datosPerfil.getEmail());
 
         if (!datosPerfil.getContraseniaNueva().isEmpty()) {
             usuarioActual.setPassword(datosPerfil.getContraseniaNueva());
-            usuarioActual.setRepitePassword(datosPerfil.getRepiteContraseniaNueva());
+            usuarioActual.setRepitePassword(datosPerfil.getContraseniaNueva());
         }
 
         // Guardar los cambios en el repositorio
         this.repositorioUsuario.actualizarUsuario(usuarioActual);
     }
+
+
 
 
     @Override

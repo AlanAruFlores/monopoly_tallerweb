@@ -5,14 +5,19 @@ import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class ControladorLogin {
+
     private ServicioLogin2 servicioLogin;
 
     @Autowired
@@ -42,11 +47,14 @@ public class ControladorLogin {
     }
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
-    public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin2 datosLogin) {
+    public ModelAndView validarLogin(@ModelAttribute("datosLogin") DatosLogin2 datosLogin, HttpServletRequest request,
+                                     Model model2) {
         ModelMap model = new ModelMap();
 
         Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
         if(usuarioBuscado != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("usuarioActual", usuarioBuscado);
             return new ModelAndView("redirect:/ir-menu");
         } else {
             model.put("error", "Usuario o contraseña incorrectos.");
