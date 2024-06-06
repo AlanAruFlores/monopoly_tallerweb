@@ -1,6 +1,5 @@
-let flagNotificacion = localStorage.getItem('flagNotificacion') === 'true';
-
 const partidaIdActual = document.currentScript.getAttribute("partida-actual-id");
+
 
 const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/spring/wsespera'
@@ -12,24 +11,33 @@ stompClient.debug = function(str) {
 
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
-
     //Mando una señal de que me conecte: (Se envia 1 vez por conexion)
-    if (!flagNotificacion) {
-
-        stompClient.publish({
-            destination: "/app/enviarNotificacionSalaEspera",
-            body: JSON.stringify({
-                message: "Usuario nuevo en la sala de espera"
-            })
-        });
-
-        flagNotificacion = true; // Marca la notificación como enviada
-        localStorage.setItem('flagNotificacion', 'true');
-    }
+    stompClient.publish({
+        destination: "/app/enviarNotificacionSalaEspera",
+        body: JSON.stringify({
+            message: "Usuario nuevo en la sala de espera"
+        })
+    });
 
     //Estado de escucha
     stompClient.subscribe('/topic/recibirNotificacionSalaEspera', (m) => {
-        location.href = "http://localhost:8080/spring/espera/?id=" + partidaIdActual;
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:8080/spring/api/usuario/obtenerUsuariosEnlaPartida/?id="+partidaIdActual,
+            dataType:"json",
+            success: function(usuarios){
+                const $salaJugadores = document.querySelector("#sala__jugadores");
+                $salaJugadores.innerHTML = "";
+                let $usuario ="";
+                $.each(usuarios, function(i, usuarioItem){
+                    $usuario = `<div class="sala__jugador">
+                      <i class='fa-solid fa-user'></i>
+                      <h4 th:text="${usuarioItem.nombreUsuario}"></h4>
+                    </div>`;
+                    $salaJugadores.append($usuario);
+                });
+            }
+        })
     });
 
     stompClient.subscribe('/topic/recibirEmpezoJuego', (m) => {

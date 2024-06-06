@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
 
   <link rel="stylesheet" th:href="@{/css/espera.css}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <title>Espera</title>
 </head>
 
@@ -19,7 +20,7 @@
 <main class="main sala__espera">
   <h2 class="sala__titulo" th:text="'PARTIDA: '+${partidaActual.nombre}"></h2>
   <h3 class="sala__subtitulo">SALA DE ESPERA</h3>
-  <div th:each="usuario : ${usuariosConectados}">
+  <div id="sala__jugadores" th:each="usuario : ${usuariosConectados}">
     <div class="sala__jugador">
       <i class='fa-solid fa-user'></i>
       <h4 th:text="${usuario.nombreUsuario}"></h4>

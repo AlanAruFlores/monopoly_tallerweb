@@ -25,7 +25,7 @@ stompClient.onConnect = (frame) => {
                         <td>${partida.creador.nombre}</td>
                         <td>${partida.estadoPartida}</td>
                         <td>
-                            <a href="http://localhost:8080/spring/unirsePartida/id=${partida.id}" th:href="@{/unirsePartida/(id=${partida.id})}" class="partida__boton">
+                            <a href="http://localhost:8080/spring/unirsePartida/?id=${partida.id}" th:href="@{/unirsePartida/(id=${partida.id})}" class="partida__boton">
                                 <i class="fa-thin fa-arrow-right-to-bracket"></i>
                             </a>
                         </td>
