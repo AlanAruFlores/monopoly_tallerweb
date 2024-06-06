@@ -8,10 +8,10 @@ public interface ServicioPartida {
     public void crearUnaPartidaNueva(Partida partida);
     public List<Partida> obtenerTodasLasPartidas();
     public Partida obtenerPartidaPorPartidaId(Long partidaId);
-    public void unirseAPartida(Long partidaId,Usuario usuario) throws ExcesoDeJugadoresException;
+    public void unirseAPartida(Partida partidaAUnirse,Usuario usuario) throws ExcesoDeJugadoresException;
     public List<Usuario> verUsuariosEnlaPartidaEspera(Long partidaId);
 
     public Usuario obtenerCreadoUsuarioDeUnaPartida(Long partidaId);
-
+    public Partida actualizarEstadoDeLaPartida(Partida partidaActualizada, EstadoPartida estadoNuevo);
     public void salirDeLaPartida(Long partidaId, Long usuarioId);
 }

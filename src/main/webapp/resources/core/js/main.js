@@ -31,6 +31,8 @@ document.addEventListener("click",(e)=>{
     /*EVENTOS PARA LA VISTA PARTIDA*/
     if(e.target.matches("#crear__partida__boton") || e.target.matches("#crear__partida__boton *"))
         abrirVentana("#crear__partida__ventana");
+    if(e.target.matches("#cerrar__partida__ventana") || e.target.matches("#cerrar__partida__ventana *"))
+        cerrarVentana("#crear__partida__ventana");
 
     /*Cerramos la ventana emergente con el mensaje especifico*/
     if(e.target.matches("#mensaje_boton") || e.target.matches("#mensaje_boton *"))

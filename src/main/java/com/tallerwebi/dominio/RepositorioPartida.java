@@ -7,5 +7,5 @@ public interface RepositorioPartida {
     public void actualizarPartida(Partida partida);
     public List<Partida> obtenerPartidas();
     public Partida obtenerPartidaPorId(Long partidaId);
-
+    public void cambiarEstadoDeLaPartida(Partida partida);
 }

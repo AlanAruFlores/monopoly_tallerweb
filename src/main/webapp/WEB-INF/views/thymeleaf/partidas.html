@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
     <link rel="stylesheet" th:href="@{/css/ventanas_emergentes.css}">
     <link rel="stylesheet" th:href="@{/css/jugar.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Jugar</title>
 </head>
 
@@ -24,26 +25,28 @@
             </a>
         </div>
 
-        <table class="partidas">
+        <table class="partidas" id="tablaPartidas">
             <thead class="partidas__encabezado">
             <tr>
                 <th>NOMBRE</th>
                 <th>MAX. JUGADORES</th>
                 <th>CREADOR</th>
+                <th>ESTADO</th>
                 <th>UNETE</th>
             </tr>
             </thead>
             <tbody class="partidas__registros">
-            <tr th:each="partida : ${partidasCreadas}">
-                <td th:text="${partida.nombre}"></td>
-                <td th:text="${partida.numeroJugadores}"></td>
-                <td th:text="${partida.creador.nombreUsuario}"></td>
-                <td>
-                    <a th:href="@{/unirsePartida/(id=${partida.id})}" class="partida__boton">
-                        <i class="fa-thin fa-arrow-right-to-bracket"></i>
-                    </a>
-                </td>
-            </tr>
+                <tr th:each="partida : ${partidasCreadas}">
+                    <td th:text="${partida.nombre}"></td>
+                    <td th:text="${partida.numeroJugadores}"></td>
+                    <td th:text="${partida.creador.nombreUsuario}"></td>
+                    <td th:text="${partida.estadoPartida}"></td>
+                    <td>
+                        <a th:href="@{/unirsePartida/(id=${partida.id})}" class="partida__boton">
+                            <i class="fa-thin fa-arrow-right-to-bracket"></i>
+                        </a>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </main>
@@ -72,12 +75,12 @@
             <i class="fa-solid fa-xmark"></i>
         </a>
         <h2 class="ventana__subtitulo">Crear Partida</h2>
-        <form th:action="@{/crearPartida}" id="formularioCrearPartida" class="formulario__crear__partida" method="POST" th:object="${partida}">
-            <label for="nombre">Nombre de la partida</label>
-            <input type="text" name="nombre" placeholder="Nombre de la partida" th:field="*{nombre}" id="nombre">
-            <label for="numero">Numero maximo de jugadores</label>
-            <input type="number" name="numero_jugadores" placeholder="2" id="numero" min="2" max="4" th:field="*{numeroJugadores}">
-            <button type="submit" id="botonCrearPartida">Crear</button>
+        <form id="formularioCrearPartida" class="formulario__crear__partida" method="POST">
+            <label for="nombreInput">Nombre de la partida</label>
+            <input type="text" name="nombre" placeholder="Nombre de la partida" id="nombreInput">
+            <label for="numeroInput">Numero maximo de jugadores</label>
+            <input type="number" name="numero_jugadores" placeholder="2" id="numeroInput" min="2" max="4">
+            <input type="submit" value="Crear">
         </form>
     </div>
 

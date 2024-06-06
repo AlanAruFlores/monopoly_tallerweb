@@ -40,28 +40,31 @@ public class ControladorPartida {
         return new ModelAndView("partidas.html", mp);
     }
 
-    /*Creo una partida*/
+    /*Creo una partida
     @RequestMapping(value = "/crearPartida", method = RequestMethod.POST)
     public ModelAndView crearPartida(@ModelAttribute("partida") Partida partida, HttpSession session){
         partida.setCreador((Usuario) session.getAttribute("usuarioLogeado"));
         partida.setFechaApertura(LocalDate.now());
         partida.setEstadoPartida(EstadoPartida.ABIERTA);
 
-        /*El primer turno va a ser del jugador quien creo la partida*/
+        //El primer turno va a ser del jugador quien creo la partida
         partida.setTurnoJugador((Usuario) session.getAttribute("usuarioLogeado"));
 
         this.servicioPartida.crearUnaPartidaNueva(partida);
         return new ModelAndView("redirect:/partida",new ModelMap());
     }
+    */
 
 
     @RequestMapping("/unirsePartida")
     public ModelAndView unirseAUnaPartida(@RequestParam("id") Long partidaId, HttpSession session) throws ExcesoDeJugadoresException {
         try{
-            servicioPartida.unirseAPartida(partidaId,(Usuario)session.getAttribute("usuarioLogeado"));
+            Partida partidaAUnirse = this.servicioPartida.obtenerPartidaPorPartidaId(partidaId);
+            //Agrego a que se una a la partida
+            servicioPartida.unirseAPartida(partidaAUnirse,(Usuario)session.getAttribute("usuarioLogeado"));
+            //Establezco en la session la partida en la que se unio
+            session.setAttribute("partidaEnJuego", partidaAUnirse);
 
-            /*Establezco en la session la partida en la que se unio*/
-            session.setAttribute("partidaEnJuego", this.servicioPartida.obtenerPartidaPorPartidaId(partidaId));
         }catch(ExcesoDeJugadoresException ex){
             ModelMap mp = new ModelMap();
             mp.put("mensaje", "No puede entrar a la partida, ya esta lleno");
@@ -86,6 +89,14 @@ public class ControladorPartida {
 
         return new ModelAndView("sala_espera.html", mp);
     }
+
+    /*
+    @RequestMapping("/empezarPartida")
+    public ModelAndView empezarLaPartida(HttpSession session){
+        Partida partidaEnJuego = (Partida) session.getAttribute("partidaEnJuego");
+        partidaEnJuego = this.servicioPartida.actualizarEstadoDeLaPartida(partidaEnJuego, EstadoPartida.EN_CURSO);
+    }*/
+
 
     @RequestMapping("/salirPartida")
     public ModelAndView salirPartidaUsuario(@RequestParam("id") Long partidaId, HttpSession session){

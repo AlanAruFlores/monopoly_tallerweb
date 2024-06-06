@@ -5,6 +5,7 @@ import com.tallerwebi.dominio.excepcion.ExcesoDeJugadoresException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -38,17 +39,16 @@ public class ServicioPartidaImpl implements ServicioPartida {
     }
 
     @Override
-    public void unirseAPartida(Long partidaId, Usuario usuario) throws ExcesoDeJugadoresException {
+    public void unirseAPartida(Partida partidaAUnirse, Usuario usuario) throws ExcesoDeJugadoresException {
         /*Verifico la cantidad de jugadores en la partida con su limite*/
-        Partida partidaBuscada = this.repositorioPartida.obtenerPartidaPorId(partidaId);
-        Integer cantidadUsuariosEnLaPartida = this.repositorioPartidaUsuario.obtenerUsuariosEnUnaPartida(partidaId).size();
+        Integer cantidadUsuariosEnLaPartida = this.repositorioPartidaUsuario.obtenerUsuariosEnUnaPartida(partidaAUnirse.getId()).size();
 
-        if(cantidadUsuariosEnLaPartida >= partidaBuscada.getNumeroJugadores())
+        if(cantidadUsuariosEnLaPartida >= partidaAUnirse.getNumeroJugadores())
             throw new ExcesoDeJugadoresException();
 
         /*Evaluo el color que le pondremos al auto*/
 
-        List<Color> coloresUsadosPorUsuarios = this.repositorioPartidaUsuario.obtenerColoresJugadoresUsuados(partidaId);
+        List<Color> coloresUsadosPorUsuarios = this.repositorioPartidaUsuario.obtenerColoresJugadoresUsuados(partidaAUnirse.getId());
         Color[] coloresDisponibles = Color.values();
 
         Color colorSeleccionado = null;
@@ -59,8 +59,15 @@ public class ServicioPartidaImpl implements ServicioPartida {
             }
         }
 
-        PartidaUsuario nuevoUsuarioEnLaPartida = new PartidaUsuario(null,partidaBuscada,usuario,1,1500.0,colorSeleccionado,null);
+        PartidaUsuario nuevoUsuarioEnLaPartida = new PartidaUsuario(null,partidaAUnirse,usuario,1,1500.0,colorSeleccionado,null);
         this.repositorioPartidaUsuario.crearPartidaUsuario(nuevoUsuarioEnLaPartida);
+    }
+
+    @Override
+    public Partida actualizarEstadoDeLaPartida(Partida partidaActualizada, EstadoPartida estadoNuevo) {
+        partidaActualizada.setEstadoPartida(estadoNuevo);
+        this.repositorioPartida.actualizarPartida(partidaActualizada);
+        return partidaActualizada;
     }
 
     @Override

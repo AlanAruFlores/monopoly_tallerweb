@@ -47,4 +47,12 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
                 .add(Restrictions.eq("id",partidaId))
                 .uniqueResult();
     }
+
+    @Override
+    public void cambiarEstadoDeLaPartida(Partida partida){
+        final Session session = this.sessionFactory.getCurrentSession();
+        //Partida partidaPersistida = session.get(Partida.class, partida.getId());
+        //partidaPersistida.setEstadoPartida(partida.getEstadoPartida());
+        session.update(partida);
+    }
 }
