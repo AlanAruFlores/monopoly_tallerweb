@@ -3,13 +3,18 @@
 let arrJugadoresJugando = JSON.parse(document.currentScript.getAttribute("jugadores"));
 console.log(arrJugadoresJugando);
 
+generarJugadores(arrJugadoresJugando)
+
 /*Creo a los jugadores con sus divs correspondientes*/
-let indiceJugador =  1;
-for(const jugadorItem of arrJugadoresJugando){
-    ubicarJugador(jugadorItem);
+function generarJugadores(arrJugadores){
+    let indiceJugador =  1;
+    for(const jugadorItem of arrJugadores){
+        ubicarJugador(jugadorItem,indiceJugador);
+        indiceJugador++;
+    }
 }
 
-function ubicarJugador(jugador){
+function ubicarJugador(jugador,indiceJugador){
     /*Ubico al jugador en el casillero*/
     posicion = jugador.posicionCasilla;
     casilla = document.getElementById(posicion);
@@ -17,7 +22,6 @@ function ubicarJugador(jugador){
     const jugadorElemento = document.createElement("div");
     jugadorElemento.classList.add("jugador");
     jugadorElemento.setAttribute("id", "jugador"+indiceJugador);
-    indiceJugador++;
     jugadorElemento.style.setProperty("background-color", obtenerColorHexadecimal(jugador.colorUsuario));
     jugadorElemento.innerHTML = `
     <div class="rueda rueda1"></div>

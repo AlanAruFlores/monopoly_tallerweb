@@ -21,7 +21,7 @@
         <p class="ventana__parrafo" th:text="'Precio:$'+${propiedad.precio}"></p>
         <div class="ventana__botones">
             <a th:href="@{/adquirirPropiedad(idPartida=${partidaEnJuego.id}, idPropiedad=${propiedad.id})}" class="ventana__boton">Comprar</a>
-            <a class="ventana__boton cancelar_propiedad_boton">Cancelar</a>
+            <a class="ventana__boton cancelar_propiedad_boton aceptar_boton">Cancelar</a>
         </div>
     </div>
 
