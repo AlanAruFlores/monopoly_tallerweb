@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.ExcesoDeJugadoresException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -29,7 +31,7 @@ public class ControladorPartida {
     }
 
     /*Voy a la pantalla de partidas*/
-    @RequestMapping("/partida")
+    @RequestMapping(path="/partida", method=RequestMethod.GET)
     public ModelAndView irPartida(){
         ModelMap mp = new ModelMap();
         //Obtengo las partidas para mostrarlos a los jugadores

@@ -20,8 +20,8 @@
 <main class="main sala__espera">
   <h2 class="sala__titulo" th:text="'PARTIDA: '+${partidaActual.nombre}"></h2>
   <h3 class="sala__subtitulo">SALA DE ESPERA</h3>
-  <div id="sala__jugadores" th:each="usuario : ${usuariosConectados}">
-    <div class="sala__jugador">
+  <div id="sala__jugadores">
+    <div class="sala__jugador" th:each="usuario : ${usuariosConectados}">
       <i class='fa-solid fa-user'></i>
       <h4 th:text="${usuario.nombreUsuario}"></h4>
     </div>

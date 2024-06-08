@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,7 +90,6 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
 
         /*Hago el cambio de turno*/
         int ordenTurnoActual = usuarioJugandoALaMismaPartida.indexOf(partidaUsuario);
-        System.out.println(ordenTurnoActual);
         int siguienteTurno = (ordenTurnoActual + 1) % usuarioJugandoALaMismaPartida.size();
 
         PartidaUsuario proximoUsuarioATirar = usuarioJugandoALaMismaPartida.get(siguienteTurno);

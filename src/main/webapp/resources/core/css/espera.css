@@ -71,6 +71,7 @@ body{
 }
 
 .sala__jugador{
+    margin-top:20px;
     background-color: #fff;
     padding: 10px 70px;
     border-radius: 10px;

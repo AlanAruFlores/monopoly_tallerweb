@@ -23,19 +23,19 @@ stompClient.onConnect = (frame) => {
     stompClient.subscribe('/topic/recibirNotificacionSalaEspera', (m) => {
         $.ajax({
             type:"GET",
-            url:"http://localhost:8080/spring/api/usuario/obtenerUsuariosEnlaPartida/?id="+partidaIdActual,
+            url:"http://localhost:8080/spring/api/usuario/obtenerUsuarioEnLaPartida/?id="+partidaIdActual,
             dataType:"json",
             success: function(usuarios){
                 const $salaJugadores = document.querySelector("#sala__jugadores");
-                $salaJugadores.innerHTML = "";
                 let $usuario ="";
                 $.each(usuarios, function(i, usuarioItem){
-                    $usuario = `<div class="sala__jugador">
+                    console.log(usuarioItem);
+                    $usuario += `<div class="sala__jugador">
                       <i class='fa-solid fa-user'></i>
-                      <h4 th:text="${usuarioItem.nombreUsuario}"></h4>
+                      <h4>${usuarioItem.nombreUsuario}</h4>
                     </div>`;
-                    $salaJugadores.append($usuario);
                 });
+                $salaJugadores.innerHTML=$usuario;
             }
         })
     });

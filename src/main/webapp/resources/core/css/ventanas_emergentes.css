@@ -16,9 +16,10 @@
     opacity:1;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     transition:.5s;
     z-index: 1099;
+    overflow: auto;
 }
 .ventana__titulo{
     color: #fff;
@@ -44,13 +45,14 @@
 }
 .ventana__imagen{
     width: 23%;
+    max-width:170px;
     object-fit: fill;
 }
 .ventana__botones{
     width: 30%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .ventana__boton{
     background-color: #ff2d11;
@@ -69,6 +71,11 @@
     background-color: #fff;
     color: #ff3f22;
 }
+
+.comprar_propiedad_servicio .ventana__boton{
+    max-width:150px;
+}
+
 .ventana__parrafo{
     font-weight: bold;
     font-family: monopoly;
@@ -107,6 +114,7 @@
 /*DADO VENTANA*/
 .imagen__dado{
     width: 18%;
+    max-width:130px;
     object-fit: fill;
 }
 

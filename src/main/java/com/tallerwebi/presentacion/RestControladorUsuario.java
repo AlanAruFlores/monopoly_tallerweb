@@ -18,7 +18,7 @@ public class RestControladorUsuario {
         this.servicioPartida = servicioPartida;
     }
 
-    @RequestMapping(value="/obtenerUsuarioEnLaPartida",method= RequestMethod.GET)
+    @RequestMapping(path="/obtenerUsuarioEnLaPartida",method= RequestMethod.GET)
     public List<Usuario> obtenerUsuariosEnlaPartida(@RequestParam("id") Long partidaId){
         Partida partidaEnJuego = this.servicioPartida.obtenerPartidaPorPartidaId(partidaId);
         return this.servicioPartida.verUsuariosEnlaPartidaEspera(partidaEnJuego.getId());
