@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
+import com.tallerwebi.dominio.excepcion.UsuarioPerdedorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -64,9 +65,14 @@ public class ControladorMonopoly {
     public ModelAndView moverJugador(@RequestParam("id")Long idPartida,HttpSession session){
         PartidaUsuario  usuarioQuienTiro = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(idPartida, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
         Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(idPartida);
-        this.servicioMonopoly.moverJugadorAlCasillero(usuarioQuienTiro,session);
-        this.servicioMonopoly.hacerCambioTurno(usuarioQuienTiro,partidaEnJuego);
-        return new ModelAndView("redirect:/monopoly/?id="+partidaEnJuego.getId());
+       try{
+           this.servicioMonopoly.moverJugadorAlCasillero(usuarioQuienTiro,session);
+           this.servicioMonopoly.hacerCambioTurno(usuarioQuienTiro,partidaEnJuego);
+       }catch(UsuarioPerdedorException ex){
+           session.setAttribute("mensaje", "El jugador "+usuarioQuienTiro.getUsuario().getNombreUsuario()+ " quedo en bancarrota");
+       }
+
+       return new ModelAndView("redirect:/monopoly/?id="+partidaEnJuego.getId());
     }
 
 

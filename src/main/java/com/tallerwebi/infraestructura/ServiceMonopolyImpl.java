@@ -3,6 +3,7 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.RepositorioPartidaUsuarioPropiedad;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
+import com.tallerwebi.dominio.excepcion.UsuarioPerdedorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,12 +52,25 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     }
 
     @Override
-    public void moverJugadorAlCasillero(PartidaUsuario usuarioAMover,HttpSession session){
+    public void moverJugadorAlCasillero(PartidaUsuario usuarioAMover,HttpSession session) throws UsuarioPerdedorException{
         Integer posicionObtenida = obtenerPosicionCasillero(usuarioAMover.getPosicionCasilla(),session);
         //Determino si piso en alguna propiedad
         Propiedad propiedadEnLaCasilla = determinarSiPisoEnAlgunaPropiedadDisponible(posicionObtenida, usuarioAMover.getPartida());
+
         if(propiedadEnLaCasilla != null)
             session.setAttribute("propiedad",propiedadEnLaCasilla);
+        else{
+            //Busco si le pertenece a alguien
+            PartidaUsuarioPropiedad pup = verSiLaPropiedadLePerteneceAAlguien(posicionObtenida, usuarioAMover.getUsuario(), usuarioAMover.getPartida());
+            //Si le pertenece entonces hago cambio de saldo
+            if(pup!=null){
+                Boolean resultado = transferirDineroAlDestinatario(usuarioAMover, pup.getPartidaUsuario(), pup.getPropiedad());
+                if(!resultado)
+                    throw new UsuarioPerdedorException();
+                session.setAttribute("mensaje", "El jugador "+usuarioAMover.getUsuario().getNombreUsuario()+ " paga al propietario "+pup.getPartidaUsuario().getUsuario().getNombreUsuario());
+            }
+        }
+
         //Establezco su posicion
         usuarioAMover.setPosicionCasilla(posicionObtenida);
         this.repositorioPartidaUsuario.actualizarPartidaUsuario(usuarioAMover);
@@ -81,6 +95,42 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
             return null;
 
         return propiedadEnLaCasilla;
+    }
+
+    private PartidaUsuarioPropiedad verSiLaPropiedadLePerteneceAAlguien(Integer posicionDelUsuario,Usuario usuarioQuienPaga, Partida partidaEnJuego){
+        Propiedad propiedadEnLaCasilla  = this.repositorioPropiedad.obtenerPropiedadPorNroCasillero(posicionDelUsuario);
+
+        if(propiedadEnLaCasilla == null)
+            return null;
+
+        List<PartidaUsuario> usuariosEnLaPartida = this.repositorioPartidaUsuario.obtenerPartidasUsuariosEnlaPartidaId(partidaEnJuego.getId());
+        List<PartidaUsuarioPropiedad> partidaUsuarioPropiedades = new ArrayList<PartidaUsuarioPropiedad>();
+        usuariosEnLaPartida.forEach(up -> partidaUsuarioPropiedades.addAll(up.getPropiedades()));
+
+        PartidaUsuarioPropiedad propietario = partidaUsuarioPropiedades.stream()
+                .filter(pup-> pup.getPropiedad().equals(propiedadEnLaCasilla))
+                .findAny().get();
+
+        if(propietario.getPartidaUsuario().getUsuario().equals(usuarioQuienPaga))
+            return null;
+
+        return propietario;
+    }
+
+    private Boolean transferirDineroAlDestinatario(PartidaUsuario usuarioQuienPaga, PartidaUsuario usuarioQuienRecibe, Propiedad propiedadACobrar){
+        if(usuarioQuienPaga.getSaldo() < propiedadACobrar.getPrecio())
+            return false; //pierde
+
+        //Aca el usuarioQuienPaga establece su nuevo saldo restante
+        usuarioQuienPaga.setSaldo(usuarioQuienPaga.getSaldo() - propiedadACobrar.getPrecio());
+
+        //Aca el usuarioQuienRecibe establece su nuevo saldo
+        usuarioQuienRecibe.setSaldo(usuarioQuienRecibe.getSaldo() + propiedadACobrar.getPrecio());
+
+        //Actualizo ambas entidades
+        this.repositorioPartidaUsuario.actualizarPartidaUsuario(usuarioQuienPaga);
+        this.repositorioPartidaUsuario.actualizarPartidaUsuario(usuarioQuienRecibe);
+        return true; //indico que pago
     }
 
     @Override
