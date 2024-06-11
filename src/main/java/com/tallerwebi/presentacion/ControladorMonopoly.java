@@ -43,6 +43,7 @@ public class ControladorMonopoly {
         mp.put("propiedad",session.getAttribute("propiedad"));
         mp.put("dado", session.getAttribute("dado"));
         mp.put("mensaje", session.getAttribute("mensaje"));
+        mp.put("pagarMensaje", session.getAttribute("pagarMensaje"));
         mp.put("usuariosJugando", usuariosJugando);
         mp.put("usuariosJSON",jackson.writeValueAsString(usuariosJugando));
         System.out.println(jackson.writeValueAsString(usuariosJugando));
@@ -54,6 +55,7 @@ public class ControladorMonopoly {
         session.removeAttribute("dado");
         session.removeAttribute("propiedad");
         session.removeAttribute("mensaje");
+        session.removeAttribute("pagarMensaje");
         return new ModelAndView("monopoly.html",mp);
     }
     @RequestMapping("/aceptarDado")

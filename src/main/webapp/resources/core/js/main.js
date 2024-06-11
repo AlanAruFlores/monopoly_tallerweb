@@ -35,8 +35,8 @@ document.addEventListener("click",(e)=>{
         cerrarVentana("#crear__partida__ventana");
 
     /*Cerramos la ventana emergente con el mensaje especifico*/
-    if(e.target.matches("#mensaje_boton") || e.target.matches("#mensaje_boton *"))
-        cerrarVentana("#ventana__mensaje");
+    if(e.target.matches(".mensaje_boton") || e.target.matches(".mensaje_boton *"))
+        cerrarVentana(".ventana__emergente");
 
 
     if(e.target.matches(".boton__musica") || e.target.matches(".boton__musica *")){

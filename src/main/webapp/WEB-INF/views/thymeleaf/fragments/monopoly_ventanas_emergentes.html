@@ -7,7 +7,7 @@
 <body>
 <div th:fragment="tablero_ventanas_emergentes">
     <!--Ventana cuando tira el jugador-->
-    <div th:if="${dado} and ${propiedad == null}" class="ventana__emergente dado__ventana">
+    <div th:if="${dado} and ${propiedad == null} and ${pagar == null} class="ventana__emergente dado__ventana">
         <h1 class="ventana__titulo">El Jugador 1 tiro el dado!!</h1>
         <img th:src="@{${dado}}" alt="dado" class="ventana__imagen imagen__dado">
         <a id="aceptar_dado" class="ventana__boton aceptar_boton">Aceptar</a>
@@ -25,15 +25,15 @@
         </div>
     </div>
 
-    <div class="ventana__emergente pagar">
-        <h1 class="ventana__titulo">JUGADOR 1 CAYO EN UNA PROPIEDAD!!</h1>
+<!--Ventana para mostrar el pago -->
+    <div th:if="${pagarMensaje}" class="ventana__emergente pagar">
+        <h1 class="ventana__titulo" th:text="${pagarMensaje.descripcionQuienPaga}"></h1>
         <div class="ventana__imagenes">
+            <img th:src="@{${dado}}" alt="dado" class="ventana__imagen imagen__dado">
             <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.png}" alt="propiedad">
-            <!--<img src="monopolyman.svg" alt="" class="ventana__imagen">-->
         </div>
-
-        <p class="ventana__parrafo">DEBE PAGAR AL JUGADOR 2 $30 POR CAER EN SU PROPIEDAD</p>
-        <a class="ventana__boton">Aceptar</a>
+        <p class="ventana__parrafo">pagarMensaje.descripcionQuienRecibe</p>
+        <a class="ventana__boton mensaje_boton aceptar_boton">Aceptar</a>
     </div>
 
     <!--Ventana del Chat-->
@@ -58,8 +58,9 @@
     <div th:if="${mensaje}" class="ventana__emergente ventana__mensaje">
         <h1 class="ventana__titulo" th:text="${mensaje}"></h1>
         <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.svg}" alt="monopolyman">
-        <a href="" id="mensaje_boton" class="ventana__boton boton__error aceptar_boton">Aceptar</a>
+        <a class="ventana__boton boton__error mensaje_boton aceptar_boton">Aceptar</a>
     </div>
+
 
     <!--Ventana para ver propiedades de un jugador -->
     <div class="ventana__emergente ventana__propiedades">

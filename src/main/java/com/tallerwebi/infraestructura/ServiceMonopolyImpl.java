@@ -4,6 +4,7 @@ import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.RepositorioPartidaUsuarioPropiedad;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import com.tallerwebi.dominio.excepcion.UsuarioPerdedorException;
+import com.tallerwebi.presentacion.DatosPagarPropiedad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +68,12 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
                 Boolean resultado = transferirDineroAlDestinatario(usuarioAMover, pup.getPartidaUsuario(), pup.getPropiedad());
                 if(!resultado)
                     throw new UsuarioPerdedorException();
-                session.setAttribute("mensaje", "El jugador "+usuarioAMover.getUsuario().getNombreUsuario()+ " paga al propietario "+pup.getPartidaUsuario().getUsuario().getNombreUsuario());
+
+                //INDICO CON UN MENSAJE EL USUARIO A PAGAR.
+                DatosPagarPropiedad pagarMensaje = new DatosPagarPropiedad();
+                pagarMensaje.setDescripcionQuienPaga("EL JUGADOR "+usuarioAMover.getUsuario().getNombreUsuario()+ "CAYO EN UNA PROPIEDAD!!");
+                pagarMensaje.setDescripcionQuienRecibe(usuarioAMover.getUsuario().getNombreUsuario() + " PAGA AL PROPIETARIO $"+pup.getPartidaUsuario().getUsuario().getNombreUsuario());
+                session.setAttribute("pagarMensaje", pagarMensaje);
             }
         }
 

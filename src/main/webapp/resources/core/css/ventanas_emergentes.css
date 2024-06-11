@@ -103,7 +103,7 @@
     padding: 10px 20px;
 }
 .pagar{
-    display:none
+    display:flex;
 }
 /*VENTANA CREAR PARTIDA*/
 #crear__partida__ventana{
