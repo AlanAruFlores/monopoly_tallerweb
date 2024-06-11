@@ -79,11 +79,6 @@ public class RepositorioPartidaUsuarioImpl implements RepositorioPartidaUsuario 
     }
 
     @Override
-    public void eliminarPartidaUsuario() {
-
-    }
-
-    @Override
     public void eliminarPartidaUsuarioPorPartidaIdYUsuarioId(Long partidaId, Long usuarioId) {
         final Session session = this.sessionFactory.getCurrentSession();
         String queryEliminar = "DELETE FROM PartidaUsuario pu WHERE pu.partida.id = :partidaId AND pu.usuario.id = :usuarioId";

@@ -45,5 +45,9 @@ public class RestControladorPartida {
         this.servicioPartida.crearUnaPartidaNueva(partidaNueva);
     }
 
+    @RequestMapping(path="/eliminar", method = RequestMethod.GET)
+    public void salirDeLaPartida(@RequestParam("partidaId") Long partidaId, @RequestParam("usuarioId") Long usuarioId){
+        this.servicioPartida.salirDeLaPartida(partidaId, usuarioId);
+    }
 
 }

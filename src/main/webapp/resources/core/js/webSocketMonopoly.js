@@ -1,5 +1,6 @@
 const usuarioNombre = document.currentScript.getAttribute("usuario-nombre");
 const partidaIdActual = document.currentScript.getAttribute("partida-id");
+const usuarioIdActual = document.currentScript.getAttribute("usuario-id");
 
 const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/spring/wsmonopolychat'
@@ -56,6 +57,17 @@ function enviarNotificacionMovimiento(message){
     )
 }
 
+function eliminarJugadorPorBancarrota(){
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/spring/api/partida/eliminar/?partidaId="+partidaIdActual+"&usuarioId="+usuarioIdActual,
+        dataType:"json"
+    });
+    enviarNotificacionMovimiento();
+    location.href="http://localhost:8080/spring/partida";
+
+}
+
 /*Funcion que capta eventos en Javascript*/
 document.addEventListener("DOMContentLoaded", ()=>{
     document.addEventListener("click", (e)=>{
@@ -70,6 +82,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
             enviarNotificacionMovimiento("Movimiento hecho");
         }
 
+        if(e.target.matches(".volver_boton" || e.target.matches("volver_boton *")))
+            eliminarJugadorPorBancarrota();
     })
 });
 

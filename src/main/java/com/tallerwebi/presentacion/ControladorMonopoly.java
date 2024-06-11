@@ -50,12 +50,14 @@ public class ControladorMonopoly {
         System.out.println(usuariosJugando.size());
         mp.put("usuarioActual", usuarioActual);
         mp.put("usuarioPropiedadesActual", propiedadesUsuarioActual);
+        mp.put("bancarrota",session.getAttribute("bancarrota"));
 
         /*Remuevo el atributo para que no aparezca 2 o más veces*/
         session.removeAttribute("dado");
         session.removeAttribute("propiedad");
         session.removeAttribute("mensaje");
         session.removeAttribute("pagarMensaje");
+        session.removeAttribute("bancarrota");
         return new ModelAndView("monopoly.html",mp);
     }
     @RequestMapping("/aceptarDado")
@@ -71,9 +73,8 @@ public class ControladorMonopoly {
            this.servicioMonopoly.moverJugadorAlCasillero(usuarioQuienTiro,session);
            this.servicioMonopoly.hacerCambioTurno(usuarioQuienTiro,partidaEnJuego);
        }catch(UsuarioPerdedorException ex){
-           session.setAttribute("mensaje", "El jugador "+usuarioQuienTiro.getUsuario().getNombreUsuario()+ " quedo en bancarrota");
+           session.setAttribute("bancarrota", "El jugador "+usuarioQuienTiro.getUsuario().getNombreUsuario()+ " quedo en bancarrota");
        }
-
        return new ModelAndView("redirect:/monopoly/?id="+partidaEnJuego.getId());
     }
 
