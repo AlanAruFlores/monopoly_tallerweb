@@ -5,6 +5,7 @@ import com.tallerwebi.dominio.RepositorioPartidaUsuarioPropiedad;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import com.tallerwebi.dominio.excepcion.UsuarioPerdedorException;
 import com.tallerwebi.presentacion.DatosPagarPropiedad;
+import com.tallerwebi.presentacion.DatosPropiedadUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -175,6 +176,17 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     @Override
     public List<PartidaUsuario> obtenerTodosLosUsuariosJugandoEnLaPartidaId(Long partidaId) {
         return this.repositorioPartidaUsuario.obtenerPartidasUsuariosEnlaPartidaId(partidaId);
+    }
+
+    @Override
+    public List<DatosPropiedadUsuario>tenerDatosDeLasPropiedadesDeLosUsuarios(List<PartidaUsuario> usuariosJugando){
+        List<DatosPropiedadUsuario> datosPropiedadUsuarios = new ArrayList<>();
+        for (PartidaUsuario usuario : usuariosJugando){
+            usuario.getPropiedades().forEach(
+                    p -> datosPropiedadUsuarios.add(new DatosPropiedadUsuario(p.getPropiedad(),usuario.getUsuario(),usuario.getColorUsuario().getCodigoHexadecimal())));
+        }
+
+        return datosPropiedadUsuarios;
     }
 
     @Override

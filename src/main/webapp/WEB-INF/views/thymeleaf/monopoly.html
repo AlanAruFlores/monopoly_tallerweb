@@ -37,6 +37,7 @@
 
     <!--Scripts JS para el monopoly-->
 
+    <script th:src="@{/js/monopoly.js}" th:datos-propiedades-usuarios="${datosPropiedadesUsuariosJSON}"></script>
     <script th:src="@{/js/jugador.js}" th:jugadores="${usuariosJSON}"></script>
     <script th:src="@{/js/main.js}" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,7 +35,13 @@ public class ControladorMonopoly {
 
         List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
         PartidaUsuario usuarioActual = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
+
+        //Obtengo todas las propiedades
+        List<DatosPropiedadUsuario> datosDeLasPropiedadesDeLosUsuarios = this.servicioMonopoly.tenerDatosDeLasPropiedadesDeLosUsuarios(usuariosJugando);
+
+        //Obtengo las propiedades de un unico usuario (usuario)
         List<PartidaUsuarioPropiedad> propiedadesUsuarioActual = usuarioActual.getPropiedades();
+
         Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(partidaId);
 
         ObjectMapper jackson = new ObjectMapper();
@@ -46,11 +53,10 @@ public class ControladorMonopoly {
         mp.put("pagarMensaje", session.getAttribute("pagarMensaje"));
         mp.put("usuariosJugando", usuariosJugando);
         mp.put("usuariosJSON",jackson.writeValueAsString(usuariosJugando));
-        System.out.println(jackson.writeValueAsString(usuariosJugando));
-        System.out.println(usuariosJugando.size());
         mp.put("usuarioActual", usuarioActual);
         mp.put("usuarioPropiedadesActual", propiedadesUsuarioActual);
         mp.put("bancarrota",session.getAttribute("bancarrota"));
+        mp.put("datosPropiedadesUsuariosJSON",jackson.writeValueAsString(datosDeLasPropiedadesDeLosUsuarios));
 
         /*Remuevo el atributo para que no aparezca 2 o más veces*/
         session.removeAttribute("dado");
@@ -58,6 +64,10 @@ public class ControladorMonopoly {
         session.removeAttribute("mensaje");
         session.removeAttribute("pagarMensaje");
         session.removeAttribute("bancarrota");
+
+
+        System.out.println(jackson.writeValueAsString(usuariosJugando));
+        System.out.println(usuariosJugando.size());
         return new ModelAndView("monopoly.html",mp);
     }
     @RequestMapping("/aceptarDado")

@@ -114,6 +114,14 @@ body{
   margin-left: 3%;
 }
 
+.propiedad_alias{
+  font-size:15px;
+  font-family: monopoly;
+  font-weight: bold;
+  color:#ff3f22;
+  text-transform: uppercase;
+}
+
 .logo {
   width: 80px;
 }

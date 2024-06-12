@@ -34,7 +34,7 @@ public class PartidaUsuario {
     @Enumerated(EnumType.STRING)
     private Color colorUsuario;
 
-    @OneToMany(mappedBy = "partidaUsuario", fetch = FetchType.EAGER, cascade=CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "partidaUsuario", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<PartidaUsuarioPropiedad> propiedades;
 
