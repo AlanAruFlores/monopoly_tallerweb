@@ -16,6 +16,7 @@
     <link rel="stylesheet" th:href="@{/css/chat.css}">
     <link rel="stylesheet" th:href="@{/css/botones_pantalla.css}">
     <link rel="stylesheet" th:href="@{/css/monopoly_perfil.css}">
+    <link rel="stylesheet" th:href="@{/css/intercambioPropiedad.css}">
 
   </head>
   <body>
@@ -34,6 +35,60 @@
 
     <!-- Ventana Comprar / Anular Propiedad o Servicio -->
     <div th:replace="fragments/monopoly_ventanas_emergentes :: tablero_ventanas_emergentes"></div>
+
+    <!-- Pop-up de intercambio de propiedades -->
+    <div id="popup" class="popup">
+      <div class="header2">
+        <h2 class="titulo"> Intercambio de Casas </h2>
+        <div class="boton__cerrar boton__chat__cerrar">
+
+          <i class="fa-solid fa-xmark" id="close-popup"></i>
+        </div>
+      </div>
+      <div class="content">
+        <div class="column">
+          <div class="player-info">
+            <div class="profile">
+              <img th:src="@{imagenes/foto_perfil.jpg}" alt="Perfil Jugador 1" class="profile-img">
+              <span class="nombre">Jugador 1</span>
+              <div class="money"><h3 class="numero">$1000</h3></div>
+            </div>
+            <div class="selected-houses">
+              <div class="house-slot" data-player="jugador1" data-slot="1"></div>
+              <div class="house-slot" data-player="jugador1" data-slot="2"></div>
+            </div>
+            <div class="house-options">
+              <img th:src="@{imagenes/balcarseprop.jpg}" alt="Casa 1" class="house-img" data-player="jugador1">
+              <img th:src="@{imagenes/avMendoza.jpg}" alt="Casa 2" class="house-img" data-player="jugador1">
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="player-info">
+            <div class="profile">
+              <img th:src="@{imagenes/monopolyman.svg}" alt="Perfil Jugador 2" class="profile-img">
+              <span class="nombre">Jugador 2</span>
+              <div class="money">  <h3 class="numero">$1200</h3></div>
+            </div>
+            <div class="selected-houses">
+              <div class="house-slot" data-player="jugador2" data-slot="1"></div>
+              <div class="house-slot" data-player="jugador2" data-slot="2"></div>
+            </div>
+            <div class="house-options">
+              <img th:src="@{imagenes/avenidaMayo.jpg}" alt="Casa 3" class="house-img" data-player="jugador2">
+              <img th:src="@{imagenes/florida.jpg}" alt="Casa 4" class="house-img" data-player="jugador2">
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="buttons">
+          <button id="exchange-button">Intercambiar</button>
+          <button id="cancel-button">Cancelar</button>
+        </div>
+
+    </div>
+
 
     <!--Scripts JS para el monopoly-->
     <script>
@@ -58,6 +113,7 @@
     </script>
 
     <script th:src="@{/js/main.js}" type="module"></script>
+    <script th:src="@{/js/intercambio_propiedades.js}" type="module"></script>
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
   </body>
