@@ -1,6 +1,7 @@
 package com.tallerwebi.integracion;
 
 import com.tallerwebi.dominio.ServicioPerfil;
+import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.CamposVaciosException;
 import com.tallerwebi.dominio.excepcion.ContraseniaInvalidaException;
 import com.tallerwebi.dominio.excepcion.EmailInvalidoException;
@@ -12,9 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.servlet.ModelAndView;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doThrow;
 
+import javax.servlet.http.HttpSession;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class ControladorPerfilTest {
 
@@ -30,43 +33,52 @@ public class ControladorPerfilTest {
     }
 
     @Test
-    public void testActualizarPerfil_ContraseniaInvalidaException() throws EmailInvalidoException, ContraseniaInvalidaException, CamposVaciosException {
-        DatosPerfil datosPerfil = new DatosPerfil();
-        datosPerfil.setContraseniaNueva("password1");
-        datosPerfil.setRepiteContraseniaNueva("password2");
+    public void testIrAlPerfil() {
+        // Mock de HttpSession
+        HttpSession session = mock(HttpSession.class);
+        // Usuario de prueba
+        Usuario usuarioActual = new Usuario();
+        usuarioActual.setNombre("NombreUsuario");
+        usuarioActual.setId(1L);
+        usuarioActual.setVictorias(10);
 
-        doThrow(ContraseniaInvalidaException.class).when(servicioPerfil).actualizarPerfil(datosPerfil);
+        // Mock de sesión
+        when(session.getAttribute("usuarioLogeado")).thenReturn(usuarioActual);
 
-        ModelAndView result = controladorPerfil.actualizarPerfil(datosPerfil);
+        // Llamada al método a probar
+        ModelAndView modelAndView = controladorPerfil.irAlperfil(session);
 
-        assertEquals("editarPerfil", result.getViewName());
-        assertEquals("Las contraseñas no coinciden o tienen menos de 5 caracteres", result.getModel().get("error"));
+        // Verificaciones
+        assertEquals("perfil", modelAndView.getViewName());
+        assertEquals("NombreUsuario", modelAndView.getModel().get("nombre"));
+        assertEquals(1L, modelAndView.getModel().get("id"));
+        assertEquals(10, modelAndView.getModel().get("victorias"));
     }
 
     @Test
-    public void testActualizarPerfil_EmailInvalidoException() throws EmailInvalidoException, ContraseniaInvalidaException,CamposVaciosException {
-        DatosPerfil datosPerfil = new DatosPerfil();
-        datosPerfil.setEmail("invalid-email");
+    public void testEditarPerfil() {
+        // Mock de HttpSession
+        HttpSession session = mock(HttpSession.class);
+        // Usuario de prueba
+        Usuario usuarioActual = new Usuario();
+        usuarioActual.setId(1L);
+        // Mock de sesión
+        when(session.getAttribute("usuarioLogeado")).thenReturn(usuarioActual);
+        // Usuario devuelto por el servicio
+        Usuario usuario = new Usuario();
+        usuario.setNombre("NombreUsuario");
+        usuario.setEmail("usuario@dominio.com");
+        when(servicioPerfil.devolverUsuario(1L)).thenReturn(usuario);
 
-        doThrow(EmailInvalidoException.class).when(servicioPerfil).actualizarPerfil(datosPerfil);
+        // Llamada al método a probar
+        ModelAndView modelAndView = controladorPerfil.editarPerfil(session);
 
-        ModelAndView result = controladorPerfil.actualizarPerfil(datosPerfil);
-
-        assertEquals("editarPerfil", result.getViewName());
-        assertEquals("El email proporcionado no es válido", result.getModel().get("error"));
+        // Verificaciones
+        assertEquals("editarPerfil", modelAndView.getViewName());
+        DatosPerfil datosPerfil = (DatosPerfil) modelAndView.getModel().get("datosPerfil");
+        assertEquals("NombreUsuario", datosPerfil.getNombre());
+        assertEquals("usuario@dominio.com", datosPerfil.getEmail());
     }
 
-
-    @Test
-    public void testActualizarPerfil_OtroError() throws EmailInvalidoException, ContraseniaInvalidaException, CamposVaciosException {
-        DatosPerfil datosPerfil = new DatosPerfil();
-
-        // Simulando otro tipo de excepción que no sea ContraseniaInvalidaException ni EmailInvalidoException
-        doThrow(RuntimeException.class).when(servicioPerfil).actualizarPerfil(datosPerfil);
-
-        ModelAndView result = controladorPerfil.actualizarPerfil(datosPerfil);
-
-        assertEquals("editarPerfil", result.getViewName());
-        assertEquals("Error al actualizar el perfil", result.getModel().get("error"));
-    }
+    // Agrega más tests según tus requerimientos
 }

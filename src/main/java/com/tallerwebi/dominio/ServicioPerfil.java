@@ -5,6 +5,9 @@ import com.tallerwebi.dominio.excepcion.CamposVaciosException;
 
 import com.tallerwebi.presentacion.DatosPerfil;
 
+import javax.servlet.http.HttpSession;
+
 public interface ServicioPerfil {
-    public void actualizarPerfil(DatosPerfil datosPerfil) throws ContraseniaInvalidaException, EmailInvalidoException, CamposVaciosException;
+    public void actualizarPerfil(DatosPerfil datosPerfil, HttpSession session) throws ContraseniaInvalidaException, EmailInvalidoException, CamposVaciosException;
+    Usuario devolverUsuario(Long id);
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Perfil</title>
@@ -14,11 +14,12 @@
 <div class="container">
     <div class="perfil">
         <img th:src="@{/imagenes/fondo.jpg}" alt="Default Avatar">
-        <h3>UsuarioX</h3>
-        <h3>ID:12345</h3>
-        <a href="../editarPerfil.html" class="btn" th:href="@{/editar-perfil}">Editar Perfil</a>
-        <a href="" class="delete-btn" th:href="@{/ir-menu}">Volver</a>
-
+        <h3 th:text="${nombre}">UsuarioX</h3>
+        <h3 th:text="${id}">ID:12345</h3>
+        <span>Victorias: </span>
+        <h3 th:text="${victorias}">0</h3>
+        <a th:href="@{/editar-perfil}" class="btn">Editar Perfil</a>
+        <a th:href="@{/ir-menu}" class="delete-btn">Volver</a>
     </div>
 </div>
 
@@ -42,3 +43,5 @@
 
 </body>
 </html>
+
+

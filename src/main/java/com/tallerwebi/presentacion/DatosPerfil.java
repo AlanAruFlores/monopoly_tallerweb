@@ -6,6 +6,8 @@ public class DatosPerfil {
     private String contraseniaActual;
     private String contraseniaNueva;
     private String repiteContraseniaNueva;
+    private String imagen;
+    private Long userId;
 
     public DatosPerfil() {}
 
@@ -49,4 +51,20 @@ public class DatosPerfil {
         this.repiteContraseniaNueva = repiteContraseniaNueva;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+
+    public long getId() {
+        return userId;
+    }
+
+    public void setId(long id) {
+        this.userId = id;
+    }
 }

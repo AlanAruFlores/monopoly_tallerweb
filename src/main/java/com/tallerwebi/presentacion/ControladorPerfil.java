@@ -2,6 +2,7 @@ package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioPerfil;
 
+import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.ContraseniaInvalidaException;
 import com.tallerwebi.dominio.excepcion.EmailInvalidoException;
 import com.tallerwebi.dominio.excepcion.CamposVaciosException;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ControladorPerfil {
@@ -29,27 +32,35 @@ public class ControladorPerfil {
 
 
     @RequestMapping("/perfil")
-    public ModelAndView irAlperfil() {
-        return new ModelAndView("perfil");
+    public ModelAndView irAlperfil(HttpSession session) {
+        Usuario usuarioActual = (Usuario) session.getAttribute("usuarioLogeado");
+        ModelMap model = new ModelMap();
+        model.addAttribute("nombre", usuarioActual.getNombre());
+        model.addAttribute("id", usuarioActual.getId());
+        model.addAttribute("victorias", usuarioActual.getVictorias());
+        return new ModelAndView("perfil",model);
     }
 
 
     @RequestMapping("/editar-perfil")
-    public ModelAndView editarPerfil() {
+    public ModelAndView editarPerfil(HttpSession session) {
+        Usuario usuarioActual = (Usuario) session.getAttribute("usuarioLogeado");
         ModelMap mp = new ModelMap();
-        mp.put("datosPerfil", new DatosPerfil());
-        return new ModelAndView("editarPerfil",mp);
-
+        Long userId = usuarioActual.getId();
+        Usuario usuario = servicioPerfil.devolverUsuario(userId);
+        DatosPerfil datosPerfil = new DatosPerfil();
+        datosPerfil.setNombre(usuario.getNombre());
+        datosPerfil.setEmail(usuario.getEmail());
+        mp.put("datosPerfil", datosPerfil); // Usar datosPerfil con los valores iniciales
+        return new ModelAndView("editarPerfil", mp);
     }
 
-
-
     @RequestMapping(path = "/editar-perfil", method = RequestMethod.POST)
-    public ModelAndView actualizarPerfil(@ModelAttribute("datosPerfil") DatosPerfil datosPerfil) {
+    public ModelAndView actualizarPerfil(@ModelAttribute("datosPerfil") DatosPerfil datosPerfil,HttpSession session) {
         ModelMap model = new ModelMap();
-
+        Usuario usuarioActual = (Usuario) session.getAttribute("usuarioLogeado");
         try {
-            servicioPerfil.actualizarPerfil(datosPerfil);
+            servicioPerfil.actualizarPerfil(datosPerfil,session);
             model.put("mensaje", "Perfil actualizado exitosamente");
 
         } catch (ContraseniaInvalidaException e) {
@@ -72,10 +83,4 @@ public class ControladorPerfil {
 
         return new ModelAndView("editarPerfil", model);
     }
-
-
-
-
-
-
 }

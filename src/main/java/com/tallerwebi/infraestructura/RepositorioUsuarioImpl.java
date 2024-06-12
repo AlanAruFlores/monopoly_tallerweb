@@ -12,11 +12,11 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
     private SessionFactory sessionFactory;
 
-   @Autowired
-   public RepositorioUsuarioImpl (SessionFactory sessionFactory) {
-       this.sessionFactory = sessionFactory;
+    @Autowired
+    public RepositorioUsuarioImpl (SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
 
-   }
+    }
 
     @Override
     public void guardar(Usuario usuario) {
@@ -39,4 +39,16 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
             return false;
         }
     }
+    @Override
+    public void actualizarUsuario(Usuario usuario) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.update(usuario);
+    }
+
+    @Override
+    public Usuario buscarUsuarioPorId(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Usuario.class, id);
+    }
+
 }
