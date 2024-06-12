@@ -12,7 +12,7 @@
     <form action="#" th:action="@{/editar-perfil}" method="POST" th:object="${datosPerfil}" >
 
         <!-- Espacio para la imagen -->
-        <img id="update_image" th:src="@{/imagenes/fondo.jpg}">
+        <img id="update_image" th:src="@{/imagenes/foto_perfil.jpg}">
 
         <!-- Mensaje de éxito o error -->
         <div th:if="${mensaje}" class="success-message" th:text="${mensaje}"></div>
