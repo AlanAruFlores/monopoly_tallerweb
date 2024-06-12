@@ -79,11 +79,11 @@ public class RepositorioPartidaUsuarioImpl implements RepositorioPartidaUsuario 
     }
 
     @Override
-    public void eliminarPartidaUsuarioPorPartidaIdYUsuarioId(Long partidaId, Long usuarioId) {
+    public void eliminarPartidaUsuario(Long partidaId, Long usuarioId) {
         final Session session = this.sessionFactory.getCurrentSession();
-        String queryEliminar = "DELETE FROM PartidaUsuario pu WHERE pu.partida.id = :partidaId AND pu.usuario.id = :usuarioId";
-
-        session.createQuery(queryEliminar)
+        //Hago uso del procedure de salir partida del monopoly.
+        String queryEliminar = "CALL salir_partida(:partidaId, :usuarioId)";
+        session.createSQLQuery(queryEliminar)
                 .setParameter("partidaId", partidaId)
                 .setParameter("usuarioId", usuarioId)
                 .executeUpdate();

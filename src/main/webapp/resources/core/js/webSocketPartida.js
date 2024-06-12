@@ -76,13 +76,15 @@ document.getElementById("formularioCrearPartida").addEventListener("submit", fun
         url: "http://localhost:8080/spring/api/partida/crearPartida",
         contentType: "application/json", // Especifica el tipo de medio como JSON
         data: JSON.stringify(datosPartida), // Convierte el objeto a JSON
-        dataType: "json"
+        dataType: "json",
+        success: function(){
+            notificarALosJugadoresDeNuevaPartida("Partida Nueva!!");
+        }
     });
 
     const $ventana = document.querySelector("#crear__partida__ventana");
         $ventana.style.setProperty("visibility","hidden");
         $ventana.style.setProperty("opacity", "0");
-        notificarALosJugadoresDeNuevaPartida("Partida Nueva!!");
 });
 
 

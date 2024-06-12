@@ -85,7 +85,7 @@ public class ServicioPartidaImpl implements ServicioPartida {
 
     @Override
     public void salirDeLaPartida(Long partidaId, Long usuarioId) {
-        this.repositorioPartidaUsuario.eliminarPartidaUsuarioPorPartidaIdYUsuarioId(partidaId,usuarioId);
+        this.repositorioPartidaUsuario.eliminarPartidaUsuario(partidaId,usuarioId);
     }
 
 

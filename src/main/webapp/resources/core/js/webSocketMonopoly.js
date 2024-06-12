@@ -61,11 +61,11 @@ function eliminarJugadorPorBancarrota(){
     $.ajax({
         type:"GET",
         url:"http://localhost:8080/spring/api/partida/eliminar/?partidaId="+partidaIdActual+"&usuarioId="+usuarioIdActual,
-        dataType:"json"
+        dataType:"json",
+        success: function(){
+            enviarNotificacionMovimiento();
+        }
     });
-    enviarNotificacionMovimiento();
-    location.href="http://localhost:8080/spring/partida";
-
 }
 
 /*Funcion que capta eventos en Javascript*/

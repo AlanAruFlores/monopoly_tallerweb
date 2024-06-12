@@ -30,9 +30,9 @@
         <h1 class="ventana__titulo" th:text="${pagarMensaje.descripcionQuienPaga}"></h1>
         <div class="ventana__imagenes">
             <img th:src="@{${dado}}" alt="dado" class="ventana__imagen imagen__dado">
-            <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.png}" alt="propiedad">
+            <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.svg}" alt="monopolyman">
         </div>
-        <p class="ventana__parrafo">pagarMensaje.descripcionQuienRecibe</p>
+        <p class="ventana__parrafo" th:text="${pagarMensaje.descripcionQuienRecibe}"></p>
         <a class="ventana__boton mensaje_boton aceptar_boton">Aceptar</a>
     </div>
 

@@ -36,6 +36,9 @@ public class ControladorMonopoly {
         List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
         PartidaUsuario usuarioActual = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
 
+        if(usuarioActual == null)
+            return new ModelAndView("redirect:/partida");
+
         //Obtengo todas las propiedades
         List<DatosPropiedadUsuario> datosDeLasPropiedadesDeLosUsuarios = this.servicioMonopoly.tenerDatosDeLasPropiedadesDeLosUsuarios(usuariosJugando);
 
@@ -80,8 +83,8 @@ public class ControladorMonopoly {
         PartidaUsuario  usuarioQuienTiro = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(idPartida, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
         Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(idPartida);
        try{
-           this.servicioMonopoly.moverJugadorAlCasillero(usuarioQuienTiro,session);
            this.servicioMonopoly.hacerCambioTurno(usuarioQuienTiro,partidaEnJuego);
+           this.servicioMonopoly.moverJugadorAlCasillero(usuarioQuienTiro,session);
        }catch(UsuarioPerdedorException ex){
            session.setAttribute("bancarrota", "El jugador "+usuarioQuienTiro.getUsuario().getNombreUsuario()+ " quedo en bancarrota");
        }

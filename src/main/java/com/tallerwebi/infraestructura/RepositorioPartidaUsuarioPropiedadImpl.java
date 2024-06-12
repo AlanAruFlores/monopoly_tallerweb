@@ -1,5 +1,6 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.PartidaUsuario;
 import com.tallerwebi.dominio.PartidaUsuarioPropiedad;
 import com.tallerwebi.dominio.RepositorioPartidaUsuarioPropiedad;
 import org.hibernate.Session;
