@@ -14,7 +14,10 @@
 
     <main class="main">
         <h2 class="main__titulo">MENU</h2>
-        <a class="main__boton" th:href="@{/partida}">Unirse a una partida</a>
+
+        <a th:if="${partidaEnJuego == null}" class="main__boton" th:href="@{/partida}">Unirse a una partida</a>
+        <a th:if="${partidaEnJuego != null}" class="main__boton" th:href="@{/espera}">Volver a la partida</a>
+
         <a class="main__boton" th:href="@{/perfil}">Ver Perfil</a>
         <a class="main__boton" th:href="@{/ir-salir}">Cerrar Sesion</a>
     </main>

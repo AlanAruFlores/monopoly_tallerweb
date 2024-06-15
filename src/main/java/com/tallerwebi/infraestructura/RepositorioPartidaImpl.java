@@ -3,6 +3,7 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.Partida;
 import com.tallerwebi.dominio.Propiedad;
 import com.tallerwebi.dominio.RepositorioPartida;
+import com.tallerwebi.dominio.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -45,6 +46,15 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         final Session session = this.sessionFactory.getCurrentSession();
         return (Partida) session.createCriteria(Partida.class)
                 .add(Restrictions.eq("id",partidaId))
+                .uniqueResult();
+    }
+
+    @Override
+    public Partida obtenerPartidaPorCreador(Usuario creador) {
+        final Session session = this.sessionFactory.getCurrentSession();
+        return (Partida) session.createCriteria(Partida.class)
+                .createAlias("creador","c")
+                .add(Restrictions.eq("c.id",creador.getId()))
                 .uniqueResult();
     }
 

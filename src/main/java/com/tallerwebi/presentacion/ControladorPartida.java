@@ -34,6 +34,10 @@ public class ControladorPartida {
     /*Voy a la pantalla de partidas*/
     @RequestMapping(path="/partida", method=RequestMethod.GET)
     public ModelAndView irPartida(HttpSession session){
+
+        if(session.getAttribute("partidaEnJuego") != null)
+            return new ModelAndView("redirect:/espera");
+
         ModelMap mp = new ModelMap();
         //Obtengo las partidas para mostrarlos a los jugadores
         List<Partida> partidasCreadas = this.servicioPartida.obtenerTodasLasPartidas();

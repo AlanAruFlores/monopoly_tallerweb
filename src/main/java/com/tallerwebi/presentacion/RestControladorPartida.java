@@ -5,6 +5,7 @@ import com.tallerwebi.dominio.Partida;
 import com.tallerwebi.dominio.ServicioPartida;
 import com.tallerwebi.dominio.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +30,12 @@ public class RestControladorPartida {
         return this.servicioPartida.obtenerTodasLasPartidas();
     }
 
+    @RequestMapping(path="/obtenerPartidaDelCreador", method = RequestMethod.GET)
+    public Partida obtenerPartidaPorCreador(HttpSession session){
+        Usuario usuarioCreador = (Usuario) session.getAttribute("usuarioLogeado");
+        Partida partidaRecienCreada = this.servicioPartida.obtenerPartidaPorCreador(usuarioCreador);
+        return partidaRecienCreada;
+    }
 
     /*Creo una partida*/
     @PostMapping("/crearPartida")

@@ -25,14 +25,13 @@ public class ServicioPartidaImpl implements ServicioPartida {
     }
 
     @Override
-    public void verificarSiEstaAutenticado(HttpSession session)throws UsuarioNoAutenticadoException{
-        if(session.getAttribute("usuarioLogeado") == null)
-            throw new UsuarioNoAutenticadoException();
+    public void crearUnaPartidaNueva(Partida partida) {
+        this.repositorioPartida.crearPartida(partida);
     }
 
     @Override
-    public void crearUnaPartidaNueva(Partida partida) {
-        this.repositorioPartida.crearPartida(partida);
+    public Partida obtenerPartidaPorCreador(Usuario creador){
+        return this.repositorioPartida.obtenerPartidaPorCreador(creador);
     }
 
     @Override

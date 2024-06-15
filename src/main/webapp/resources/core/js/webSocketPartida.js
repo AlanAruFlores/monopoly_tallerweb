@@ -10,6 +10,7 @@ stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
     //Estado de escucha
     stompClient.subscribe('/topic/notificacionPartida', (m) => {
+        console.log("Hola");
         $.ajax({
             type: "GET",
             url: "http://localhost:8080/spring/api/partida/obtenerTodasPartidas",
@@ -59,33 +60,53 @@ function notificarALosJugadoresDeNuevaPartida(message){
     });
 }
 
+function irAlAPartidaYaCreada(){
+    console.log("Yendo sa la partida");
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/spring/api/partida/obtenerPartidaDelCreador",
+        dataType:"json",
+        success: function(partidaRecienCreada){
+            console.log(partidaRecienCreada);
+            location.href= "http://localhost:8080/spring/unirsePartida/?id="+partidaRecienCreada.id;
+        }
+    });
+}
+
+function ejecutarCallBacks(funcion,tiempo){
+    setTimeout(()=>funcion(),tiempo);
+}
+
 /*Funcion que capta eventos en Javascript*/
 document.getElementById("formularioCrearPartida").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const nombreValor = document.querySelector("#nombreInput").value;
-    const numeroValor = document.querySelector("#numeroInput").value;
-
-    const datosPartida = {
-        nombre: nombreValor,
-        numero: numeroValor
-    };
-
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:8080/spring/api/partida/crearPartida",
-        contentType: "application/json", // Especifica el tipo de medio como JSON
-        data: JSON.stringify(datosPartida), // Convierte el objeto a JSON
-        dataType: "json",
-        success: function(){
-            notificarALosJugadoresDeNuevaPartida("Partida Nueva!!");
-        }
-    });
+    ejecutarCallBacks(()=>{
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/spring/api/partida/crearPartida",
+            contentType: "application/json", // Especifica el tipo de medio como JSON
+            data: JSON.stringify({
+                nombre: document.querySelector("#nombreInput").value,
+                numero: document.querySelector("#numeroInput").value
+            }), // Convierte el objeto a JSON
+            dataType: "json",
+            success: function(){
+                console.log("POST HECHOqwdqwdwqdqwd");
+            }
+        });
+        ejecutarCallBacks(()=>
+        {
+            notificarALosJugadoresDeNuevaPartida("Partida Nueva!!")
+            ejecutarCallBacks(()=>irAlAPartidaYaCreada(),500)
+        }, 0)
+    }, 0)
 
     const $ventana = document.querySelector("#crear__partida__ventana");
         $ventana.style.setProperty("visibility","hidden");
         $ventana.style.setProperty("opacity", "0");
 });
+
 
 
 
