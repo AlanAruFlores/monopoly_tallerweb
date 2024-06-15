@@ -1,10 +1,13 @@
 package com.tallerwebi.dominio;
 
 import com.tallerwebi.dominio.excepcion.ExcesoDeJugadoresException;
+import com.tallerwebi.dominio.excepcion.UsuarioNoAutenticadoException;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface ServicioPartida {
+    public void verificarSiEstaAutenticado(HttpSession session) throws UsuarioNoAutenticadoException;
     public void crearUnaPartidaNueva(Partida partida);
     public List<Partida> obtenerTodasLasPartidas();
     public Partida obtenerPartidaPorPartidaId(Long partidaId);

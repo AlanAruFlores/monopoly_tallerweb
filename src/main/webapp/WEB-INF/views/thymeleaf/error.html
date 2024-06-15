@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/error.css}"/>
+    <title>Error</title>
+</head>
+<body>
+    <div class="error__descripcion">
+        <div class="error__mensaje">
+            <h1 th:text="'Error '+${codigoError}"></h1>
+            <p th:text="${mensaje}"></p>
+        </div>
+        <div class="error__imagen">
+            <img th:src="@{/imagenes/monopolyman.svg}" alt="foto_error">
+        </div>
+    </div>
+
+    <div>
+        <a class="error__btn" th:href="@{/login}">Volver</a>
+    </div>
+</body>
+</html>

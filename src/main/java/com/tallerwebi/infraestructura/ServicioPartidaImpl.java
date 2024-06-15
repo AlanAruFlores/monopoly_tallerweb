@@ -2,9 +2,11 @@ package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.ExcesoDeJugadoresException;
+import com.tallerwebi.dominio.excepcion.UsuarioNoAutenticadoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -22,6 +24,11 @@ public class ServicioPartidaImpl implements ServicioPartida {
         this.repositorioPartidaUsuario = repositorioPartidaUsuario;
     }
 
+    @Override
+    public void verificarSiEstaAutenticado(HttpSession session)throws UsuarioNoAutenticadoException{
+        if(session.getAttribute("usuarioLogeado") == null)
+            throw new UsuarioNoAutenticadoException();
+    }
 
     @Override
     public void crearUnaPartidaNueva(Partida partida) {
