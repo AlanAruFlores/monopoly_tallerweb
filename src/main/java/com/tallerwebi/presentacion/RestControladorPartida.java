@@ -1,9 +1,6 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.EstadoPartida;
-import com.tallerwebi.dominio.Partida;
-import com.tallerwebi.dominio.ServicioPartida;
-import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -19,10 +16,12 @@ import java.util.List;
 @RequestMapping("/api/partida")
 public class RestControladorPartida {
     private ServicioPartida servicioPartida;
+    private ServicioMonopoly servicioMonopoly;
 
     @Autowired
-    public RestControladorPartida(ServicioPartida servicioPartida) {
+    public RestControladorPartida(ServicioPartida servicioPartida, ServicioMonopoly servicioMonopoly) {
         this.servicioPartida = servicioPartida;
+        this.servicioMonopoly = servicioMonopoly;
     }
 
     @GetMapping("/obtenerTodasPartidas")
@@ -57,4 +56,11 @@ public class RestControladorPartida {
         this.servicioPartida.salirDeLaPartida(partidaId, usuarioId);
     }
 
+
+    @RequestMapping(path = "/establecerEstado", method = RequestMethod.POST)
+    public void establecerEstadoDeUsuarioPartida(@RequestParam("idPartidaUsuario")Long idPartidaUsuario,@RequestParam("estado") String estado){
+        System.out.println("SE EJECUTA SEGUNDO ESTABLECER ESTADO DEL "+estado);
+        EstadoActividad estadoActividad = this.servicioMonopoly.convertirStringAEstadoActividad(estado);
+        this.servicioMonopoly.establecerEstadoDeUnPartidaUsuario(idPartidaUsuario, estadoActividad);
+    }
 }

@@ -199,5 +199,29 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
         return this.repositorioPartida.obtenerPartidaPorId(partidaId);
     }
 
+    @Override
+    public void establecerEstadoDeUnPartidaUsuario(Long partidaUsuarioId, EstadoActividad estado){
+        this.repositorioPartidaUsuario.cambiarEstadoPorId(partidaUsuarioId, estado);
+    }
+
+
+    @Override
+    public EstadoActividad convertirStringAEstadoActividad(String estado){
+        return (estado.equalsIgnoreCase("activo")) ? EstadoActividad.ACTIVO : EstadoActividad.INACTIVO;
+    }
+
+    @Override
+    public void establecerActivo(PartidaUsuario partidaUsuario){
+        this.repositorioPartidaUsuario.cambiarEstadoPorId(partidaUsuario.getId(),EstadoActividad.ACTIVO);
+    }
+
+    @Override
+    public Boolean verificarSiAlgunoEstaInactivo(List<PartidaUsuario> partidasUsuarios){
+        for(PartidaUsuario partidaUsuario : partidasUsuarios){
+            if(partidaUsuario.getEstadoActividad().equals(EstadoActividad.INACTIVO))
+                return true;
+        }
+        return false;
+    }
 
 }

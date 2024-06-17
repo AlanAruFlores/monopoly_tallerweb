@@ -61,4 +61,13 @@ public class ControladorWebSocket {
         String json = mapper.writeValueAsString(mensajeEnviado);
         return json;
     }
+
+    @MessageMapping("/indicarCierreSocket")
+    @SendTo("/topic/recibirCierreSocket")
+    public String recibirCierreDeUnJugaodr(MensajeEnviado mensaje) throws Exception{
+        MensajeEnviado mensajeEnviado = new MensajeEnviado(mensaje.getMessage());
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(mensajeEnviado);
+        return json;
+    }
 }

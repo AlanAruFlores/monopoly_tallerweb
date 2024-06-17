@@ -65,7 +65,7 @@ public class ServicioPartidaImpl implements ServicioPartida {
             }
         }
 
-        PartidaUsuario nuevoUsuarioEnLaPartida = new PartidaUsuario(null,partidaAUnirse,usuario,1,500.0,colorSeleccionado,null);
+        PartidaUsuario nuevoUsuarioEnLaPartida = new PartidaUsuario(null,partidaAUnirse,usuario,1,500.0,colorSeleccionado,EstadoActividad.ACTIVO,null);
         this.repositorioPartidaUsuario.crearPartidaUsuario(nuevoUsuarioEnLaPartida);
     }
 

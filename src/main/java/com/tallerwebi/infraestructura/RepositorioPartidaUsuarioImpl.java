@@ -88,4 +88,12 @@ public class RepositorioPartidaUsuarioImpl implements RepositorioPartidaUsuario 
                 .setParameter("usuarioId", usuarioId)
                 .executeUpdate();
     }
+
+    @Override
+    public void cambiarEstadoPorId(Long partidaUsuarioId, EstadoActividad estado){
+        final Session session = this.sessionFactory.getCurrentSession();
+        PartidaUsuario partidaUsuarioPersistida = session.get(PartidaUsuario.class,partidaUsuarioId);
+        partidaUsuarioPersistida.setEstadoActividad(estado);
+        session.update(partidaUsuarioPersistida);
+    }
 }

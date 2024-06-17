@@ -1,6 +1,7 @@
 const usuarioNombre = document.currentScript.getAttribute("usuario-nombre");
 const partidaIdActual = document.currentScript.getAttribute("partida-id");
 const usuarioIdActual = document.currentScript.getAttribute("usuario-id");
+const usuarioPartidaId = document.currentScript.getAttribute("usuario-partida-id");
 
 const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/spring/wsmonopolychat'
@@ -8,7 +9,6 @@ const stompClient = new StompJs.Client({
 stompClient.debug = function(str) {
     console.log(str)
 };
-
 
 const chatMensajesElem = document.querySelector('.chat__mensajes');
 stompClient.onConnect = (frame) => {
@@ -20,8 +20,19 @@ stompClient.onConnect = (frame) => {
     });
 
     stompClient.subscribe('/topic/recibirActualizacionDeTablero',(m)=>{
-        location.href="http://localhost:8080/spring/monopoly/?id="+partidaIdActual;
-    })
+        //location.href="http://localhost:8080/spring/monopoly/?id="+partidaIdActual;
+        window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+        location.reload();
+    });
+
+    stompClient.subscribe("/topic/recibirCierreSocket", (m) =>{
+        console.log(JSON.parse(m.body));
+        //Evito que los demas pasen por el mismo evento de salir partida
+        window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+    //  location.href="http://localhost:8080/spring/monopoly/?id="+partidaIdActual;
+        location.reload();
+    });
+
 };
 
 stompClient.onWebSocketError = (error) => {
@@ -32,7 +43,35 @@ stompClient.onStompError = (frame) => {
     console.error('Broker reported error: ' + frame.headers['message']);
     console.error('Additional details: ' + frame.body);
 };
+
 stompClient.activate();
+
+//Actualizo el estado de activo a inactivo de un jugador
+function establecerInactivoAlJugadorActual() {
+    navigator.sendBeacon("http://localhost:8080/spring/api/partida/establecerEstado/?idPartidaUsuario=" + usuarioPartidaId + "&estado=inactivo");
+    stompClient.publish({
+        destination: "/app/indicarCierreSocket",
+        body: JSON.stringify({
+            message: "Ripeo un socket"
+        })
+    });
+}
+window.addEventListener("beforeunload",establecerInactivoAlJugadorActual);
+
+//Establezco la reconexion de un inactivo
+function establecerActivoAUnJugadorActual(){
+    navigator.sendBeacon("http://localhost:8080/spring/api/partida/establecerEstado/?idPartidaUsuario=" + usuarioPartidaId + "&estado=activo");
+    setTimeout(()=>{
+        stompClient.publish({
+            destination: "/app/enviarActualizacionDeTablero",
+            body: JSON.stringify({
+                message: "Reconexion establecida"
+            })
+        })
+    },2000);
+}
+
+document.querySelector(".boton__reconectarse").addEventListener("click",establecerActivoAUnJugadorActual);
 
 
 /*Enviar Mensaje por el chat*/

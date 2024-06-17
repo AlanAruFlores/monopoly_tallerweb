@@ -87,6 +87,15 @@
             </div>
         </div>
     </div>
+
+    <div th:if="${usuarioActual.estadoActividad.name().equals('ACTIVO') && hayAlgunInactivo == true}" class="ventana__emergente ventana__usuario__desconectado">
+        <h1>Hay un usuario Desconectado</h1>
+    </div>
+
+    <div th:if="${usuarioActual.estadoActividad.name().equals('INACTIVO')}" class="ventana__emergente ventana__usuario__desconectado">
+        <h1>Usted se desconecto</h1>
+        <a href="#" class="ventana__boton boton__reconectarse"></a>
+    </div>
 </div>
 </body>
 </html>

@@ -32,13 +32,13 @@ public class ControladorMonopoly {
     @RequestMapping("/monopoly")
     public ModelAndView irAlMonopoly(@RequestParam("id") Long partidaId, HttpSession session) throws Exception {
         ModelMap mp  = new ModelMap();
-
-        List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
         PartidaUsuario usuarioActual = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
-
+        List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
         if(usuarioActual == null)
             return new ModelAndView("redirect:/partida");
 
+
+        Boolean hayAlgunInactivo = this.servicioMonopoly.verificarSiAlgunoEstaInactivo(usuariosJugando);
         //Obtengo todas las propiedades
         List<DatosPropiedadUsuario> datosDeLasPropiedadesDeLosUsuarios = this.servicioMonopoly.tenerDatosDeLasPropiedadesDeLosUsuarios(usuariosJugando);
 
@@ -61,13 +61,16 @@ public class ControladorMonopoly {
         mp.put("bancarrota",session.getAttribute("bancarrota"));
         mp.put("datosPropiedadesUsuariosJSON",jackson.writeValueAsString(datosDeLasPropiedadesDeLosUsuarios));
 
+        //Me va a servir para ver si hay algun inactivo en el juego, y asi poder eliminarlo
+        mp.put("hayAlgunInactivo",hayAlgunInactivo);
+        System.out.println(hayAlgunInactivo);
+
         /*Remuevo el atributo para que no aparezca 2 o más veces*/
         session.removeAttribute("dado");
         session.removeAttribute("propiedad");
         session.removeAttribute("mensaje");
         session.removeAttribute("pagarMensaje");
         session.removeAttribute("bancarrota");
-
 
         System.out.println(jackson.writeValueAsString(usuariosJugando));
         System.out.println(usuariosJugando.size());
@@ -104,6 +107,7 @@ public class ControladorMonopoly {
         }
         return new ModelAndView("redirect:/monopoly/?id="+idPartida);
     }
+
 
 }
 

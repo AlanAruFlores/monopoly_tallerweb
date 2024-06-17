@@ -15,4 +15,8 @@ public interface ServicioMonopoly {
     public PartidaUsuario obtenerUsuarioPartidaPorPartidaIdYUsuarioId(Long partidaId, Long usuarioId);
     public Partida obtenerPartidaPorPartidaId(Long partidaId);
     public void adquirirPropiedad(Long propiedadId, PartidaUsuario usuarioQuienCompra) throws SaldoInsuficienteException;
+    public void establecerEstadoDeUnPartidaUsuario(Long partidaUsuarioId, EstadoActividad estado);
+    public EstadoActividad convertirStringAEstadoActividad(String estado);
+    public void establecerActivo(PartidaUsuario partidaUsuario);
+    public Boolean verificarSiAlgunoEstaInactivo(List<PartidaUsuario> partidasUsuarios);
 }
