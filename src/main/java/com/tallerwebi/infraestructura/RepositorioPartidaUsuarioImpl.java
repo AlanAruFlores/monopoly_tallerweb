@@ -59,6 +59,15 @@ public class RepositorioPartidaUsuarioImpl implements RepositorioPartidaUsuario 
     }
 
     @Override
+    public PartidaUsuario obtenerUsuarioPartidaPorUsuarioId(Long usuarioId) {
+        final Session session = this.sessionFactory.getCurrentSession();
+        return (PartidaUsuario) session.createCriteria(PartidaUsuario.class)
+                .createAlias("usuario","u")
+                .add(Restrictions.eq("u.id",usuarioId))
+                .uniqueResult();
+    }
+
+    @Override
     public List<Color> obtenerColoresJugadoresUsuados(Long partidaId) {
         final Session session = this.sessionFactory.getCurrentSession();
         return session.createCriteria(PartidaUsuario.class)

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ServicioPartida {
     public void crearUnaPartidaNueva(Partida partida);
+    public void actualizarEstadoDeUnaPartida(Partida partida, EstadoPartida estadoPartida);
     public Partida obtenerPartidaPorCreador(Usuario creador);
     public List<Partida> obtenerTodasLasPartidas();
     public Partida obtenerPartidaPorPartidaId(Long partidaId);

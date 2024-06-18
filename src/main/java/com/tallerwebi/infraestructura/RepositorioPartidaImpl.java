@@ -32,6 +32,7 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         final Session session = this.sessionFactory.getCurrentSession();
         Partida partidaPersistida = session.get(Partida.class, partida.getId());
         partidaPersistida.setTurnoJugador(partida.getTurnoJugador());
+        partidaPersistida.setEstadoPartida(partida.getEstadoPartida());
         session.update(partidaPersistida);
     }
 

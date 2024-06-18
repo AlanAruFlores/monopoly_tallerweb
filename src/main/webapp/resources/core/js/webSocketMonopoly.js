@@ -71,8 +71,10 @@ function establecerActivoAUnJugadorActual(){
     },2000);
 }
 
-document.querySelector(".boton__reconectarse").addEventListener("click",establecerActivoAUnJugadorActual);
 
+if(document.querySelector(".boton__reconectarse") != null){
+    document.querySelector(".boton__reconectarse").addEventListener("click",establecerActivoAUnJugadorActual);
+}
 
 /*Enviar Mensaje por el chat*/
 function enviarMensaje(message){
@@ -123,6 +125,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
         if(e.target.matches(".volver_boton" || e.target.matches("volver_boton *")))
             eliminarJugadorPorBancarrota();
+
+        if(e.target.matches(".boton__dado") || e.target.matches(".boton__dado *")) {
+            console.log("dado");
+            window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+            location.href="http://localhost:8080/spring/moverJugador/?id="+partidaIdActual;
+        }
     })
 });
 

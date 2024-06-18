@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import com.tallerwebi.dominio.excepcion.UsuarioPerdedorException;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,16 +22,23 @@ import java.util.List;
 @Controller
 public class ControladorMonopoly {
 
-    ServicioMonopoly servicioMonopoly;
+    private ServicioMonopoly servicioMonopoly;
+    private ServicioPartida servicioPartida;
 
     @Autowired
-    public ControladorMonopoly(ServicioMonopoly servicioMonopoly){
+    public ControladorMonopoly(ServicioMonopoly servicioMonopoly, ServicioPartida servicioPartida){
         this.servicioMonopoly = servicioMonopoly;
+        this.servicioPartida = servicioPartida;
     }
 
     /*Ir al inicio del monopoly*/
     @RequestMapping("/monopoly")
     public ModelAndView irAlMonopoly(@RequestParam("id") Long partidaId, HttpSession session) throws Exception {
+        /*Cuando inicia el monopoly, primero cambio el estado de esa partida a activo*/
+        Partida partidaActualEnJuego = (Partida) session.getAttribute("partidaEnJuego");
+        if(partidaActualEnJuego.getEstadoPartida().equals(EstadoPartida.ABIERTA))
+            this.servicioPartida.actualizarEstadoDeUnaPartida(partidaActualEnJuego, EstadoPartida.EN_CURSO);
+
         ModelMap mp  = new ModelMap();
         PartidaUsuario usuarioActual = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
         List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
@@ -82,7 +90,7 @@ public class ControladorMonopoly {
     }
 
     @RequestMapping("/moverJugador")
-    public ModelAndView moverJugador(@RequestParam("id")Long idPartida,HttpSession session){
+    public ModelAndView moverJugador(@RequestParam("id")Long idPartida, HttpSession session){
         PartidaUsuario  usuarioQuienTiro = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(idPartida, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
         Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(idPartida);
        try{

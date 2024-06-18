@@ -30,6 +30,12 @@ public class ServicioPartidaImpl implements ServicioPartida {
     }
 
     @Override
+    public void actualizarEstadoDeUnaPartida(Partida partida, EstadoPartida estadoPartida) {
+        partida.setEstadoPartida(estadoPartida);
+        this.repositorioPartida.actualizarPartida(partida);
+    }
+
+    @Override
     public Partida obtenerPartidaPorCreador(Usuario creador){
         return this.repositorioPartida.obtenerPartidaPorCreador(creador);
     }
