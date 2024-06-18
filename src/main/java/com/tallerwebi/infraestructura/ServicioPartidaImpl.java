@@ -100,5 +100,8 @@ public class ServicioPartidaImpl implements ServicioPartida {
         this.repositorioPartidaUsuario.eliminarPartidaUsuario(partidaId,usuarioId);
     }
 
-
+    @Override
+    public PartidaUsuario verSiTieneUnaPartidaEnCursoPorUsuario(Usuario usuarioActual){
+        return this.repositorioPartidaUsuario.obtenerUsuarioPartidaPorUsuarioId(usuarioActual.getId());
+    }
 }

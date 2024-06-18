@@ -1,7 +1,18 @@
+/*
+const scriptAtributos = document.querySelector('script[src="/js/webSocketMonopoly.js"]');
+const partidaIdActual = scriptAtributos.getAttribute('data-partida-id');
+const usuarioNombre = scriptAtributos.getAttribute('data-usuario-nombre');
+const usuarioIdActual = scriptAtributos.getAttribute('data-usuario-id');
+const usuarioPartidaId = scriptAtributos.getAttribute('data-usuario-partida-id');
+const propiedadId = scriptAtributos.getAttribute('data-propiedad-id');
+*/
+
+
 const usuarioNombre = document.currentScript.getAttribute("usuario-nombre");
 const partidaIdActual = document.currentScript.getAttribute("partida-id");
 const usuarioIdActual = document.currentScript.getAttribute("usuario-id");
 const usuarioPartidaId = document.currentScript.getAttribute("usuario-partida-id");
+const propiedadId = document.currentScript.getAttribute("propiedad-id");
 
 const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/spring/wsmonopolychat'
@@ -126,11 +137,19 @@ document.addEventListener("DOMContentLoaded", ()=>{
         if(e.target.matches(".volver_boton" || e.target.matches("volver_boton *")))
             eliminarJugadorPorBancarrota();
 
-        if(e.target.matches(".boton__dado") || e.target.matches(".boton__dado *")) {
+
+        //Botones para mover y adquirir con sus respectivos eventos.
+        if(e.target.matches("#mover__boton") || e.target.matches("#mover__boton *")) {
             console.log("dado");
             window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
             location.href="http://localhost:8080/spring/moverJugador/?id="+partidaIdActual;
         }
+
+        if(e.target.matches("#adquirir__boton") || e.target.matches("#adquirir__boton *")){
+            window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+            location.href="http://localhost:8080/spring/adquirirPropiedad/?idPartida="+partidaIdActual+"&idPropiedad="+propiedadId;
+        }
+
     })
 });
 

@@ -20,7 +20,7 @@
         <img class="ventana__imagen" th:src="@{${propiedad.imagen}}" alt="propiedad">
         <p class="ventana__parrafo" th:text="'Precio:$'+${propiedad.precio}"></p>
         <div class="ventana__botones">
-            <a th:href="@{/adquirirPropiedad(idPartida=${partidaEnJuego.id}, idPropiedad=${propiedad.id})}" class="ventana__boton">Comprar</a>
+            <a  id="adquirir__boton" class="ventana__boton">Comprar</a>
             <a class="ventana__boton cancelar_propiedad_boton aceptar_boton">Cancelar</a>
         </div>
     </div>
@@ -89,11 +89,14 @@
     </div>
 
     <div th:if="${usuarioActual.estadoActividad.name().equals('ACTIVO') && hayAlgunInactivo == true}" class="ventana__emergente ventana__usuario__desconectado">
-        <h1>Hay un usuario Desconectado</h1>
+        <h1 class="ventana__titulo">Hay un usuario Desconectado</h1>
+        <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.svg}" alt="monopolyman">
+        <p class="ventana__parrafo">Esperando a que el usuario se reconecte....</p>
     </div>
 
     <div th:if="${usuarioActual.estadoActividad.name().equals('INACTIVO')}" class="ventana__emergente ventana__usuario__desconectado">
         <h1 class="ventana__titulo">Usted se desconecto</h1>
+        <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.svg}" alt="monopolyman">
         <a href="#" class="ventana__boton boton__reconectarse">Reconectarse</a>
     </div>
 </div>

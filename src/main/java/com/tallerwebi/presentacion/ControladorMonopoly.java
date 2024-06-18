@@ -42,9 +42,6 @@ public class ControladorMonopoly {
         ModelMap mp  = new ModelMap();
         PartidaUsuario usuarioActual = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
         List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
-        if(usuarioActual == null)
-            return new ModelAndView("redirect:/partida");
-
 
         Boolean hayAlgunInactivo = this.servicioMonopoly.verificarSiAlgunoEstaInactivo(usuariosJugando);
         //Obtengo todas las propiedades

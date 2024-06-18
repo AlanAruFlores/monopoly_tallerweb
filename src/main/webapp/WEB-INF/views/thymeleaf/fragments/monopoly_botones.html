@@ -15,10 +15,10 @@
             <i class="fa-regular fa-messages"></i>
         </a>
 
-        <a th:if="${partidaEnJuego.turnoJugador.id == usuarioActual.usuario.id}"  class="boton boton__dado">
+        <a th:if="${partidaEnJuego.turnoJugador.id == usuarioActual.usuario.id}"  class="boton boton__dado" id="mover__boton">
             <i class="fa-sharp fa-thin fa-dice"></i>
         </a>
-        <a th:if="${partidaEnJuego.turnoJugador.id != usuarioActual.usuario.id}" class="boton boton__desactivado">
+        <a th:if="${partidaEnJuego.turnoJugador.id != usuarioActual.usuario.id}" class="boton boton__dado boton__desactivado">
             <i class="fa-sharp fa-thin fa-dice"></i>
         </a>
         <a class="boton boton__propiedades" title="Ver mis cartas">

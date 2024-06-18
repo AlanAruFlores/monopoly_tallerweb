@@ -17,4 +17,5 @@ public interface ServicioPartida {
     public Usuario obtenerCreadoUsuarioDeUnaPartida(Long partidaId);
     public Partida actualizarEstadoDeLaPartida(Partida partidaActualizada, EstadoPartida estadoNuevo);
     public void salirDeLaPartida(Long partidaId, Long usuarioId);
+    public PartidaUsuario verSiTieneUnaPartidaEnCursoPorUsuario(Usuario usuarioActual);
 }
