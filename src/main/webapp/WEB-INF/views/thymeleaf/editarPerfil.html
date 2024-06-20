@@ -4,16 +4,81 @@
     <meta charset="UTF-8">
     <title>editarPerfil</title>
     <link rel="stylesheet" th:href="@{/css/perfil.css}">
+    <style>
+        /* Estilos para el modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .image-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .image-options img {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
 <div class="actualizar-perfil">
 
     <form action="#" th:action="@{/editar-perfil}" method="POST" th:object="${datosPerfil}" >
-
-        <!-- Espacio para la imagen -->
-        <img id="update_image" th:src="@{/imagenes/foto_perfil.jpg}">
-
+        <!-- Contenedor de la imagen de perfil con el ícono de cambio -->
+        <div class="profile-picture-container">
+            <img id="update_image" th:src="@{/imagenes/foto_perfil.jpg}">
+            <div class="change-icon" onclick="openModal()">Cambiar</div>
+        </div>
+        <!-- Modal para seleccionar imagen -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="image-options">
+                    <!-- Opciones de imágenes disponibles -->
+                    <img th:src="@{/imagenes/fotosPerfil/perfil1.png}" onclick="selectImage(this)">
+                    <img th:src="@{/imagenes/fotosPerfil/perfil2.png}" onclick="selectImage(this)">
+                    <img th:src="@{/imagenes/fotosPerfil/perfil3.png}" onclick="selectImage(this)">
+                    <img th:src="@{/imagenes/fotosPerfil/perfil4.png}" onclick="selectImage(this)">
+                    <img th:src="@{/imagenes/fotosPerfil/perfil5.png}" onclick="selectImage(this)">
+                    <img th:src="@{/imagenes/fotosPerfil/perfil6.png}" onclick="selectImage(this)">
+                </div>
+            </div>
+        </div>
         <!-- Mensaje de éxito o error -->
         <div th:if="${mensaje}" class="success-message" th:text="${mensaje}"></div>
         <div th:if="${error}" class="mensaje-error" th:text="${error}"></div>
@@ -23,10 +88,11 @@
             <div class="inputBox">
                 <span>Nombre de usuario :</span>
                 <input th:field="*{nombre}" type="text" id="actualizar-nombre" name="actualizar-nombre" placeholder="UsuarioX" class="box">
+                <span>Nombre:</span>
+                <input th:field="*{nombre}" type="text" id="actualizar-nombres" name="actualizar-nombre" placeholder="Milagros Pessino" class="box">
                 <span>Tu email :</span>
                 <input th:field="*{email}" type="email" id="actualizar_email" name="actualizar_email" placeholder="usuarioX@gmail.com" class="box">
-                <span>Actualiza tu foto:</span>
-                <input type="file" id="actualizar_imagen" name="actualizar_imagen" accept="image/jpg, image/jpeg, image/png" class="box">
+
             </div>
             <div class="inputBox">
 
@@ -45,5 +111,21 @@
         <a href="" class="delete-btn" th:href="@{/perfil}">Volver</a>
     </form>
 </div>
+
+<script>
+    function openModal() {
+        document.getElementById('myModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+    }
+
+    function selectImage(imgElement) {
+        var selectedSrc = imgElement.src;
+        document.getElementById('update_image').src = selectedSrc;
+        closeModal(); // Cierra el modal después de seleccionar la imagen
+    }
+</script>
 </body>
 </html>
