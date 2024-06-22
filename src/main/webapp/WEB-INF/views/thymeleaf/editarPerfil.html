@@ -5,52 +5,89 @@
     <title>editarPerfil</title>
     <link rel="stylesheet" th:href="@{/css/perfil.css}">
     <style>
-        /* Estilos para el modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.8);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto;
+        .actualizar-perfil {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
+            max-width: 600px;
+            margin: auto;
         }
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
+        .profile-picture-container {
+            position: relative;
+            display: inline-block;
         }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
+        .profile-picture-container img {
+            width: 40%;
+            height: 45%;
+            border-radius: 50%;
+        }
+
+        .change-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #ff5733;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
             cursor: pointer;
         }
 
-        .image-options {
+        /* Estilos para el pop-up */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
         }
 
-        .image-options img {
-            width: 100px;
-            height: 100px;
-            margin: 10px;
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .popup-content h3 {
+            margin-bottom: 20px;
+        }
+
+        .avatars img {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
             cursor: pointer;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .avatars img:hover {
+            transform: scale(1.1);
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Ocultar pop-up inicialmente */
+        .hidden {
+            display: none;
+        }
+        .titulo_avatar{
+            font-family: monopoly;
         }
     </style>
 </head>
@@ -61,14 +98,15 @@
     <form action="#" th:action="@{/editar-perfil}" method="POST" th:object="${datosPerfil}" >
         <!-- Contenedor de la imagen de perfil con el ícono de cambio -->
         <div class="profile-picture-container">
-            <img id="update_image" th:src="@{/imagenes/foto_perfil.jpg}">
+            <img id="update_image" th:src="@{${datosPerfil.imagen}}">
             <div class="change-icon" onclick="openModal()">Cambiar</div>
         </div>
         <!-- Modal para seleccionar imagen -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
+        <div id="popup" class="popup hidden">
+            <div class="popup-content">
                 <span class="close" onclick="closeModal()">&times;</span>
-                <div class="image-options">
+                <h3 class="titulo_avatar">Escoge tu avatar</h3>
+                <div class="avatars">
                     <!-- Opciones de imágenes disponibles -->
                     <img th:src="@{/imagenes/fotosPerfil/perfil1.png}" onclick="selectImage(this)">
                     <img th:src="@{/imagenes/fotosPerfil/perfil2.png}" onclick="selectImage(this)">
@@ -79,6 +117,8 @@
                 </div>
             </div>
         </div>
+
+        <input type="hidden" th:field="*{imagen}" id="imagen">
         <!-- Mensaje de éxito o error -->
         <div th:if="${mensaje}" class="success-message" th:text="${mensaje}"></div>
         <div th:if="${error}" class="mensaje-error" th:text="${error}"></div>
@@ -87,9 +127,9 @@
         <div class="flex">
             <div class="inputBox">
                 <span>Nombre de usuario :</span>
-                <input th:field="*{nombre}" type="text" id="actualizar-nombre" name="actualizar-nombre" placeholder="UsuarioX" class="box">
+                <input th:field="*{nombreUsuario}" type="text" id="actualizar-nombreUsuario" name="actualizar-nombre" placeholder="UsuarioX" class="box">
                 <span>Nombre:</span>
-                <input th:field="*{nombre}" type="text" id="actualizar-nombres" name="actualizar-nombre" placeholder="Milagros Pessino" class="box">
+                <input th:field="*{nombre}" type="text" id="actualizar-nombre" name="actualizar-nombre" placeholder="Milagros Pessino" class="box">
                 <span>Tu email :</span>
                 <input th:field="*{email}" type="email" id="actualizar_email" name="actualizar_email" placeholder="usuarioX@gmail.com" class="box">
 
@@ -114,17 +154,17 @@
 
 <script>
     function openModal() {
-        document.getElementById('myModal').style.display = 'block';
+        document.getElementById('popup').classList.remove('hidden');
     }
 
     function closeModal() {
-        document.getElementById('myModal').style.display = 'none';
+        document.getElementById('popup').classList.add('hidden');
     }
 
-    function selectImage(imgElement) {
-        var selectedSrc = imgElement.src;
-        document.getElementById('update_image').src = selectedSrc;
-        closeModal(); // Cierra el modal después de seleccionar la imagen
+    function selectImage(img) {
+        document.getElementById('update_image').src = img.src;
+        document.getElementById('imagen').value = img.src;
+        closeModal();
     }
 </script>
 </body>

@@ -36,8 +36,11 @@ public class ControladorPerfil {
         Usuario usuarioActual = (Usuario) session.getAttribute("usuarioActual");
         ModelMap model = new ModelMap();
         model.addAttribute("nombre", usuarioActual.getNombre());
+        model.addAttribute("nombreUsuario",usuarioActual.getNombreUsuario());
         model.addAttribute("id", usuarioActual.getId());
         model.addAttribute("victorias", usuarioActual.getVictorias());
+        model.addAttribute("imagenPerfil",usuarioActual.getImagenPerfil());
+        model.put("usuarioActual",usuarioActual);
         return new ModelAndView("perfil",model);
     }
 
@@ -50,7 +53,9 @@ public class ControladorPerfil {
         Usuario usuario = servicioPerfil.devolverUsuario(userId);
         DatosPerfil datosPerfil = new DatosPerfil();
         datosPerfil.setNombre(usuario.getNombre());
+        datosPerfil.setNombreUsuario(usuario.getNombreUsuario());
         datosPerfil.setEmail(usuario.getEmail());
+        datosPerfil.setImagen(usuario.getImagenPerfil());
         mp.put("datosPerfil", datosPerfil); // Usar datosPerfil con los valores iniciales
         return new ModelAndView("editarPerfil", mp);
 
@@ -61,30 +66,25 @@ public class ControladorPerfil {
 
 
     @RequestMapping(path = "/editar-perfil", method = RequestMethod.POST)
-    public ModelAndView actualizarPerfil(@ModelAttribute("datosPerfil") DatosPerfil datosPerfil,HttpSession session) {
+    public ModelAndView actualizarPerfil(@ModelAttribute("datosPerfil") DatosPerfil datosPerfil, HttpSession session) {
         ModelMap model = new ModelMap();
         Usuario usuarioActual = (Usuario) session.getAttribute("usuarioActual");
         try {
-            servicioPerfil.actualizarPerfil(datosPerfil,session);
+            servicioPerfil.actualizarPerfil(datosPerfil, session);
             model.put("mensaje", "Perfil actualizado exitosamente");
-
         } catch (ContraseniaInvalidaException e) {
             model.put("error", "Las contraseñas no coinciden o tienen menos de 5 caracteres");
             return new ModelAndView("editarPerfil", model);
-
         } catch (EmailInvalidoException e) {
             model.put("error", "El email proporcionado no es válido");
             return new ModelAndView("editarPerfil", model);
-
-        }catch(CamposVaciosException e){
-            model.put("error", "No se aceptan campos vacios");
+        } catch (CamposVaciosException e) {
+            model.put("error", "No se aceptan campos vacíos");
             return new ModelAndView("editarPerfil", model);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             model.put("error", "Error al actualizar el perfil");
             return new ModelAndView("editarPerfil", model);
         }
-
 
         return new ModelAndView("editarPerfil", model);
     }

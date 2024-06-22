@@ -2,6 +2,7 @@ package com.tallerwebi.presentacion;
 
 public class DatosPerfil {
     private String nombre;
+    private String nombreUsuario;
     private String email;
     private String contraseniaActual;
     private String contraseniaNueva;
@@ -9,7 +10,9 @@ public class DatosPerfil {
     private String imagen;
     private Long userId;
 
-    public DatosPerfil() {}
+    public DatosPerfil() {
+
+    }
 
     public String getNombre() {
         return nombre;
@@ -66,5 +69,13 @@ public class DatosPerfil {
 
     public void setId(long id) {
         this.userId = id;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 }

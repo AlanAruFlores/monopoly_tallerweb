@@ -28,43 +28,39 @@ public class ServicioPerfilImpl implements ServicioPerfil {
 
     @Override
     public void actualizarPerfil(DatosPerfil datosPerfil, HttpSession session) throws ContraseniaInvalidaException, EmailInvalidoException, CamposVaciosException {
-        // Obtener el usuario actual de la sesión
         Usuario usuarioActual = (Usuario) session.getAttribute("usuarioActual");
         if (usuarioActual == null) {
-            // Manejar el caso de que el usuario no esté autenticado
             throw new RuntimeException("Usuario no autenticado");
         }
 
-        // Validar que los campos no estén vacíos
         if (datosPerfil.getContraseniaActual().isEmpty() || datosPerfil.getEmail().isEmpty()) {
             throw new CamposVaciosException();
         }
 
-        // Validar la contraseña actual
         if (!usuarioActual.getPassword().equals(datosPerfil.getContraseniaActual())) {
             throw new ContraseniaInvalidaException();
         }
 
-        // Validar si la nueva contraseña coincide con la repetición, solo si ambas no están vacías
         if (!datosPerfil.getContraseniaNueva().isEmpty() || !datosPerfil.getRepiteContraseniaNueva().isEmpty()) {
             if (!datosPerfil.getContraseniaNueva().equals(datosPerfil.getRepiteContraseniaNueva())) {
                 throw new ContraseniaInvalidaException();
             }
 
-            // Validar si la contraseña nueva tiene más de 5 caracteres
             if (datosPerfil.getContraseniaNueva().length() < 5) {
                 throw new ContraseniaInvalidaException();
             }
         }
 
-        // Validar el formato del email
         if (!datosPerfil.getEmail().contains("@") || !datosPerfil.getEmail().contains(".com")) {
             throw new EmailInvalidoException();
         }
 
-        // Actualizar los datos del usuario con los datos proporcionados en datosPerfil
         if (!datosPerfil.getNombre().isEmpty()) {
             usuarioActual.setNombre(datosPerfil.getNombre());
+        }
+
+        if (!datosPerfil.getNombreUsuario().isEmpty()) {
+            usuarioActual.setNombre(datosPerfil.getNombreUsuario());
         }
         usuarioActual.setEmail(datosPerfil.getEmail());
 
@@ -73,9 +69,13 @@ public class ServicioPerfilImpl implements ServicioPerfil {
             usuarioActual.setRepitePassword(datosPerfil.getContraseniaNueva());
         }
 
-        // Guardar los cambios en el repositorio
+        if (datosPerfil.getImagen() != null) {
+            usuarioActual.setImagenPerfil(datosPerfil.getImagen());
+        }
+
         this.repositorioUsuario.actualizarUsuario(usuarioActual);
     }
+
 
 
 

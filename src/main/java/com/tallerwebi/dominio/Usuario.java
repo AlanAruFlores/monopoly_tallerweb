@@ -18,6 +18,7 @@ public class Usuario {
     private String repitePassword;
     private String nombreUsuario;
     private Integer victorias;
+    private String imagenPerfil;
 
     public Usuario(String nombre, String email, String password, String apellido,
                    String nombreUsuario, String repitePassword) {
@@ -28,6 +29,7 @@ public class Usuario {
         this.nombreUsuario = nombreUsuario;
         this.repitePassword = repitePassword;
         this.victorias = 0;
+        this.imagenPerfil = "/imagenes/fotosPerfil/perfil1.png";
     }
 
     public Usuario(){}
@@ -80,4 +82,10 @@ public class Usuario {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getImagenPerfil() {
+        return imagenPerfil;}
+
+    public void setImagenPerfil(String imagenPerfil) {
+        this.imagenPerfil = imagenPerfil;}
 }
