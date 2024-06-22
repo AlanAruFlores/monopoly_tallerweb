@@ -51,5 +51,17 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         return session.get(Usuario.class, id);
     }
 
+    @Override
+    public boolean buscarUsuarioPorEmail(String email) {
+        try (Session session = sessionFactory.openSession()) {
+            String sql = "SELECT COUNT(u) FROM Usuario u WHERE u.email = :email";
+            Long count = (Long) session.createQuery(sql).setParameter("email", email).uniqueResult();
+            return count != null && count > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }

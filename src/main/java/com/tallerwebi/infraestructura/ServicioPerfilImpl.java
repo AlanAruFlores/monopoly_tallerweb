@@ -54,13 +54,17 @@ public class ServicioPerfilImpl implements ServicioPerfil {
         if (!datosPerfil.getEmail().contains("@") || !datosPerfil.getEmail().contains(".com")) {
             throw new EmailInvalidoException();
         }
+        // Verificar si el email ya existe en la base de datos
+        if (!datosPerfil.getEmail().equals(usuarioActual.getEmail()) && repositorioUsuario.existeUsuarioConEmail(datosPerfil.getEmail())) {
+            throw new EmailInvalidoException();
+        }
 
         if (!datosPerfil.getNombre().isEmpty()) {
             usuarioActual.setNombre(datosPerfil.getNombre());
         }
 
         if (!datosPerfil.getNombreUsuario().isEmpty()) {
-            usuarioActual.setNombre(datosPerfil.getNombreUsuario());
+            usuarioActual.setNombreUsuario(datosPerfil.getNombreUsuario());
         }
         usuarioActual.setEmail(datosPerfil.getEmail());
 

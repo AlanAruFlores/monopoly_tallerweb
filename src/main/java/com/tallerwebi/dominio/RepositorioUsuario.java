@@ -5,4 +5,5 @@ public interface RepositorioUsuario {
     public Boolean existeUsuarioConEmail(String email);
     public void actualizarUsuario(Usuario usuario);
     public Usuario buscarUsuarioPorId(Long id);
+    public boolean buscarUsuarioPorEmail(String email);
 }
