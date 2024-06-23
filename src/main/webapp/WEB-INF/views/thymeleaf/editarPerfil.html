@@ -19,21 +19,25 @@
             display: inline-block;
         }
 
-        .profile-picture-container img {
+        .profile-picture-container .imagenPerfil {
             width: 40%;
             height: 45%;
-            border-radius: 50%;
         }
 
         .change-icon {
             position: absolute;
             bottom: 0;
             right: 0;
-            background-color: #ff5733;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 5px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .change-icon img {
+            width: 20px; /* Ajusta el tamaño de la imagen según sea necesario */
+            height: 20px;
         }
 
         /* Estilos para el pop-up */
@@ -98,8 +102,10 @@
     <form action="#" th:action="@{/editar-perfil}" method="POST" th:object="${datosPerfil}" >
         <!-- Contenedor de la imagen de perfil con el ícono de cambio -->
         <div class="profile-picture-container">
-            <img id="update_image" th:src="@{${datosPerfil.imagen}}">
-            <div class="change-icon" onclick="openModal()">Cambiar</div>
+            <img id="update_image" th:src="@{${datosPerfil.imagen}}" class="imagenPerfil">
+            <div class="change-icon" onclick="openModal()">
+                <img th:src="@{/imagenes/pencil1.png}" alt="Cambiar">
+            </div>
         </div>
         <!-- Modal para seleccionar imagen -->
         <div id="popup" class="popup hidden">

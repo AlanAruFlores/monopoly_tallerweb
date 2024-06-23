@@ -13,11 +13,15 @@
 
 <div class="container">
     <div class="perfil">
-        <img th:src="@{${usuarioActual.imagenPerfil}}" alt="Default Avatar">
+        <img th:src="@{${usuarioActual.imagenPerfil}}" alt="Default Avatar" class="perfilImagen">
         <h3 th:text="${nombreUsuario}"></h3>
-        <h3 th:text="${id}"></h3>
-        <h3>Victorias: </h3>
-        <h3 th:text="${victorias}"></h3>
+        <div class="id-container">
+            <h3>Id: <span th:text="${id}"></span></h3>
+        </div>
+        <div class="victorias-container">
+            <img th:src="@{/imagenes/trofeo.png}" alt="Icono de Trofeo" class="trophy-icon">
+            <h3>Victorias: <span th:text="${victorias}"></span></h3>
+        </div>
         <a th:href="@{/editar-perfil}" class="btn">Editar Perfil</a>
         <a th:href="@{/ir-menu}" class="delete-btn">Volver</a>
     </div>

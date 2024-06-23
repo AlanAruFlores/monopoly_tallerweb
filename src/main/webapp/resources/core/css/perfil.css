@@ -144,10 +144,8 @@ body{
     border-radius: 5px;
 }
 
-.container .perfil img{
+.container .perfil .perfilImagen{
     height: 150px;
-    width: 150px;
-    border-radius: 50%;
     object-fit: cover;
     margin-bottom: 5px;
 }
@@ -171,9 +169,20 @@ body{
 .container .perfil p a:hover{
     text-decoration: underline;
 }
-
-
-
+.container .perfil .victorias-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container .perfil .id-container {
+    margin: 5px 0;
+    font-size: 20px;
+    color: var(--black);
+}
+.container .perfil .trophy-icon {
+    width: 20px;
+    margin-right: 5px;
+}
 
 /*VISTA EDITAR PERFIL*/
 .actualizar-perfil{
@@ -197,7 +206,6 @@ body{
 .actualizar-perfil form img{
     height: 40%;
     width: 45%;
-    border-radius: 50%;
     object-fit: cover;
     margin-bottom: 5px;
 }
