@@ -8,3 +8,4 @@ function mostrarPropiedadesConAliasUsuarioNombreEnLaWeb(){
         document.getElementById(elem.propiedad.nroCasilla).innerHTML+= $pUsuarioNombre;
     }
 }
+

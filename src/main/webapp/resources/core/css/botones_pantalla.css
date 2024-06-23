@@ -35,6 +35,28 @@
     font-size:35px;
     line-height:70px;
 }
+
+.boton__intercambio{
+    bottom:0;
+    left:40%;
+    height:70px;
+    width:70px;
+    font-size:35px;
+    line-height:70px;
+}
+
+.boton__intercambio__desactivado{
+    bottom:0;
+    left:40%;
+    height:70px;
+    width:70px;
+    font-size:35px;
+    line-height:70px;
+    cursor:auto;
+    background-color: rgba(255, 63, 34, 0.45);
+
+}
+
 .boton__dado:hover{
     transform: scale(1.1,1.1);
 }

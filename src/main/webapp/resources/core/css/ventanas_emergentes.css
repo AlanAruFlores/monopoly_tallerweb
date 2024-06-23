@@ -167,3 +167,16 @@
 .ventana__usuario__desconectado h1{
 
 }
+
+/*VENTANA TU TURNO*/
+
+#ventana__tuturno{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: center;
+}
+#ventana__tuturno p{
+    color:#ff3f22;
+    text-shadow: 2px 2px #ff3f22;
+}

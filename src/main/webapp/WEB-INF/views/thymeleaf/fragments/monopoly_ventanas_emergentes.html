@@ -99,6 +99,13 @@
         <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.svg}" alt="monopolyman">
         <a href="#" class="ventana__boton boton__reconectarse">Reconectarse</a>
     </div>
+
+    <!--Ventana para mostrar TU TURNO-->
+    <!--Ventana para mensajes u errores
+    <div th:if="${partidaEnJuego.turnoJugador.id == usuarioActual.usuario.id}" class="ventana__emergente" id="ventana__tuturno">
+        <p class="ventana__parrafo" style="font-size:40px; text-align: center">TU TURNO !!</p>
+    </div>
+-->
 </div>
 </body>
 </html>
