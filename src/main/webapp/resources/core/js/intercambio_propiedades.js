@@ -9,18 +9,21 @@ document.getElementById('close-popup').addEventListener('click', function() {
     document.querySelector('.ventana__intercambio__propiedades').style.opacity = "0";
 });
 
-document.querySelectorAll('.house-img').forEach(img => {
-    img.addEventListener('click', function() {
-        selectHouse(this.dataset.player, this.src);
+
+document.querySelectorAll('.house-div').forEach(div => {
+    div.addEventListener('click', function() {
+        console.log(div.innerHTML);
+        selectHouse(this.dataset.player, div);
     });
 });
 
-function selectHouse(player, houseSrc) {
+function selectHouse(player, div) {
     const slots = document.querySelectorAll(`.house-slot[data-player="${player}"]`);
-    const emptySlot = Array.from(slots).find(slot => !slot.style.backgroundImage);
+    const emptySlot = Array.from(slots).find(slot => !slot.innerHTML);
     if (emptySlot) {
-        emptySlot.style.backgroundImage = `url(${houseSrc})`;
-        emptySlot.style.backgroundSize = 'cover';
+        emptySlot.innerHTML = div.innerHTML;
+        div.style.display = "none";
+        emptySlot.style.backgroundColor = "#fff";
     }
 }
 
@@ -39,5 +42,14 @@ function exchange() {
 
 function cancel() {
     const slots = document.querySelectorAll('.house-slot');
-    slots.forEach(slot => slot.style.backgroundImage = '');
+
+    slots.forEach(slot => {
+        slot.innerHTML = ''
+        slot.style.backgroundColor = "transparent";
+    });
+
+
+    document.querySelectorAll('.house-div').forEach(div => {
+        div.style.display="flex";
+    });
 }

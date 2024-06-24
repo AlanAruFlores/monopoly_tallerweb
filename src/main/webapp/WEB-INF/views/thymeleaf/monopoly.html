@@ -39,61 +39,76 @@
     <div th:replace="fragments/monopoly_ventanas_emergentes :: tablero_ventanas_emergentes"></div>
 
 
+        <div class="ventana__emergente ventana__intercambio__propiedades">
+          <!-- Pop-up de intercambio de propiedades -->
+          <div id="popup" class="popup">
+            <div class="header2">
+              <h2 class="titulo"> Intercambio de Casas </h2>
+              <div class="boton__cerrar boton__chat__cerrar">
 
-    <div class="ventana__emergente ventana__intercambio__propiedades">
-      <!-- Pop-up de intercambio de propiedades -->
-      <div id="popup" class="popup">
-        <div class="header2">
-          <h2 class="titulo"> Intercambio de Casas </h2>
-          <div class="boton__cerrar boton__chat__cerrar">
+                <i class="fa-solid fa-xmark" id="close-popup"></i>
+              </div>
+            </div>
 
-            <i class="fa-solid fa-xmark" id="close-popup"></i>
+            <div class="content">
+              <div class="column">
+                <div class="player-info">
+                  <div class="profile">
+                    <img th:src="@{/imagenes/foto_perfil.jpg}" alt="Perfil Jugador 1" class="profile-img">
+                    <span class="nombre" th:text="${usuarioActual.usuario.nombreUsuario}"></span>
+                    <div class="money">
+                      <input type="number" pattern="[0-9]{4}" th:max="${usuarioActual.saldo}" placeholder="$">
+                    </div>
+                  </div>
+                  <div class="selected-houses">
+                    <div class="house-slot" data-player="jugador1" data-slot="1"></div>
+                    <div class="house-slot" data-player="jugador1" data-slot="2"></div>
+                  </div>
+                  <div class="house-options">
+                    <div data-player="jugador1" class="house-div" th:each="usuarioPropiedad:${usuarioPropiedadesActual}">
+                      <div class="franja" th:style="'background-color:'+${usuarioPropiedad.propiedad.color}"></div>
+                      <div>
+                        <p class="house-parrafo" th:text="${usuarioPropiedad.propiedad.nombre}+' $'+${usuarioPropiedad.propiedad.precio}">Casa $400</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="player-info">
+                  <div class="profile">
+                    <img th:src="@{/imagenes/foto_perfil.jpg}" alt="Perfil Jugador 2" class="profile-img">
+                    <span class="nombre">Jugador 2</span>
+                    <div class="money">  <h3 class="numero">$1200</h3></div>
+                  </div>
+                  <div class="selected-houses">
+                    <div class="house-slot" data-player="jugador2" data-slot="1"></div>
+                    <div class="house-slot" data-player="jugador2" data-slot="2"></div>
+                  </div>
+                  <div class="house-options">
+                    <div data-player="jugador2" class="house-div">
+                      <div class="franja"></div>
+                      <div>
+                        <p>Casa $400</p>
+                      </div>
+                    </div>
+                    <div data-player="jugador2" class="house-div">
+                      <div class="franja"></div>
+                      <div>
+                        <p>Casa $400</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="buttons">
+              <button id="exchange-button">Intercambiar</button>
+              <button id="cancel-button">Cancelar</button>
+            </div>
           </div>
         </div>
 
-        <div class="content">
-          <div class="column">
-            <div class="player-info">
-              <div class="profile">
-                <img th:src="@{/imagenes/foto_perfil.jpg}" alt="Perfil Jugador 1" class="profile-img">
-                <span class="nombre">Jugador 1</span>
-                <div class="money"><h3 class="numero">$1000</h3></div>
-              </div>
-              <div class="selected-houses">
-                <div class="house-slot" data-player="jugador1" data-slot="1"></div>
-                <div class="house-slot" data-player="jugador1" data-slot="2"></div>
-              </div>
-              <div class="house-options">
-                <img th:src="@{/imagenes/balcarseprop.jpg}" alt="Casa 1" class="house-img" data-player="jugador1">
-                <img th:src="@{/imagenes/avMendoza.jpg}" alt="Casa 2" class="house-img" data-player="jugador1">
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            <div class="player-info">
-              <div class="profile">
-                <img th:src="@{/imagenes/monopolyman.svg}" alt="Perfil Jugador 2" class="profile-img">
-                <span class="nombre">Jugador 2</span>
-                <div class="money">  <h3 class="numero">$1200</h3></div>
-              </div>
-              <div class="selected-houses">
-                <div class="house-slot" data-player="jugador2" data-slot="1"></div>
-                <div class="house-slot" data-player="jugador2" data-slot="2"></div>
-              </div>
-              <div class="house-options">
-                <img th:src="@{/imagenes/avenidaMayo.jpg}" alt="Casa 3" class="house-img" data-player="jugador2">
-                <img th:src="@{/imagenes/florida.jpg}" alt="Casa 4" class="house-img" data-player="jugador2">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-      <div class="buttons">
-        <button id="exchange-button">Intercambiar</button>
-        <button id="cancel-button">Cancelar</button>
-      </div>
 
 
 

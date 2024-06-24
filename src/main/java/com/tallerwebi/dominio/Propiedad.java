@@ -21,6 +21,7 @@ public class Propiedad {
     private String imagen;
     private Integer precio;
     private Integer nroCasilla;
+    private String color;
 
     @Override
     public boolean equals(Object o) {

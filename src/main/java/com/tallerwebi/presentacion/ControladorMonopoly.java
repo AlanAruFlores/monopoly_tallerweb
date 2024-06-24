@@ -5,16 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import com.tallerwebi.dominio.excepcion.UsuarioPerdedorException;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +32,9 @@ public class ControladorMonopoly {
     @RequestMapping("/monopoly")
     public ModelAndView irAlMonopoly(@RequestParam("id") Long partidaId, HttpSession session) throws Exception {
         /*Cuando inicia el monopoly, primero cambio el estado de esa partida a activo*/
-        Partida partidaActualEnJuego = (Partida) session.getAttribute("partidaEnJuego");
+        //Partida partidaActualEnJuego = (Partida) session.getAttribute("partidaEnJuego");
+        Partida partidaActualEnJuego = this.servicioPartida.obtenerPartidaPorPartidaId(partidaId);
+        session.setAttribute("partidaEnJuego", partidaActualEnJuego);
         if(partidaActualEnJuego.getEstadoPartida().equals(EstadoPartida.ABIERTA))
             this.servicioPartida.actualizarEstadoDeUnaPartida(partidaActualEnJuego, EstadoPartida.EN_CURSO);
 
