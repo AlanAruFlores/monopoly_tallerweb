@@ -1,4 +1,4 @@
-
+/*
 document.querySelector("#intercambio__boton").addEventListener("click",()=>{
     document.querySelector('.ventana__intercambio__propiedades').style.visibility = "visible";
     document.querySelector('.ventana__intercambio__propiedades').style.opacity = "1";
@@ -9,7 +9,7 @@ document.getElementById('close-popup').addEventListener('click', function() {
     document.querySelector('.ventana__intercambio__propiedades').style.opacity = "0";
 });
 
-
+*/
 document.querySelectorAll('.house-div').forEach(div => {
     div.addEventListener('click', function() {
         console.log(div.innerHTML);

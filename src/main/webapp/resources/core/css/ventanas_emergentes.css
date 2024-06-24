@@ -169,6 +169,14 @@
 }
 
 /*VENTANA TU TURNO*/
+.ventana__intercambio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility:hidden;
+    opacity:0;
+}
 
 #ventana__tuturno{
     display:flex;
@@ -179,4 +187,45 @@
 #ventana__tuturno p{
     color:#ff3f22;
     text-shadow: 2px 2px #ff3f22;
+}
+
+.lista__usuarios{
+    width: 80%;
+    background-color: #ff3f22da;
+    box-shadow: 0px 0px 10px #ff3f22;
+    height: 500px;
+    padding: 20px 0px;
+}
+.lista__usuarios h1{
+    color: #fff;
+    text-align: center;
+    font-family:monopoly;
+}
+.lista__usuarios table{
+    margin: 0px auto;
+    border-collapse: collapse;
+    width: 75%;
+}
+.lista__usuarios thead tr{
+    border-bottom: 1px solid #fff;
+}
+.lista__usuarios td,th{
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+    font-family:monopoly;
+
+}
+
+.lista__usuarios img{
+    width: 60px;
+}
+
+.boton__intercambiar{
+    background-color: #fff;
+    color: #ff3f22;
+    text-decoration: none;
+    padding: 8px 15px;
+    font-family:monopoly;
 }

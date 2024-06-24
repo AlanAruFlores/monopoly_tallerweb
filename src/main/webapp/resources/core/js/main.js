@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         if(e.target.matches(".mensaje_boton") || e.target.matches(".mensaje_boton *"))
             cerrarVentana(".ventana__emergente");
 
-
+        /*Para musica*/
         if(e.target.matches(".boton__musica") || e.target.matches(".boton__musica *")){
             let $iconAudio = document.querySelector(".boton__musica i");
             console.log($iconAudio);
@@ -49,6 +49,13 @@ document.addEventListener("DOMContentLoaded",()=>{
             else
                 pausar($iconAudio,audioMusica);
         }
+        /*Para intercambiar*/
+
+        if(e.target.matches("#intercambio__boton") || e.target.matches("#intercambio__boton *"))
+            abrirVentana(".ventana__intercambio");
+        if(e.target.matches(".boton__intercambio__cerrar") || e.target.matches(".boton__intercambio__cerrar *"))
+            cerrarVentana(".ventana__intercambio");
+
     });
 
 //Efecto para mostrar el cartel "TU TURNO"

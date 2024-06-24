@@ -88,6 +88,7 @@ body{
 .partidas__encabezado th{
     padding: 10px 10px;
     border: 1px solid #f13e22;
+    font-size: 14px;
 }
 
 .partidas__registros td{

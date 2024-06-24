@@ -100,6 +100,50 @@
         <a href="#" class="ventana__boton boton__reconectarse">Reconectarse</a>
     </div>
 
+
+
+    <!--Ventana para selecccionar con quien intercambiar-->
+    <div class ="ventana__emergente ventana__intercambio">
+        <div class="lista__usuarios">
+            <div class="boton__cerrar boton__intercambio__cerrar">
+                <i class="fa-solid fa-xmark" id="close-popup"></i>
+            </div>
+            <h1>Realiza tu intercambio!!</h1>
+            <div>
+                <table>
+                    <thead>
+                    <tr>
+
+                        <th>Usuario</th>
+                        <th>Nombre Usuario</th>
+                        <th>Saldo</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <img th:src="@{/imagenes/foto_perfil.jpg}" alt="foto">
+                        </td>
+                        <td>AlePro</td>
+                        <td>$2000</td>
+                        <td><a class="boton__intercambiar" href="#">Intercambiar</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img th:src="@{/imagenes/foto_perfil.jpg}" alt="foto">
+                        </td>
+                        <td>AlePro</td>
+                        <td>$2000</td>
+                        <td><a class="boton__intercambiar" href="#">Intercambiar</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
     <!--Ventana para mostrar TU TURNO-->
     <!--Ventana para mensajes u errores
     <div th:if="${partidaEnJuego.turnoJugador.id == usuarioActual.usuario.id}" class="ventana__emergente" id="ventana__tuturno">
