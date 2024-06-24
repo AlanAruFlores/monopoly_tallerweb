@@ -88,4 +88,13 @@ public class Usuario {
 
     public void setImagenPerfil(String imagenPerfil) {
         this.imagenPerfil = imagenPerfil;}
+
+    public void setEsAdmin(boolean b) {
+    }
+
+    public void setBaneado(boolean b) {
+    }
+
+    public void setMotivoBaneo(String motivo) {
+    }
 }

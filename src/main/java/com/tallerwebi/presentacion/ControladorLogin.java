@@ -10,10 +10,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class ControladorLogin {
@@ -55,11 +57,29 @@ public class ControladorLogin {
         if(usuarioBuscado != null) {
             HttpSession session = request.getSession();
             session.setAttribute("usuarioActual", usuarioBuscado);
-            return new ModelAndView("redirect:/ir-menu");
+            if (usuarioBuscado.getId() == 1) {
+                return new ModelAndView("redirect:/ir-menu-admin");
+            } else {
+                return new ModelAndView("redirect:/ir-menu");
+            }
         } else {
             model.put("error", "Usuario o contraseña incorrectos.");
             return new ModelAndView("login", model);
         }
+    }
+
+    @RequestMapping("/ir-menu-admin")
+    public ModelAndView irMenuAdmin() {
+        ModelMap model = new ModelMap();
+        List<Usuario> usuarios = servicioLogin.buscarTodos();
+        model.put("usuarios", usuarios);
+        return new ModelAndView("Admin-menu", model);
+    }
+
+    @RequestMapping("/banear-usuario")
+    public ModelAndView banearUsuario(@RequestParam("id") Long id, @RequestParam("motivo") String motivo) {
+        servicioLogin.banearUsuario(id, motivo);
+        return new ModelAndView("redirect:/ir-menu-admin");
     }
 
     @RequestMapping(path = "/verificar-registro", method = RequestMethod.POST)
