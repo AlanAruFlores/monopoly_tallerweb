@@ -121,21 +121,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr th:each="usuarioJugando : ${usuariosJugando}">
                         <td>
                             <img th:src="@{/imagenes/foto_perfil.jpg}" alt="foto">
                         </td>
-                        <td>AlePro</td>
-                        <td>$2000</td>
-                        <td><a class="boton__intercambiar" href="#">Intercambiar</a></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img th:src="@{/imagenes/foto_perfil.jpg}" alt="foto">
+                        <td th:text="${usuarioJugando.usuario.nombreUsuario}"></td>
+                        <td th:text="'$'+${usuarioJugando.saldo}"></td>
+                        <td th:if="${usuarioJugando.id != usuarioActual.id}">
+                            <a class="boton__intercambiar">
+                                <input type="hidden" id="idUsuarioIntercambiar" th:value="${usuarioJugando.id}">
+                                Intercambiar
+                            </a>
                         </td>
-                        <td>AlePro</td>
-                        <td>$2000</td>
-                        <td><a class="boton__intercambiar" href="#">Intercambiar</a></td>
                     </tr>
                     </tbody>
                 </table>

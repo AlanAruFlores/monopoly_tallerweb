@@ -55,7 +55,8 @@ document.addEventListener("DOMContentLoaded",()=>{
             abrirVentana(".ventana__intercambio");
         if(e.target.matches(".boton__intercambio__cerrar") || e.target.matches(".boton__intercambio__cerrar *"))
             cerrarVentana(".ventana__intercambio");
-
+        if(e.target.matches(".boton__hacerintercambio__cerrar") || e.target.matches(".boton__hacerintercambio__cerrar *"))
+            cerrarVentana(".ventana__intercambio__propiedades")
     });
 
 //Efecto para mostrar el cartel "TU TURNO"

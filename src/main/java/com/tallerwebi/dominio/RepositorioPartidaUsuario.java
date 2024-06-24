@@ -9,6 +9,7 @@ public interface RepositorioPartidaUsuario {
     public List<PartidaUsuario> obtenerPartidasUsuariosEnlaPartidaId(Long partidaId);
     public PartidaUsuario obtenerUsuarioPartidaPorPartidaIdYUsuarioId(Long partidaId, Long usuarioId);
     public PartidaUsuario obtenerUsuarioPartidaPorUsuarioId(Long usuarioId);
+    public PartidaUsuario obtenerUsuarioPartidaPorId(Long id);
     public List<Color> obtenerColoresJugadoresUsuados(Long partidaId);
     public void eliminarPartidaUsuario(Long partidaId, Long usuarioId);
     public void cambiarEstadoPorId(Long partidaUsuarioId, EstadoActividad estado);
