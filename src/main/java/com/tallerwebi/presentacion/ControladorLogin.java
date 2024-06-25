@@ -55,6 +55,10 @@ public class ControladorLogin {
 
         Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
         if(usuarioBuscado != null) {
+            if(usuarioBuscado.getBaneado()) {
+                model.put("error", "SU CUENTA HA SIDO BANEADA.");
+                return new ModelAndView("login", model);
+            }
             HttpSession session = request.getSession();
             session.setAttribute("usuarioActual", usuarioBuscado);
             if (usuarioBuscado.getId() == 1) {
@@ -77,10 +81,17 @@ public class ControladorLogin {
     }
 
     @RequestMapping("/banear-usuario")
-    public ModelAndView banearUsuario(@RequestParam("id") Long id, @RequestParam("motivo") String motivo) {
-        servicioLogin.banearUsuario(id, motivo);
+    public ModelAndView banearUsuario(@RequestParam("id") Long id) {
+        servicioLogin.banearUsuario(id);
         return new ModelAndView("redirect:/ir-menu-admin");
     }
+
+    @RequestMapping("/cambiar-estado-usuario")
+    public ModelAndView cambiarEstadoUsuario(@RequestParam("id") Long id) {
+        servicioLogin.cambiarEstadoBaneo(id);
+        return new ModelAndView("redirect:/ir-menu-admin");
+    }
+
 
     @RequestMapping(path = "/verificar-registro", method = RequestMethod.POST)
     public ModelAndView verificarRegistro(@ModelAttribute("usuario") Usuario usuario) {

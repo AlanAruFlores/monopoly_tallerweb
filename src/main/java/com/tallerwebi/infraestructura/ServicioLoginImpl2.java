@@ -100,11 +100,19 @@ public class ServicioLoginImpl2 implements ServicioLogin2 {
     }
 
 
-    public void banearUsuario(Long id, String motivo) {
+    public void banearUsuario(Long id) {
         Usuario usuario = repositorioUsuario.buscarUsuarioPorId(id);
         if (usuario != null) {
             usuario.setBaneado(true);
-            usuario.setMotivoBaneo(motivo);
+            // Si tienes un campo para motivo de baneo
+            repositorioUsuario.actualizarUsuario(usuario);
+        }
+    }
+
+    public void cambiarEstadoBaneo(Long id) {
+        Usuario usuario = repositorioUsuario.buscarUsuarioPorId(id);
+        if (usuario != null) {
+            usuario.setBaneado(!usuario.getBaneado());
             repositorioUsuario.actualizarUsuario(usuario);
         }
     }

@@ -19,6 +19,7 @@ public class Usuario {
     private String nombreUsuario;
     private Integer victorias;
     private String imagenPerfil;
+    public Boolean baneado;
 
     public Usuario(String nombre, String email, String password, String apellido,
                    String nombreUsuario, String repitePassword) {
@@ -30,6 +31,7 @@ public class Usuario {
         this.repitePassword = repitePassword;
         this.victorias = 0;
         this.imagenPerfil = "/imagenes/fotosPerfil/perfil1.png";
+        this.baneado = false;
     }
 
     public Usuario(){}
@@ -82,17 +84,16 @@ public class Usuario {
     public void setId(Long id) {
         this.id = id;
     }
+    public String getImagenPerfil() {return imagenPerfil;}
+    public void setImagenPerfil(String imagenPerfil) {this.imagenPerfil = imagenPerfil;}
+    public void setEsAdmin(boolean b) {}
 
-    public String getImagenPerfil() {
-        return imagenPerfil;}
-
-    public void setImagenPerfil(String imagenPerfil) {
-        this.imagenPerfil = imagenPerfil;}
-
-    public void setEsAdmin(boolean b) {
+    public Boolean getBaneado() {
+        return baneado;
     }
 
     public void setBaneado(boolean b) {
+        this.baneado = b;
     }
 
     public void setMotivoBaneo(String motivo) {

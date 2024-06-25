@@ -103,12 +103,31 @@ body {
     font-weight: bold;
     border-radius: 50px;
     transition: 500ms all;
+    border: 1px solid white;
 }
 
 .main__boton:hover {
     background-color: white;
     color: #ff4122;
     border: 1px solid #ff4122;
+}
+
+.desbanear {
+    background-color: white;
+    color: #ff4122;
+    border: 1px solid #ff4122;
+    padding: 10px 20px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: 500ms all;
+
+}
+
+.desbanear:hover {
+    background-color: #ff4122;
+    color: white;
 }
 .footer{
     background-color: #ff4122;

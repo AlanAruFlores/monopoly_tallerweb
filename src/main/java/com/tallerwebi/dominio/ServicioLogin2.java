@@ -11,6 +11,8 @@ public interface ServicioLogin2 {
             LongitudContraseñaException, MayusculaNumeroException, MailRegistradoException,
             ContraseñasNoCoincidenException, EmailInvalidoException;
     public void agregarUsuario(Usuario dtousuario);
-    public void banearUsuario(Long id, String motivo);
+    public void banearUsuario(Long id);
     public List<Usuario> buscarTodos();
+
+    public void cambiarEstadoBaneo(Long id);
 }

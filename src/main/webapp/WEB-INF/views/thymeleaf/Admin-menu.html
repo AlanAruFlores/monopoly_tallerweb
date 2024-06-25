@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/menu-admin.css}">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
-
     <title>Admin Menu</title>
 </head>
 <body>
 <header class="header">
-    <img  th:src="@{/imagenes/monopoly.png}" alt="Logo" class="header__logo">
+    <img th:src="@{/imagenes/monopoly.png}" alt="Logo" class="header__logo">
     <h1 class="titulo">Admin Menu</h1>
     <div class="header__links">
         <a title="Salir del juego" class="nav-link text-light header__link__menu" th:href="@{/volver-login}">
@@ -38,7 +36,10 @@
                 <td th:text="${usuario.nombre}">Nombre</td>
                 <td th:text="${usuario.email}">email@example.com</td>
                 <td>
-                    <a href="#" class="main__boton">Banear</a>
+                    <form th:action="@{/cambiar-estado-usuario}" method="post">
+                        <input type="hidden" th:name="id" th:value="${usuario.id}" />
+                        <button type="submit" th:classappend="${usuario.baneado} ? 'desbanear' : 'main__boton'" th:text="${usuario.baneado} ? 'Desbanear' : 'Banear'"></button>
+                    </form>
                 </td>
             </tr>
             </tbody>
