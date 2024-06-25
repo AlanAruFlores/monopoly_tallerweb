@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/menu-admin.css}">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css">
+
     <title>Admin Menu</title>
 </head>
 <body>
 <header class="header">
     <img  th:src="@{/imagenes/monopoly.png}" alt="Logo" class="header__logo">
-    <h1 class="header__titulo">Admin Menu</h1>
+    <h1 class="titulo">Admin Menu</h1>
+    <div class="header__links">
+        <a title="Salir del juego" class="nav-link text-light header__link__menu" th:href="@{/volver-login}">
+            <i class="fa-solid fa-door-open"></i>
+        </a>
+    </div>
 </header>
 <main class="main">
     <h2 class="main__titulo">Usuarios</h2>

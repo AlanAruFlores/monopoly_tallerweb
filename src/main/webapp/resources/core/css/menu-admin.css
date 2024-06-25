@@ -11,38 +11,47 @@
 
 body {
     background: url(../imagenes/fondo.jpg);
-    background-size: cover;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-size:cover;
+    background-color: rgba(255,255,255,0.8);
     background-blend-mode: lighten;
     background-repeat: no-repeat;
     background-position: center;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 100px 1fr auto;
-    grid-template-areas: "header" "main" "footer";
-    height: 100vh;
 }
 
-.header {
+.header{
     grid-area: header;
     background-color: #ff4122;
-    color: white;
-    padding: 0px 20px;
-}
-
-.header__logo {
-    display: inline-block;
-    position: absolute;
-    width: 80px;
-}
-
-.header__titulo {
-    line-height: 100px;
-    font-weight: bolder;
-    letter-spacing: 2px;
-    text-align: center;
     font-family: monopoly;
+    color: white;
+    padding: 0px 40px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
 }
+.header__logo{
+    display: inline-block;
+    width: 80px ;
+}
+.header__links{
+    display:flex;
+    gap:20px;
+}
+.header__link__menu i{
+    font-size:25px;
+    border-radius:50%;
+    box-shadow:0px 0px 8px #fff;
+    padding:6px;
+    text-align:center;
+    transition: 1s;
+}
+
+.header__link__menu i:hover {
+    color:#ff3f22;
+    background-color:#fff;
+    transform: scale(1.4);
+}
+
 
 /*MAIN*/
 

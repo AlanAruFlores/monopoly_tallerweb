@@ -60,7 +60,9 @@ body{
   transform: scale(1.4);
 }
 
-
+.titulo{
+  font-family: monopoly;
+}
 
 .main{
   grid-area:main;
