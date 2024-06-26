@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/menu-admin.css}">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+
     <title>Admin Menu</title>
 </head>
 <body>
@@ -20,7 +21,13 @@
 <main class="main">
     <h2 class="main__titulo">Usuarios</h2>
     <div class="main__contenedor">
-        <table class="main__tabla">
+        <!-- Formulario de búsqueda -->
+        <!-- Buscador de usuarios -->
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Buscar por nombre" class="buscar-cont" />
+            <button type="submit" class="buscar-boton">Buscar</button>
+        </form>
+        <table class="main__tabla" id="users-table">
             <thead>
             <tr>
                 <th>ID</th>
@@ -30,7 +37,6 @@
             </tr>
             </thead>
             <tbody>
-            <!-- Aquí se insertarán las filas de usuarios -->
             <tr th:each="usuario : ${usuarios}">
                 <td th:text="${usuario.id}">1</td>
                 <td th:text="${usuario.nombre}">Nombre</td>
@@ -46,6 +52,22 @@
         </table>
     </div>
 </main>
+<script>
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const searchValue = document.getElementById('search-input').value.toLowerCase();
+        const rows = document.querySelectorAll('#users-table tbody tr');
+        rows.forEach(row => {
+            const name = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+            if (name.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+</body>
 <footer class="footer">
     <div class="footer__div">
         <h2 class="footer__titulo">MONOPOLY</h2>
@@ -63,5 +85,5 @@
         <p>Universidad Nacional de la Matanza</p>
     </div>
 </footer>
-</body>
+
 </html>

@@ -94,7 +94,7 @@ body {
     border-bottom: 1px solid #ddd;
 }
 
-.main__boton {
+.main__boton{
     text-decoration: none;
     background-color: #ff4122;
     color: white;
@@ -124,10 +124,37 @@ body {
     transition: 500ms all;
 
 }
-
+.titulo{
+    font-family: monopoly;
+    font-size: 40px;
+    margin-right: 60px;
+}
 .desbanear:hover {
     background-color: #ff4122;
     color: white;
+}
+
+.buscar-cont{
+    width: 50%;
+    border-radius: 5px;
+    padding: 9px 14px;
+    font-size: 17px;
+    margin-top: 10px;
+    margin-left: 20%;
+    margin-bottom: 20px;
+
+}
+
+.buscar-boton{
+    text-decoration: none;
+    background-color: #ff4122;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: 500ms all;
+    border: 1px solid white;
 }
 .footer{
     background-color: #ff4122;
