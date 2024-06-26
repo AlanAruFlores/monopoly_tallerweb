@@ -20,7 +20,7 @@ public class HibernateConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/monopoly_db");
         dataSource.setUsername("root"); //Nombre de usuario de la bd
-        dataSource.setPassword("2705"); // Contraseña de bd
+        dataSource.setPassword(""); // Contraseña de bd
         return dataSource;
     }
 
