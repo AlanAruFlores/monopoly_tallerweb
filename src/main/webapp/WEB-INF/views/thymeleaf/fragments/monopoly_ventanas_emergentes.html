@@ -123,7 +123,7 @@
                     <tbody>
                     <tr th:each="usuarioJugando : ${usuariosJugando}">
                         <td>
-                            <img th:src="@{/imagenes/foto_perfil.jpg}" alt="foto">
+                            <img th:src="@{${usuarioJugando.usuario.imagenPerfil}}" alt="foto">
                         </td>
                         <td th:text="${usuarioJugando.usuario.nombreUsuario}"></td>
                         <td th:text="'$'+${usuarioJugando.saldo}"></td>

@@ -38,7 +38,7 @@ document.querySelectorAll(".boton__intercambiar").forEach(boton =>{
                 document.querySelector("#jugador2Columna").innerHTML=`
                 <div class="player-info">
                   <div class="profile">
-                    <img src="../imagenes/foto_perfil.jpg" alt="Perfil Jugador 2" class="profile-img">
+                    <img src="/spring/${partidaUsuarioJson.usuario.imagenPerfil}" alt="Perfil Jugador 2" class="profile-img">
                     <span class="nombre">${partidaUsuarioJson.usuario.nombreUsuario}</span>
                     <div class="money">
                       <input type="number" pattern="[0-9]{4}" max="${partidaUsuarioJson.saldo}" placeholder="$">

@@ -1,7 +1,7 @@
 /*INSERT DE UN USUARIO POR DEFECTO*/
 INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario,imagenPerfil,baneado) VALUES(1,"usuario","usuario","usuario@gmail.com","usuario1234",0,"UsuarioNombre1","/imagenes/fotosPerfil/perfil1.png",false);
-INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario,imagenPerfil,baneado) VALUES(2,"karl","karl","karl@gmail.com","karl1234",0,"karlos","/imagenes/fotosPerfil/perfil1.png",false);
-INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario,imagenPerfil,baneado) VALUES(3,"juan","juan","juan@gmail.com","juan1234",0,"juanceto07","/imagenes/fotosPerfil/perfil1.png",false);
+INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario,imagenPerfil,baneado) VALUES(2,"karl","karl","karl@gmail.com","karl1234",0,"karlos","/imagenes/fotosPerfil/perfil2.png",false);
+INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario,imagenPerfil,baneado) VALUES(3,"juan","juan","juan@gmail.com","juan1234",0,"juanceto07","/imagenes/fotosPerfil/perfil3.png",false);
 
 /*INSERT PARTIDA (PRUEBA)*/
 /*INSERT INTO partida(id,estadoPartida,fechaApertura,nombre,numeroJugadores,creador_id,turnoJugador_id) values (1,"ABIERTA",CURDATE(),"ASDpartida",3,1,1);*/

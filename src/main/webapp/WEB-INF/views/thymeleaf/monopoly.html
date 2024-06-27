@@ -53,7 +53,7 @@
               <div class="column">
                 <div class="player-info">
                   <div class="profile">
-                    <img th:src="@{/imagenes/foto_perfil.jpg}" alt="Perfil Jugador 1" class="profile-img">
+                    <img th:src="@{${usuarioActual.usuario.imagenPerfil}}" alt="Perfil Jugador 1" class="profile-img">
                     <span class="nombre" th:text="${usuarioActual.usuario.nombreUsuario}"></span>
                     <div class="money">
                       <input type="number" pattern="[0-9]{4}" th:max="${usuarioActual.saldo}" placeholder="$">
