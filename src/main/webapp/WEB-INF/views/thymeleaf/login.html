@@ -8,86 +8,86 @@
 </head>
 
 <body>
-    <header class="header">
-        <img th:src="@{/imagenes/monopoly.png}" class="header__logo">
-        <h1 class="header__titulo">MONOPOLY</h1>
-    </header>
+<header class="header">
+    <img th:src="@{/imagenes/monopoly.png}" class="header__logo">
+    <h1 class="header__titulo">MONOPOLY</h1>
+</header>
 
-    <main class="main">
-        <div class="fondo-form">
-            <h2 class="main__titulo">INICIAR SESIÓN</h2>
-            <form action="#" th:action="@{/validar-login}" class="container" method="POST" th:object="${datosLogin}">
-                <p th:if="${error}" th:text="${error}" style="color: red; font-size: medium"></p>
-                <div class="flex">
-                    <div class="inputBox">
-                        <span>Ingresar correo electrónico:</span>
-                        <input th:field="*{email}" type="email" id="email" placeholder="usuarioX@gmail.com" class="box"/>
-                    </div>
-                    <div class="inputBox">
-                        <span>Ingresar contraseña:</span>
-                        <input th:field="*{password}" type="password" id="pass" name="pass" placeholder="Contraseña" class="box">
-                    </div>
+<main class="main">
+    <div class="fondo-form">
+        <h2 class="main__titulo">INICIAR SESIÓN</h2>
+        <form action="#" th:action="@{/validar-login}" class="container" method="POST" th:object="${datosLogin}">
+            <p th:if="${error}" th:text="${error}" style="color: red; font-size: medium"></p>
+            <div class="flex">
+                <div class="inputBox">
+                    <span>Ingresar correo electrónico:</span>
+                    <input th:field="*{email}" type="email" id="email" placeholder="usuarioX@gmail.com" class="box"/>
                 </div>
-                <input type="submit" value="Acceder" name="login" class="main__boton">
-            </form>
-            <a id="ir-a-registrarme" th:href="@{/ir-registro}">Registrarme</a>
-        </div>
-    </main>
-
-    <div id="popup-overlay" class="closed" >
-        <div class="popup">
-            <h2>¡Excelente!</h2>
-            <p>Te has registrado perfectamente.</p>
-            <p>Ahora puedes ingresar a Monopoly con tan solo ingresar tus datos</p>
-            <input type="submit" value="Continuar">
-        </div>
+                <div class="inputBox">
+                    <span>Ingresar contraseña:</span>
+                    <input th:field="*{password}" type="password" id="pass" name="pass" placeholder="Contraseña" class="box">
+                </div>
+            </div>
+            <input type="submit" value="Acceder" name="login" class="main__boton">
+        </form>
+        <a id="ir-a-registrarme" th:href="@{/ir-registro}">Registrarme</a>
     </div>
+</main>
 
-    <footer class="footer">
-        <div class="footer__div">
-            <h2 class="footer__titulo">MONOPOLY</h2>
-            <h3 class="footer__subtitulo">Integrantes</h3>
-            <p>Gavagnin Lucas Daniel</p>
-            <p>Pessino Milagros</p>
-            <p>Aruquipa Alan</p>
-            <p>Vargas Mariano Luis</p>
-            <p>Vargas Franco</p>
-        </div>
-        <div class="footer__div">
-            <h3 class="footer__subtitulo">Materia</h3>
-            <p>Taller Web I</p>
-            <h3 class="footer__subtitulo">Universidad</h3>
-            <p>Universidad Nacional de la Matanza</p>
-        </div>
-    </footer>
+<div id="popup-overlay" class="closed" >
+    <div class="popup">
+        <h2>¡Excelente!</h2>
+        <p>Te has registrado perfectamente.</p>
+        <p>Ahora puedes ingresar a Monopoly con tan solo ingresar tus datos</p>
+        <input type="submit" value="Continuar">
+    </div>
+</div>
 
-    <script type="text/javascript" th:src="@{/js/popup.js}"></script>
-    <script>
-        var popupOverlay = document.getElementById("popup-overlay");
-        // Función para abrir el popup
-        function openPopup() {
-            popupOverlay.classList.add("closed");
-        }
+<footer class="footer">
+    <div class="footer__div">
+        <h2 class="footer__titulo">MONOPOLY</h2>
+        <h3 class="footer__subtitulo">Integrantes</h3>
+        <p>Gavagnin Lucas Daniel</p>
+        <p>Pessino Milagros</p>
+        <p>Aruquipa Alan</p>
+        <p>Vargas Mariano Luis</p>
+        <p>Vargas Franco</p>
+    </div>
+    <div class="footer__div">
+        <h3 class="footer__subtitulo">Materia</h3>
+        <p>Taller Web I</p>
+        <h3 class="footer__subtitulo">Universidad</h3>
+        <p>Universidad Nacional de la Matanza</p>
+    </div>
+</footer>
+<script type="text/javascript" th:src="@{/js/popup.js}"></script>
+<script>
+    var popupOverlay = document.getElementById("popup-overlay");
+    // Función para abrir el popup
+    function openPopup() {
+        popupOverlay.classList.add("closed");
+    }
 
-        // Función para cerrar el popup
-        function closePopup() {
-            popupOverlay.classList.remove("closed");
-        }
+    // Función para cerrar el popup
+    function closePopup() {
+        popupOverlay.classList.remove("closed");
+    }
 
-        // Agregar evento al botón de cerrar
-        document.querySelector(".closed").addEventListener("click", closePopup);
+    // Agregar evento al botón de cerrar
+    document.querySelector(".closed").addEventListener("click", closePopup);
 
 
-        // Función para verificar si la URL contiene un parámetro específico
-        function urlContains(value) {
-            return window.location.href.includes(value);
-        }
+    // Función para verificar si la URL contiene un parámetro específico
+    function urlContains(value) {
+        return window.location.href.includes(value);
+    }
 
-        // Verificar si la URL contiene el parámetro "volver-login"
-        if (urlContains("volver-login")) {
-            openPopup();
-        }
+    // Verificar si la URL contiene el parámetro "volver-login"
+    if (urlContains("volver-login")) {
+        openPopup();
+    }
 
-    </script>
+
+</script>
 </body>
 </html>

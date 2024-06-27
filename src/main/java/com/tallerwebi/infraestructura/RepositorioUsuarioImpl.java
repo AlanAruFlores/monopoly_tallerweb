@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository ("repositorioUsuario")
 public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
@@ -50,5 +52,21 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Usuario.class, id);
     }
+    @Override
+    public boolean buscarUsuarioPorEmail(String email) {
+        try (Session session = sessionFactory.openSession()) {
+            String sql = "SELECT COUNT(u) FROM Usuario u WHERE u.email = :email";
+            Long count = (Long) session.createQuery(sql).setParameter("email", email).uniqueResult();
+            return count != null && count > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+    @Override
+    public List<Usuario> buscarTodos() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("FROM Usuario", Usuario.class).list();
+    }
 }

@@ -53,4 +53,7 @@ public class Usuario {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    public void setEsAdmin(boolean b) {}
+
 }

@@ -88,4 +88,35 @@ public class ServicioLoginImpl2 implements ServicioLogin2 {
         Usuario usarioNuevo = new Usuario(dtoUsuario.getNombre(), dtoUsuario.getEmail(),dtoUsuario.getPassword(),dtoUsuario.getApellido(),dtoUsuario.getNombreUsuario(), dtoUsuario.getRepitePassword());
         this.repositorioUsuario.guardar(usarioNuevo);
     }
+
+    public void esAdmin() {
+        Usuario usuario = repositorioUsuario.buscarUsuarioPorId(1L);
+        if (usuario != null) {
+            usuario.setEsAdmin(true);
+            repositorioUsuario.actualizarUsuario(usuario);
+        }
+    }
+
+
+    public void banearUsuario(Long id) {
+        Usuario usuario = repositorioUsuario.buscarUsuarioPorId(id);
+        if (usuario != null) {
+            usuario.setBaneado(true);
+            // Si tienes un campo para motivo de baneo
+            repositorioUsuario.actualizarUsuario(usuario);
+        }
+    }
+
+    public void cambiarEstadoBaneo(Long id) {
+        Usuario usuario = repositorioUsuario.buscarUsuarioPorId(id);
+        if (usuario != null) {
+            usuario.setBaneado(!usuario.getBaneado());
+            repositorioUsuario.actualizarUsuario(usuario);
+        }
+    }
+
+
+    public List<Usuario> buscarTodos() {
+        return repositorioUsuario.buscarTodos();
+    }
 }

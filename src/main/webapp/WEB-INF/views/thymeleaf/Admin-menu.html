@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/menu-admin.css}">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+
+    <title>Admin Menu</title>
+</head>
+<body>
+<header class="header">
+    <img th:src="@{/imagenes/monopoly.png}" alt="Logo" class="header__logo">
+    <h1 class="titulo">Admin Menu</h1>
+    <div class="header__links">
+        <a title="Salir del juego" class="nav-link text-light header__link__menu" th:href="@{/volver-login}">
+            <i class="fa-solid fa-door-open"></i>
+        </a>
+    </div>
+</header>
+<main class="main">
+    <h2 class="main__titulo">Usuarios</h2>
+    <div class="main__contenedor">
+        <!-- Formulario de búsqueda -->
+        <!-- Buscador de usuarios -->
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Buscar por nombre" class="buscar-cont" />
+            <button type="submit" class="buscar-boton">Buscar</button>
+        </form>
+        <table class="main__tabla" id="users-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.id}">1</td>
+                <td th:text="${usuario.nombre}">Nombre</td>
+                <td th:text="${usuario.email}">email@example.com</td>
+                <td>
+                    <form th:action="@{/cambiar-estado-usuario}" method="post">
+                        <input type="hidden" th:name="id" th:value="${usuario.id}" />
+                        <button type="submit" th:classappend="${usuario.baneado} ? 'desbanear' : 'main__boton'" th:text="${usuario.baneado} ? 'Desbanear' : 'Banear'"></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<script>
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const searchValue = document.getElementById('search-input').value.toLowerCase();
+        const rows = document.querySelectorAll('#users-table tbody tr');
+        rows.forEach(row => {
+            const name = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+            if (name.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+</body>
+<footer class="footer">
+    <div class="footer__div">
+        <h2 class="footer__titulo">MONOPOLY</h2>
+        <h3 class="footer__subtitulo">Integrantes</h3>
+        <p>Gavagnin Lucas Daniel</p>
+        <p>Pessino Milagros</p>
+        <p>Aruquipa Alan</p>
+        <p>Vargas Mariano Luis</p>
+        <p>Vargas Franco</p>
+    </div>
+    <div class="footer__div">
+        <h3 class="footer__subtitulo">Materia</h3>
+        <p>Taller Web I</p>
+        <h3 class="footer__subtitulo">Universidad</h3>
+        <p>Universidad Nacional de la Matanza</p>
+    </div>
+</footer>
+
+</html>
