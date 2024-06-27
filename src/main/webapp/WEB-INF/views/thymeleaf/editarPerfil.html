@@ -4,16 +4,127 @@
     <meta charset="UTF-8">
     <title>Editar Perfil</title>
     <link rel="stylesheet" th:href="@{/css/perfil.css}">
+    <style>
+        .actualizar-perfil {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .profile-picture-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-picture-container .imagenPerfil {
+            width: 40%;
+            height: 45%;
+        }
+
+        .change-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .change-icon img {
+            width: 20px; /* Ajusta el tamaño de la imagen según sea necesario */
+            height: 20px;
+        }
+
+        /* Estilos para el pop-up */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .popup-content h3 {
+            margin-bottom: 20px;
+        }
+
+        .avatars img {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .avatars img:hover {
+            transform: scale(1.1);
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Ocultar pop-up inicialmente */
+        .hidden {
+            display: none;
+        }
+        .titulo_avatar{
+            font-family: monopoly;
+        }
+    </style>
 </head>
 <body>
 
 <div class="actualizar-perfil">
 
     <form action="#" th:action="@{/editar-perfil}" method="POST" th:object="${datosPerfil}" >
+        <!-- Contenedor de la imagen de perfil con el ícono de cambio -->
+        <div class="profile-picture-container">
+            <img id="update_image" th:src="@{${datosPerfil.imagen}}" class="imagenPerfil">
+            <div class="change-icon" onclick="openModal()">
+                <img th:src="@{/imagenes/pencil1.png}" alt="Cambiar">
+            </div>
+        </div>
+        <!-- Modal para seleccionar imagen -->
+        <div id="popup" class="popup hidden">
+            <div class="popup-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h3 class="titulo_avatar">Escoge tu avatar</h3>
+                <div class="avatars">
+                    <!-- Opciones de imágenes disponibles -->
+                    <img th:src="@{/imagenes/fotosPerfil/perfil1.png}" onclick="selectImage(this)">
+                    <img th:src="@{/imagenes/fotosPerfil/perfil2.png}" onclick="selectImage(this)">
+                    <img th:src="@{/imagenes/fotosPerfil/perfil3.png}" onclick="selectImage(this)">
+                    <img th:src="@{/imagenes/fotosPerfil/perfil4.png}" onclick="selectImage(this)">
+                    <img th:src="@{/imagenes/fotosPerfil/perfil5.png}" onclick="selectImage(this)">
+                    <img th:src="@{/imagenes/fotosPerfil/perfil6.png}" onclick="selectImage(this)">
+                </div>
+            </div>
+        </div>
 
-        <!-- Espacio para la imagen -->
-        <img id="update_image" th:src="@{/imagenes/fondo.jpg}">
-
+        <input type="hidden" th:field="*{imagen}" id="imagen">
         <!-- Mensaje de éxito o error -->
         <div th:if="${mensaje}" class="success-message" th:text="${mensaje}"></div>
         <div th:if="${error}" class="mensaje-error" th:text="${error}"></div>
@@ -22,11 +133,12 @@
         <div class="flex">
             <div class="inputBox">
                 <span>Nombre de usuario :</span>
-                <input th:field="*{nombre}" type="text" id="actualizar-nombre" name="actualizar-nombre" placeholder="UsuarioX" class="box">
+                <input th:field="*{nombreUsuario}" type="text" id="actualizar-nombreUsuario" name="actualizar-nombre" placeholder="UsuarioX" class="box">
+                <span>Nombre:</span>
+                <input th:field="*{nombre}" type="text" id="actualizar-nombre" name="actualizar-nombre" placeholder="Milagros Pessino" class="box">
                 <span>Tu email :</span>
                 <input th:field="*{email}" type="email" id="actualizar_email" name="actualizar_email" placeholder="usuarioX@gmail.com" class="box">
-                <span>Actualiza tu foto:</span>
-                <input type="file" id="actualizar_imagen" name="actualizar_imagen" accept="image/jpg, image/jpeg, image/png" class="box">
+
             </div>
             <div class="inputBox">
 
@@ -45,5 +157,21 @@
         <a href="" class="delete-btn" th:href="@{/perfil}">Volver</a>
     </form>
 </div>
+
+<script>
+    function openModal() {
+        document.getElementById('popup').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('popup').classList.add('hidden');
+    }
+
+    function selectImage(img) {
+        document.getElementById('update_image').src = img.src;
+        document.getElementById('imagen').value = img.src;
+        closeModal();
+    }
+</script>
 </body>
 </html>

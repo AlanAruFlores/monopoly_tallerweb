@@ -73,6 +73,10 @@ public class ServicioPerfilImpl implements ServicioPerfil {
             usuarioActual.setRepitePassword(datosPerfil.getContraseniaNueva());
         }
 
+        if (datosPerfil.getImagen() != null) {
+            usuarioActual.setImagenPerfil(datosPerfil.getImagen());
+        }
+
         // Guardar los cambios en el repositorio
         this.repositorioUsuario.actualizarUsuario(usuarioActual);
     }
