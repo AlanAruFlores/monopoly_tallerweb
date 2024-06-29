@@ -16,6 +16,7 @@ public class MenuControlador {
     public ModelAndView irAJugar(){
         return new ModelAndView("redirect:/monopoly");
     }
+
     @RequestMapping("/ir-salir")
     public ModelAndView irASalir(){
         ModelMap model = new ModelMap();

@@ -1,7 +1,4 @@
 /*INSERT DE UN USUARIO POR DEFECTO*/
-INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario) VALUES(1,"usuario","usuario","usuario@gmail.com","usuario1234",0,"UsuarioNombre1");
-INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario) VALUES(2,"karl","karl","karl@gmail.com","karl1234",0,"karlos");
-INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario) VALUES(3,"juan","juan","juan@gmail.com","juan1234",0,"juanceto07");
 /*INSERT DE UN JUGADOR POR DEFECTO*/
 INSERT INTO jugador(usuario_id,posicionCasilla,saldo) VALUES (1,1,1000);
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking</title>
+    <link rel="stylesheet" th:href="@{/css/ranking.css}">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+</head>
+<body>
+<header class="header">
+    <img th:src="@{/imagenes/monopoly.png}" alt="Logo" class="header__logo">
+    <h1 class="titulo">Monopoly</h1>
+    <div class="header__links">
+        <a title="Salir del juego" class="nav-link text-light header__link__menu" th:href="@{/volver-menu}">
+            <i class="fa-solid fa-door-open"></i>
+        </a>
+    </div>
+</header>
+
+<main class="main">
+    <div class="victorias-container">
+        <img th:src="@{/imagenes/trofeo.png}" alt="Icono de Trofeo" class="trophy-icon">
+        <h1 class="main__titulo">Ranking de Usuarios</h1>
+    </div>
+
+    <div class="main__contenedor">
+        <table class="main__tabla">
+            <thead>
+            <tr>
+                <th>Puesto</th>
+                <th>Nombre</th>
+                <th>Victorias</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Suponiendo que 'usuarios' es una lista de objetos Usuario pasada desde el controlador -->
+            <tr th:each="usuario, iterStat : ${usuarios}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${usuario.nombre}"></td>
+                <td th:text="${usuario.victorias}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer__div">
+        <h2 class="footer__titulo">MONOPOLY</h2>
+        <h3 class="footer__subtitulo">Integrantes</h3>
+        <p>Gavagnin Lucas Daniel</p>
+        <p>Pessino Milagros</p>
+        <p>Aruquipa Alan</p>
+        <p>Vargas Mariano Luis</p>
+        <p>Vargas Franco</p>
+    </div>
+    <div class="footer__div">
+        <h3 class="footer__subtitulo">Materia</h3>
+        <p>Taller Web I</p>
+        <h3 class="footer__subtitulo">Universidad</h3>
+        <p>Universidad Nacional de la Matanza</p>
+    </div>
+</footer>
+
+</body>
+</html>
