@@ -34,4 +34,16 @@ public class RepositorioIntercambioImpl implements RepositorioIntercambio {
                 .uniqueResult();
 
     }
+
+    @Override
+    public Intercambio buscarIntercambioByEmisorIdAndDestinatarioId(Long idEmisor, Long idReceptor){
+        final Session session = sessionFactory.getCurrentSession();
+
+        return (Intercambio) session.createCriteria(Intercambio.class)
+                .createAlias("emisor", "e")
+                .createAlias("receptor", "r")
+                .add(Restrictions.eq("e.id",idEmisor))
+                .add(Restrictions.eq("r.id",idReceptor))
+                .uniqueResult();
+    }
 }

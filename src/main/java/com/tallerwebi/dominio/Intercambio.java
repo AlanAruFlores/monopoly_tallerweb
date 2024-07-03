@@ -12,6 +12,7 @@ import javax.persistence.*;
 import com.tallerwebi.dominio.PartidaUsuario;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -36,16 +37,17 @@ public class Intercambio {
 
     private Double saldoReceptor;
 
+    /*
     @OneToMany(mappedBy = "intercambio", fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<IntercambioPropiedades> intercambioPropiedades;
+    private Set<IntercambioPropiedades> intercambioPropiedades;
+*/
 
-    public Intercambio(PartidaUsuario emisor, PartidaUsuario receptor, EstadoIntercambio estado, Double saldoEmisor, Double saldoReceptor, List<IntercambioPropiedades> intercambioPropiedades) {
+    public Intercambio(PartidaUsuario emisor, PartidaUsuario receptor, EstadoIntercambio estado, Double saldoEmisor, Double saldoReceptor) {
         this.emisor = emisor;
         this.receptor = receptor;
         this.estado = estado;
         this.saldoEmisor = saldoEmisor;
         this.saldoReceptor = saldoReceptor;
-        this.intercambioPropiedades = intercambioPropiedades;
     }
 }

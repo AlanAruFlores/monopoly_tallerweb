@@ -53,18 +53,22 @@
               <div class="column">
                 <div class="player-info">
                   <div class="profile">
+                    <input type="hidden" th:value="${usuarioActual.id}" id="emisorId">
                     <img th:src="@{${usuarioActual.usuario.imagenPerfil}}" alt="Perfil Jugador 1" class="profile-img">
                     <span class="nombre" th:text="${usuarioActual.usuario.nombreUsuario}"></span>
                     <div class="money">
-                      <input type="number" pattern="[0-9]{4}" th:max="${usuarioActual.saldo}" placeholder="$">
+                      <input id="saldoEmisor" type="number" pattern="[0-9]{4}" th:max="${usuarioActual.saldo}" placeholder="$">
                     </div>
                   </div>
                   <div class="selected-houses">
                     <div class="house-slot" data-player="jugador1" data-slot="1"></div>
+                    <input class="propiedadId" id="idPropiedadEmisorUno" type="hidden" value="">
                     <div class="house-slot" data-player="jugador1" data-slot="2"></div>
+                    <input class="propiedadId" id="idPropiedadEmisorDos" type="hidden" value="">
                   </div>
                   <div class="house-options">
                     <div data-player="jugador1" class="house-div" th:each="usuarioPropiedad:${usuarioPropiedadesActual}">
+                      <input class="idPropiedad" type="hidden" th:value="${usuarioPropiedad.propiedad.id}">
                       <div class="franja" th:style="'background-color:'+${usuarioPropiedad.propiedad.color}"></div>
                       <div>
                         <p class="house-parrafo" th:text="${usuarioPropiedad.propiedad.nombre}+' $'+${usuarioPropiedad.propiedad.precio}">Casa $400</p>

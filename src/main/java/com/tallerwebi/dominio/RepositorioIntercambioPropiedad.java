@@ -1,2 +1,5 @@
-package com.tallerwebi.dominio;public interface RepositorioIntercambioPropiedad {
+package com.tallerwebi.dominio;
+
+public interface RepositorioIntercambioPropiedad {
+    public void crearIntercambioPropiedad(IntercambioPropiedades intercambioPropiedades);
 }

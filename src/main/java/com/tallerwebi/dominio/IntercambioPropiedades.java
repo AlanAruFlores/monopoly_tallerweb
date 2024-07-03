@@ -20,7 +20,6 @@ public class IntercambioPropiedades {
     private Long id;
 
     @ManyToOne
-    @JsonIgnore
     private Intercambio intercambio;
 
     @ManyToOne

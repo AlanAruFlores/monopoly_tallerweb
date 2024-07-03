@@ -29,6 +29,7 @@ document.querySelectorAll(".boton__intercambiar").forEach(boton =>{
                 for (const propiedadUsuario of partidaUsuarioJson.propiedades) {
                     partidaUsuarioListaHtml += `
                     <div data-player="jugador2" class="house-div">
+                      <input class="idPropiedad" type="hidden" value="${propiedadUsuario.propiedad.id}">
                       <div class="franja" style="background-color:${propiedadUsuario.propiedad.color}"></div>
                       <div>
                         <p class="house-parrafo">${propiedadUsuario.propiedad.nombre} ${propiedadUsuario.propiedad.precio}"</p>
@@ -46,7 +47,9 @@ document.querySelectorAll(".boton__intercambiar").forEach(boton =>{
                   </div>
                   <div class="selected-houses">
                     <div class="house-slot" data-player="jugador2" data-slot="1"></div>
+                    <input class="propiedadId" id="idPropiedadReceptorUno" type="hidden" value="">
                     <div class="house-slot" data-player="jugador2" data-slot="2"></div>
+                    <input class="propiedadId" id="idPropiedadReceptorDos" type="hidden" value="">
                   </div>
                   <div class="house-options">
                       ${partidaUsuarioListaHtml}             
@@ -66,7 +69,6 @@ function cargarEventos(){
     /*OTROS*/
     document.querySelectorAll('.house-div').forEach(div => {
         div.addEventListener('click', function() {
-            console.log(div.innerHTML);
             selectHouse(this.dataset.player, div);
         });
     });
@@ -76,8 +78,15 @@ function cargarEventos(){
 function selectHouse(player, div) {
     const slots = document.querySelectorAll(`.house-slot[data-player="${player}"]`);
     const emptySlot = Array.from(slots).find(slot => !slot.innerHTML);
+    console.log(emptySlot.nextElementSibling);
+    console.log(div);
+    console.log(div.querySelector(".idPropiedad"));
+
     if (emptySlot) {
-        emptySlot.innerHTML = div.innerHTML;
+        console.log(emptySlot.nextElementSibling);
+        emptySlot.nextElementSibling.setAttribute("value",div.querySelector(".idPropiedad").value);
+
+        emptySlot.innerHTML += div.innerHTML;
         div.style.display = "none";
         emptySlot.style.backgroundColor = "#fff";
     }
@@ -104,6 +113,9 @@ function cancel() {
         slot.style.backgroundColor = "transparent";
     });
 
+    document.querySelectorAll(".propiedadId").forEach(propiedadIds=>{
+        propiedadIds.value="";
+    });
 
     document.querySelectorAll('.house-div').forEach(div => {
         div.style.display="flex";

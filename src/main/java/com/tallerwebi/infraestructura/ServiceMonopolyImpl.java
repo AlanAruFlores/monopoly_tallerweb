@@ -4,6 +4,7 @@ import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.RepositorioPartidaUsuarioPropiedad;
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import com.tallerwebi.dominio.excepcion.UsuarioPerdedorException;
+import com.tallerwebi.presentacion.DatosIntercambio;
 import com.tallerwebi.presentacion.DatosPagarPropiedad;
 import com.tallerwebi.presentacion.DatosPropiedadUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,19 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     private RepositorioPartida repositorioPartida;
     private RepositorioPropiedad repositorioPropiedad;
     private RepositorioPartidaUsuarioPropiedad repositorioPartidaUsuarioPropiedad;
+    private RepositorioIntercambio repositorioIntercambio;
+    private RepositorioIntercambioPropiedad repositorioIntercambioPropiedad;
+
     /*Enlace de Dados y Su numero*/
     Map<Integer, String> mapaDado = new HashMap<Integer, String>();
     @Autowired
-    public ServiceMonopolyImpl(RepositorioPartidaUsuario repositorioPartidaUsuario, RepositorioPartida repositorioPartida, RepositorioPropiedad repositorioPropiedad, RepositorioPartidaUsuarioPropiedad repositorioPartidaUsuarioPropiedad) {
+    public ServiceMonopolyImpl(RepositorioPartidaUsuario repositorioPartidaUsuario, RepositorioPartida repositorioPartida, RepositorioPropiedad repositorioPropiedad, RepositorioPartidaUsuarioPropiedad repositorioPartidaUsuarioPropiedad, RepositorioIntercambio repositorioIntercambio, RepositorioIntercambioPropiedad repositorioIntercambioPropiedad) {
         this.repositorioPartidaUsuario = repositorioPartidaUsuario;
         this.repositorioPartida = repositorioPartida;
         this.repositorioPropiedad = repositorioPropiedad;
         this.repositorioPartidaUsuarioPropiedad = repositorioPartidaUsuarioPropiedad;
+        this.repositorioIntercambio = repositorioIntercambio;
+        this.repositorioIntercambioPropiedad=repositorioIntercambioPropiedad;
 
         /*Llenamos datos al mapa */
         mapaDado.put(1,"/imagenes/dados/dado1.png");
@@ -222,6 +228,33 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void hacerIntercambio(DatosIntercambio datosIntercambio) {
+        PartidaUsuario emisor = this.repositorioPartidaUsuario.obtenerUsuarioPartidaPorId(datosIntercambio.getEmisorId());
+        PartidaUsuario receptor = this.repositorioPartidaUsuario.obtenerUsuarioPartidaPorId(datosIntercambio.getReceptorId());
+
+        //Mapeo las propiedades
+        List<IntercambioPropiedades> intercambioPropiedades = new ArrayList<>();
+        //Guardo el intercambio
+        this.repositorioIntercambio.crearIntercambio(new Intercambio(emisor, receptor, EstadoIntercambio.EN_PROCESO, datosIntercambio.getSaldoEmisor(), datosIntercambio.getSaldoReceptor()));
+
+        Intercambio intercambio  = this.repositorioIntercambio.buscarIntercambioByEmisorIdAndDestinatarioId(emisor.getId(), receptor.getId());
+        IntercambioPropiedades intPropUno = new IntercambioPropiedades();
+        intPropUno.setIntercambio(intercambio);
+        intPropUno.setPropiedadEmisor(this.repositorioPropiedad.obtenerPropiedadPorId(datosIntercambio.getIdPropiedadEmisorUno()));
+        intPropUno.setPropiedadReceptor(this.repositorioPropiedad.obtenerPropiedadPorId(datosIntercambio.getIdPropiedadReceptorUno()));
+
+        IntercambioPropiedades intPropDos = new IntercambioPropiedades();
+        intPropDos.setIntercambio(intercambio);
+        intPropDos.setPropiedadEmisor(this.repositorioPropiedad.obtenerPropiedadPorId(datosIntercambio.getIdPropiedadEmisorDos()));
+        intPropDos.setPropiedadReceptor(this.repositorioPropiedad.obtenerPropiedadPorId(datosIntercambio.getIdPropiedadReceptorDos()));
+
+        this.repositorioIntercambioPropiedad.crearIntercambioPropiedad(intPropUno);
+        this.repositorioIntercambioPropiedad.crearIntercambioPropiedad(intPropDos);
+
+
     }
 
 }

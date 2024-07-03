@@ -2,6 +2,7 @@ package com.tallerwebi.dominio;
 
 import com.tallerwebi.dominio.excepcion.SaldoInsuficienteException;
 import com.tallerwebi.dominio.excepcion.UsuarioPerdedorException;
+import com.tallerwebi.presentacion.DatosIntercambio;
 import com.tallerwebi.presentacion.DatosPropiedadUsuario;
 
 import javax.servlet.http.HttpSession;
@@ -19,4 +20,6 @@ public interface ServicioMonopoly {
     public EstadoActividad convertirStringAEstadoActividad(String estado);
     public void establecerActivo(PartidaUsuario partidaUsuario);
     public Boolean verificarSiAlgunoEstaInactivo(List<PartidaUsuario> partidasUsuarios);
+
+    public void hacerIntercambio(DatosIntercambio datosIntercambio);
 }
