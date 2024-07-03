@@ -49,10 +49,12 @@ document.querySelectorAll(".boton__intercambiar").forEach(boton =>{
                     <div class="house-slot" data-player="jugador2" data-slot="2"></div>
                   </div>
                   <div class="house-options">
-                       ${partidaUsuarioListaHtml}
-                  </div>
+                      ${partidaUsuarioListaHtml}             
+                   </div>
                 </div>
                 `;
+
+                cargarEventos();
             }
         })
 
@@ -60,13 +62,16 @@ document.querySelectorAll(".boton__intercambiar").forEach(boton =>{
 })
 
 
-/*OTROS*/
-document.querySelectorAll('.house-div').forEach(div => {
-    div.addEventListener('click', function() {
-        console.log(div.innerHTML);
-        selectHouse(this.dataset.player, div);
+function cargarEventos(){
+    /*OTROS*/
+    document.querySelectorAll('.house-div').forEach(div => {
+        div.addEventListener('click', function() {
+            console.log(div.innerHTML);
+            selectHouse(this.dataset.player, div);
+        });
     });
-});
+}
+
 
 function selectHouse(player, div) {
     const slots = document.querySelectorAll(`.house-slot[data-player="${player}"]`);
