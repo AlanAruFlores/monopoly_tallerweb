@@ -258,6 +258,11 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     }
 
     @Override
+    public List<IntercambioPropiedades> obtenerIntercambioPropiedadesPorIntercambio(Intercambio intercambio){
+        return this.repositorioIntercambioPropiedad.obtenerIntercambioPropiedadesPorIntercambio(intercambio);
+    }
+
+    @Override
     public Intercambio buscarReceptorDeAlgunIntercambio(PartidaUsuario partidaUsuario) {
         return this.repositorioIntercambio.buscarIntercambioByDestinatarioId(partidaUsuario);
     }

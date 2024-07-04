@@ -24,4 +24,5 @@ public interface ServicioMonopoly {
     public void hacerIntercambio(DatosIntercambio datosIntercambio);
     public Intercambio buscarReceptorDeAlgunIntercambio(PartidaUsuario partidaUsuario);
     public Intercambio buscarEmisorDeAlgunIntercambio(PartidaUsuario partidaUsuario);
+    public List<IntercambioPropiedades> obtenerIntercambioPropiedadesPorIntercambio(Intercambio intercambio);
 }

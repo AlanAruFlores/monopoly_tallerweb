@@ -101,12 +101,12 @@ function exchange() {
        data: JSON.stringify({
            emisorId: document.querySelector("#emisorId").value,
            receptorId: document.querySelector("#receptorId").value,
-           saldoEmisor: document.querySelector("#saldoEmisor").value,
-           saldoReceptor: document.querySelector("#saldoReceptor").value,
-           idPropiedadEmisorUno: (document.querySelector("#idPropiedadEmisorUno").value == "") ? null : document.querySelector("#idPropiedadEmisorUno").value,
-           idPropiedadEmisorDos: (document.querySelector("#idPropiedadEmisorDos").value == "") ? null : document.querySelector("#idPropiedadEmisorDos").value,
-           idPropiedadReceptorUno: (document.querySelector("#idPropiedadReceptorUno").value == "") ? null : document.querySelector("#idPropiedadReceptorUno").value,
-           idPropiedadReceptorDos: (document.querySelector("#idPropiedadReceptorDos").value == "") ? null : document.querySelector("#idPropiedadReceptorDos").value
+           saldoEmisor: document.querySelector("#saldoEmisor").value === "" ? 0 : document.querySelector("#saldoEmisor").value,
+           saldoReceptor: document.querySelector("#saldoReceptor").value === "" ? 0: document.querySelector("#saldoReceptor").value,
+           idPropiedadEmisorUno: (document.querySelector("#idPropiedadEmisorUno").value === "") ? null : document.querySelector("#idPropiedadEmisorUno").value,
+           idPropiedadEmisorDos: (document.querySelector("#idPropiedadEmisorDos").value === "") ? null : document.querySelector("#idPropiedadEmisorDos").value,
+           idPropiedadReceptorUno: (document.querySelector("#idPropiedadReceptorUno").value === "") ? null : document.querySelector("#idPropiedadReceptorUno").value,
+           idPropiedadReceptorDos: (document.querySelector("#idPropiedadReceptorDos").value === "") ? null : document.querySelector("#idPropiedadReceptorDos").value
        }),
        datatype:"json",
         success: function(){
