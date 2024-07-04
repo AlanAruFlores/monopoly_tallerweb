@@ -20,6 +20,7 @@
         <a th:if="${partidaPendiente != null && partidaPendiente.partida.estadoPartida.name().equals('EN_CURSO')}" class="main__boton" th:href="@{/monopoly(id=${partidaPendiente.partida.id})}">Volver a reconectarte</a>
 
         <a class="main__boton" th:href="@{/perfil}">Ver Perfil</a>
+        <a class="main__boton" th:href="@{/ranking}">Ver Ranking</a>
         <a class="main__boton" th:href="@{/ir-salir}">Cerrar Sesion</a>
     </main>
 

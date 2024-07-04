@@ -9,4 +9,6 @@ public interface RepositorioUsuario {
     public Usuario buscarUsuarioPorId(Long id);
     public boolean buscarUsuarioPorEmail(String email);
     public List<Usuario> buscarTodos();
+
+    public List<Usuario> mostrarUsuariosPorVictorias();
 }

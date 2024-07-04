@@ -69,4 +69,12 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("FROM Usuario", Usuario.class).list();
     }
+
+    @Override
+    public List<Usuario> mostrarUsuariosPorVictorias() {
+        Session session = sessionFactory.getCurrentSession();
+        // Ordenar por victorias de mayor a menor
+        return session.createQuery("FROM Usuario ORDER BY victorias DESC", Usuario.class).list();
+    }
+
 }
