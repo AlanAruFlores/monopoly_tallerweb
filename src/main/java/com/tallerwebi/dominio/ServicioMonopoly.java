@@ -22,4 +22,6 @@ public interface ServicioMonopoly {
     public Boolean verificarSiAlgunoEstaInactivo(List<PartidaUsuario> partidasUsuarios);
 
     public void hacerIntercambio(DatosIntercambio datosIntercambio);
+    public Intercambio buscarReceptorDeAlgunIntercambio(PartidaUsuario partidaUsuario);
+    public Intercambio buscarEmisorDeAlgunIntercambio(PartidaUsuario partidaUsuario);
 }

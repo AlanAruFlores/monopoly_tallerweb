@@ -141,6 +141,91 @@
     </div>
 
 
+    <!--Ventana emergente Emisor de un intercambio-->
+    <div th:if="${esEmisor}" class="ventana__emergente ventana__emisor">
+            <div th:if="${estadoIntercambio.equalsIgnoreCase('EN_PROCESO')}" class="div__ventana__emergente">
+                <h2>Esperando respuesta del negocio propuesto al usuario</h2>
+                <img th:src="@{/imagenes/monopoly_manface.svg}" alt="manface">
+            </div>
+            <div th:if="${estadoIntercambio.equalsIgnoreCase('ACEPTADO')}" class="div__ventana__emergente">
+                <h2>¡¡ SU NEGOCIO HA SIDO ACEPTADO !!</h2>
+                <img th:src="@{/imagenes/monopoly_manface.svg}" alt="manface">
+                <a class="ventana__continuar">Continuar</a>
+            </div>
+            <div th:if="${estadoIntercambio.equalsIgnoreCase('RECHAZADO')}" class="div__ventana__emergente">
+                <h2>Esperando a que su negocio se acepte ...</h2>
+                <img th:src="@{/imagenes/monopoly_manface.svg}" alt="manface">
+                <a class="ventana__continuar">Continuar</a>
+            </div>
+    </div>
+
+    <div th:if="${esReceptor}" class="ventana__emergente ventana__intercambio__propiedades ventana__receptor">
+        <!-- Pop-up de intercambio de propiedades -->
+        <div id="popup" class="popup">
+            <div class="header2">
+                <h2 class="titulo"> ¿Aceptas el intercambio? </h2>
+            </div>
+            <div class="content">
+                <div class="column">
+                    <div class="player-info">
+                        <div class="profile">
+                            <img th:src="@{${usuarioActual.usuario.imagenPerfil}}" alt="Perfil Jugador 1" class="profile-img">
+                            <span class="nombre" th:text="${usuarioActual.usuario.nombreUsuario}"></span>
+                            <div class="money">
+                                <input type="number" pattern="[0-9]{4}" th:max="${usuarioActual.saldo}" placeholder="$">
+                            </div>
+                        </div>
+                        <div class="selected-houses">
+                            <div class="house-slot" data-player="jugador1" data-slot="1">
+                                    <div class="franja" style="background-color:#000000"></div>
+                                    <div>
+                                        <p class="house-parrafo">Casa 1</p>
+                                    </div>
+                            </div>
+                            <div class="house-slot" data-player="jugador1" data-slot="2">
+                                    <div class="franja" style="background-color:#000000"></div>
+                                    <div>
+                                        <p class="house-parrafo">Casa 1</p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column" id="jugador2Columna">
+                    <div class="player-info">
+                        <div class="profile">
+                            <img th:src="@{${usuarioActual.usuario.imagenPerfil}}" alt="Perfil Jugador 1" class="profile-img">
+                            <span class="nombre" th:text="${usuarioActual.usuario.nombreUsuario}"></span>
+                            <div class="money">
+                                <input type="number" pattern="[0-9]{4}" th:max="${usuarioActual.saldo}" placeholder="$">
+                            </div>
+                        </div>
+                        <div class="selected-houses">
+                            <div class="house-slot" data-player="jugador1" data-slot="1">
+                                    <div class="franja" style="background-color:#000000"></div>
+                                    <div>
+                                        <p class="house-parrafo">Casa 1</p>
+                                    </div>
+                            </div>
+                            <div class="house-slot" data-player="jugador1" data-slot="2">
+                                    <div class="franja" style="background-color:#000000"></div>
+                                    <div>
+                                        <p class="house-parrafo">Casa 1</p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="exchange-button">Aceptar</button>
+                <button id="cancel-button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <!--Ventana emergente de Receptor de un intercambio-->
+
+
     <!--Ventana para mostrar TU TURNO-->
     <!--Ventana para mensajes u errores
     <div th:if="${partidaEnJuego.turnoJugador.id == usuarioActual.usuario.id}" class="ventana__emergente" id="ventana__tuturno">

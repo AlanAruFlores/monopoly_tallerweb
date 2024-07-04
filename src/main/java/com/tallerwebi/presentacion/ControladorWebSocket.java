@@ -70,4 +70,13 @@ public class ControladorWebSocket {
         String json = mapper.writeValueAsString(mensajeEnviado);
         return json;
     }
+
+    @MessageMapping("/notificarIntercambio")
+    @SendTo("/topic/recibirIntercambio")
+    public String notificarIntercambioEntreJugadores(MensajeEnviado mensaje) throws Exception{
+        MensajeEnviado mensajeEnviado = new MensajeEnviado(mensaje.getMessage());
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(mensajeEnviado);
+        return json;
+    }
 }

@@ -36,8 +36,13 @@ public class ControladorMonopoly {
         //Partida partidaActualEnJuego = (Partida) session.getAttribute("partidaEnJuego");
         Partida partidaActualEnJuego = this.servicioPartida.obtenerPartidaPorPartidaId(partidaId);
         session.setAttribute("partidaEnJuego", partidaActualEnJuego);
+
+        //Establezco el nuevo estado de la partida a la hora de ser inicializada
         if(partidaActualEnJuego.getEstadoPartida().equals(EstadoPartida.ABIERTA))
             this.servicioPartida.actualizarEstadoDeUnaPartida(partidaActualEnJuego, EstadoPartida.EN_CURSO);
+
+
+
 
         ModelMap mp  = new ModelMap();
         PartidaUsuario usuarioActual = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
@@ -53,6 +58,16 @@ public class ControladorMonopoly {
         Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(partidaId);
 
         ObjectMapper jackson = new ObjectMapper();
+
+        /*A su vez evaluo si es algun emisor / receptor de un intercambio*/
+        if(this.servicioMonopoly.buscarEmisorDeAlgunIntercambio(usuarioActual) != null) {
+            Intercambio intercambio = this.servicioMonopoly.buscarEmisorDeAlgunIntercambio(usuarioActual);
+            mp.put("esEmisor", true);
+            mp.put("estadoIntercambio", intercambio.getEstado().name());
+        }
+        if(this.servicioMonopoly.buscarReceptorDeAlgunIntercambio(usuarioActual) != null)
+            mp.put("esReceptor", true);
+
 
         mp.put("partidaEnJuego",partidaEnJuego);
         mp.put("propiedad",session.getAttribute("propiedad"));

@@ -1,15 +1,4 @@
 import {abrirVentana,cerrarVentana} from "./cerrar_abrir_ventana.js";
-/*
-document.querySelector("#intercambio__boton").addEventListener("click",()=>{
-    document.querySelector('.ventana__intercambio__propiedades').style.visibility = "visible";
-    document.querySelector('.ventana__intercambio__propiedades').style.opacity = "1";
-});
-
-document.getElementById('close-popup').addEventListener('click', function() {
-    document.querySelector('.ventana__intercambio__propiedades').style.visibility = "hidden";
-    document.querySelector('.ventana__intercambio__propiedades').style.opacity = "0";
-});
-*/
 
 /*CLICK EN EL BOTON DE INTERCAMBIAR DE LA VENTANADE USUARIOS*/
 document.querySelectorAll(".boton__intercambiar").forEach(boton =>{
@@ -121,11 +110,24 @@ function exchange() {
        }),
        datatype:"json",
         success: function(){
-            console.log("POST INTERCAMBIO HECHO");
+            realizarIntercambio();
         }
 
     });
 }
+
+function realizarIntercambio(){
+    console.log("POST INTERCAMBIO HECHO");
+    stompClient.publish({
+        destination: "/app/notificarIntercambio",
+        body: JSON.stringify({
+            message: "Intercambio enviado"
+        })
+    });
+    window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+    window.location.reload();
+}
+
 
 function cancel() {
     const slots = document.querySelectorAll('.house-slot');
@@ -143,3 +145,18 @@ function cancel() {
         div.style.display="flex";
     });
 }
+
+
+
+
+/*
+document.querySelector("#intercambio__boton").addEventListener("click",()=>{
+    document.querySelector('.ventana__intercambio__propiedades').style.visibility = "visible";
+    document.querySelector('.ventana__intercambio__propiedades').style.opacity = "1";
+});
+
+document.getElementById('close-popup').addEventListener('click', function() {
+    document.querySelector('.ventana__intercambio__propiedades').style.visibility = "hidden";
+    document.querySelector('.ventana__intercambio__propiedades').style.opacity = "0";
+});
+*/

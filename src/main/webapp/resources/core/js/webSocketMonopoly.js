@@ -44,6 +44,11 @@ stompClient.onConnect = (frame) => {
         location.reload();
     });
 
+
+    stompClient.subscribe("/topic/recibirIntercambio",(m)=>{
+        window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+        window.location.reload();
+    });
 };
 
 stompClient.onWebSocketError = (error) => {

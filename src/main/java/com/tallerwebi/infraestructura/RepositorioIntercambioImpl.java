@@ -25,6 +25,15 @@ public class RepositorioIntercambioImpl implements RepositorioIntercambio {
     }
 
     @Override
+    public Intercambio buscarIntercambioByEmisorId(PartidaUsuario partidaUsuario) {
+        final Session session  = sessionFactory.getCurrentSession();
+        return (Intercambio)  session.createCriteria(Intercambio.class)
+                .createAlias("emisor", "e")
+                .add(Restrictions.eq("e.id",partidaUsuario.getId()))
+                .uniqueResult();
+    }
+
+    @Override
     public Intercambio buscarIntercambioByDestinatarioId(PartidaUsuario partidaUsuario) {
         final Session session = sessionFactory.getCurrentSession();
 

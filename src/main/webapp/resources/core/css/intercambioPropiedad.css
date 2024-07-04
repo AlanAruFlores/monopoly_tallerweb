@@ -186,3 +186,8 @@ button {
 .house-parrafo{
     font-size:10px;
 }
+
+.ventana__receptor{
+    visibility:visible;
+    opacity: 1;
+}

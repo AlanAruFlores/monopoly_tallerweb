@@ -96,9 +96,10 @@
     <script th:src="@{/js/monopoly.js}" th:datos-propiedades-usuarios="${datosPropiedadesUsuariosJSON}"></script>
     <script th:src="@{/js/jugador.js}" th:jugadores="${usuariosJSON}"></script>
     <script th:src="@{/js/main.js}" type="module"></script>
-    <script th:src="@{/js/intercambio_propiedades.js}" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
     <script th:src="@{/js/webSocketMonopoly.js}" th:partida-id="${partidaEnJuego.id}" th:usuario-nombre="${usuarioActual.usuario.nombreUsuario}" th:usuario-id="${usuarioActual.usuario.id}" th:usuario-partida-id="${usuarioActual.id}" th:propiedad-id="${propiedad != null ? propiedad.id : ''}"></script>
+    <script th:src="@{/js/webSocketIntercambio.js}" type="module"></script>
+
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
   </body>
