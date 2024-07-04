@@ -39,10 +39,11 @@ document.querySelectorAll(".boton__intercambiar").forEach(boton =>{
                 document.querySelector("#jugador2Columna").innerHTML=`
                 <div class="player-info">
                   <div class="profile">
+                    <input type="hidden" value="${partidaUsuarioJson.id}" id="receptorId">
                     <img src="/spring/${partidaUsuarioJson.usuario.imagenPerfil}" alt="Perfil Jugador 2" class="profile-img">
                     <span class="nombre">${partidaUsuarioJson.usuario.nombreUsuario}</span>
                     <div class="money">
-                      <input type="number" pattern="[0-9]{4}" max="${partidaUsuarioJson.saldo}" placeholder="$">
+                      <input type="number" id="saldoReceptor" pattern="[0-9]{4}" max="${partidaUsuarioJson.saldo}" placeholder="$">
                     </div>
                   </div>
                   <div class="selected-houses">
@@ -101,8 +102,29 @@ document.getElementById('cancel-button').addEventListener('click', function() {
 });
 
 function exchange() {
+    /*
     alert('Intercambio realizado');
-    cancel(); // Opcional: limpia los slots después del intercambio
+    cancel(); // Opcional: limpia los slots después del intercambio*/
+    $.ajax({
+       type:"POST",
+       url:"http://localhost:8080/spring/api/intercambio/hacerIntercambio",
+       contentType:"application/json",
+       data: JSON.stringify({
+           emisorId: document.querySelector("#emisorId").value,
+           receptorId: document.querySelector("#receptorId").value,
+           saldoEmisor: document.querySelector("#saldoEmisor").value,
+           saldoReceptor: document.querySelector("#saldoReceptor").value,
+           idPropiedadEmisorUno: (document.querySelector("#idPropiedadEmisorUno").value == "") ? null : document.querySelector("#idPropiedadEmisorUno").value,
+           idPropiedadEmisorDos: (document.querySelector("#idPropiedadEmisorDos").value == "") ? null : document.querySelector("#idPropiedadEmisorDos").value,
+           idPropiedadReceptorUno: (document.querySelector("#idPropiedadReceptorUno").value == "") ? null : document.querySelector("#idPropiedadReceptorUno").value,
+           idPropiedadReceptorDos: (document.querySelector("#idPropiedadReceptorDos").value == "") ? null : document.querySelector("#idPropiedadReceptorDos").value
+       }),
+       datatype:"json",
+        success: function(){
+            console.log("POST INTERCAMBIO HECHO");
+        }
+
+    });
 }
 
 function cancel() {
