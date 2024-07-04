@@ -1,4 +1,5 @@
 package com.tallerwebi.config;
+import com.tallerwebi.dominio.Usuario;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -22,6 +23,16 @@ public class InterceptorAuthentication implements HandlerInterceptor {
             response.sendRedirect(request.getContextPath()+"/error/?codigo="+ codigo+"&mensaje="+ URLEncoder.encode(mensaje, StandardCharsets.UTF_8.toString()));
             return false;
         }
+
+
+        /*
+        Usuario usuario  = (Usuario) session.getAttribute("usuarioLogeado");
+        if(usuario.getId() != 1){
+            String mensaje = "No tiene permiso para acceder esta sesion.";
+            Integer codigo = HttpServletResponse.SC_UNAUTHORIZED;
+            response.sendRedirect(request.getContextPath()+"/error/?codigo="+ codigo+"&mensaje="+ URLEncoder.encode(mensaje, StandardCharsets.UTF_8.toString()));
+            return false;
+        }*/
 
         return true;
     }
