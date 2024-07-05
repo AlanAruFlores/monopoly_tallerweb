@@ -1,4 +1,3 @@
-import {abrirVentana,cerrarVentana} from "./cerrar_abrir_ventana.js";
 
 /*CLICK EN EL BOTON DE INTERCAMBIAR DE LA VENTANADE USUARIOS*/
 document.querySelectorAll(".boton__intercambiar").forEach(boton =>{
@@ -147,16 +146,80 @@ function cancel() {
 }
 
 
+const idIntercambio = document.currentScript.getAttribute("intercambio-id");
+function aceptarIntercambio(){
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/spring/api/intercambio/cambiarEstadoAceptado/?id="+idIntercambio,
+        success: function(){
+            notificarIntercambioAceptado();
 
+        }
+    });
 
+    setTimeout(()=>{
+    },1500);
+}
+
+function notificarIntercambioAceptado(){
+    stompClient.publish({
+        destination: "/app/notificarIntercambio",
+        body: JSON.stringify({
+            message: "Intercambio enviado"
+        })
+    });
+
+    window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+    window.location.reload();
+}
+
+function notificarIntercambioRechazado(){
+    stompClient.publish({
+        destination: "/app/notificarIntercambio",
+        body: JSON.stringify({
+            message: "Intercambio rechazado"
+        })
+    });
+
+    window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+    window.location.reload();
+}
+
+function rechazarIntercambio(){
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/spring/api/intercambio/cambiarEstadoRechazado/?id="+idIntercambio,
+        success: function(){
+            notificarIntercambioRechazado();
+        }
+    });
 /*
-document.querySelector("#intercambio__boton").addEventListener("click",()=>{
-    document.querySelector('.ventana__intercambio__propiedades').style.visibility = "visible";
-    document.querySelector('.ventana__intercambio__propiedades').style.opacity = "1";
+    setTimeout(()=>{
+        notificarIntercambioRechazado();
+    },1500);*/
+}
+document.addEventListener("click", (e)=>{
+    console.log("EVENTOS: "+e.target);
+
+    if(e.target.matches("#aceptar_intercambio") || e.target.matches("#aceptar_intercambio *")) {
+        console.log("Hola");
+        aceptarIntercambio();
+    }
+
+    if(e.target.matches("#rechazar_intercambio") || e.target.matches("#rechazar_intercambio *")) {
+        console.log("Hola2");
+        rechazarIntercambio()
+    }
 });
 
-document.getElementById('close-popup').addEventListener('click', function() {
-    document.querySelector('.ventana__intercambio__propiedades').style.visibility = "hidden";
-    document.querySelector('.ventana__intercambio__propiedades').style.opacity = "0";
-});
-*/
+
+function cerrarVentana(ventanaEmergente){
+    const $ventana = document.querySelector(ventanaEmergente);
+    $ventana.style.setProperty("visibility","hidden");
+    $ventana.style.setProperty("opacity", "0");
+}
+function abrirVentana(ventanaEmergente){
+    const $ventana = document.querySelector(ventanaEmergente);
+    $ventana.style.setProperty("visibility","visible");
+    $ventana.style.setProperty("opacity", "1");
+}

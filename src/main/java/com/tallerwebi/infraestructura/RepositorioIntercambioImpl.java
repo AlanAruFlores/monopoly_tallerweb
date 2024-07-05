@@ -25,6 +25,19 @@ public class RepositorioIntercambioImpl implements RepositorioIntercambio {
     }
 
     @Override
+    public Intercambio getIntercambioPorId(Long id) {
+        final Session session  = sessionFactory.getCurrentSession();
+        return (Intercambio) session.createCriteria(Intercambio.class)
+                .add(Restrictions.eq("id", id)).uniqueResult();
+    }
+
+    @Override
+    public void actualizarIntercambio(Intercambio intercambio) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.update(intercambio);
+    }
+
+    @Override
     public Intercambio buscarIntercambioByEmisorId(PartidaUsuario partidaUsuario) {
         final Session session  = sessionFactory.getCurrentSession();
         return (Intercambio)  session.createCriteria(Intercambio.class)
@@ -54,5 +67,14 @@ public class RepositorioIntercambioImpl implements RepositorioIntercambio {
                 .add(Restrictions.eq("e.id",idEmisor))
                 .add(Restrictions.eq("r.id",idReceptor))
                 .uniqueResult();
+    }
+
+    @Override
+    public void eliminarIntercambioPorId(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+        String queryEliminar = "CALL eliminar_intercambio(:intercambioId)";
+        session.createSQLQuery(queryEliminar)
+                .setParameter("intercambioId", id)
+                .executeUpdate();
     }
 }

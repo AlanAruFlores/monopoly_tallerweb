@@ -237,7 +237,7 @@
 }
 .div__ventana__emergente{
     background-color: rgba(255, 63, 34, 0.85);
-    height:400px;
+    height:auto;
     color:#fff;
     width: 60%;
     max-width:630px;
@@ -259,3 +259,11 @@
     font-size:30px
 }
 
+.ventana__continuar{
+    background-color:#fff;
+    color:#ff3f22;
+    font-family:monopoly;
+    letter-spacing:1px;
+    text-decoration:none;
+    padding:10px 30px;
+}

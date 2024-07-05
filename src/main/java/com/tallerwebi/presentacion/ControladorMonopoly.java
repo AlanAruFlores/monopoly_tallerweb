@@ -72,6 +72,7 @@ public class ControladorMonopoly {
             mp.put("esReceptor", true);
             mp.put("intercambio", intercambio);
             mp.put("intercambioPropiedades", listaIntercambioPropiedades);
+            mp.put("estadoIntercambio", intercambio.getEstado().name());
         }
 
         mp.put("partidaEnJuego",partidaEnJuego);
