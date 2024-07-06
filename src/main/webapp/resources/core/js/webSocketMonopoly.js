@@ -112,13 +112,13 @@ function enviarNotificacionMovimiento(message){
             })
         }
     )
+
 }
 
 function eliminarJugadorPorBancarrota(){
     $.ajax({
         type:"GET",
         url:"http://localhost:8080/spring/api/partida/eliminar/?partidaId="+partidaIdActual+"&usuarioId="+usuarioIdActual,
-        dataType:"json",
         success: function(){
             enviarNotificacionMovimiento();
         }
@@ -139,9 +139,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
             enviarNotificacionMovimiento("Movimiento hecho");
         }
 
-        if(e.target.matches(".volver_boton" || e.target.matches("volver_boton *")))
+        if(e.target.matches(".volver_boton") || e.target.matches(".volver_boton *")) {
             eliminarJugadorPorBancarrota();
-
+        }
 
         //Botones para mover y adquirir con sus respectivos eventos.
         if(e.target.matches("#mover__boton") || e.target.matches("#mover__boton *")) {
@@ -154,6 +154,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
             window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
             location.href="http://localhost:8080/spring/adquirirPropiedad/?idPartida="+partidaIdActual+"&idPropiedad="+propiedadId;
         }
+
+            if(e.target.matches("#continuarGanador") || e.target.matches("#continuarGanador *")){
+            window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+            location.href="http://localhost:8080/spring/salirPartidaGanador?idPartida="+partidaIdActual+"&idPartidaUsuario="+usuarioPartidaId;
+            //th:href="@{/salirPartidaGanador/(idPartida=${partidaEnJuego.id}, idPartidaUsuario=${usuarioActual.id})}"
+        }
+
 
     })
 });

@@ -158,6 +158,7 @@
                 <a class="ventana__continuar">Continuar</a>
             </div>
     </div>
+    <!--Ventana emergente de Receptor de un intercambio-->
 
     <div th:if="${esReceptor!=null && esReceptor == true && estadoIntercambio != null && estadoIntercambio.equalsIgnoreCase('EN_PROCESO')}" class="ventana__emergente" id="ventana__receptor">
         <!-- Pop-up de intercambio de propiedades -->
@@ -226,9 +227,12 @@
             </div>
         </div>
     </div>
-    <!--Ventana emergente de Receptor de un intercambio-->
 
-
+    <!--Ventana de victorio-->
+    <div th:if="${hayGanador}" class="ventana__emergente ventana__ganador">
+        <h2>Eres el ganador !!</h2>
+        <a href="#" id="continuarGanador">Continuar</a>
+    </div>
     <!--Ventana para mostrar TU TURNO-->
     <!--Ventana para mensajes u errores
     <div th:if="${partidaEnJuego.turnoJugador.id == usuarioActual.usuario.id}" class="ventana__emergente" id="ventana__tuturno">

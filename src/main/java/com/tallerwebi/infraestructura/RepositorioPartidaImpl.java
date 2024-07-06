@@ -66,4 +66,12 @@ public class RepositorioPartidaImpl implements RepositorioPartida {
         //partidaPersistida.setEstadoPartida(partida.getEstadoPartida());
         session.update(partida);
     }
+
+    @Override
+    public void eliminarPartidaPorId(Long partidaId) {
+        final Session session  = this.sessionFactory.getCurrentSession();
+        session.createQuery("DELETE FROM Partida where id = :partidaId")
+                .setParameter("partidaId", partidaId)
+                .executeUpdate();
+    }
 }

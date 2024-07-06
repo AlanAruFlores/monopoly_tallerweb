@@ -20,7 +20,6 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class ControladorPerfil {
 
-
     private  ServicioPerfil servicioPerfil;
 
     @Autowired
@@ -33,7 +32,9 @@ public class ControladorPerfil {
 
     @RequestMapping("/perfil")
     public ModelAndView irAlperfil(HttpSession session) {
+        session.setAttribute("usuarioLogeado", this.servicioPerfil.devolverUsuario(((Usuario)session.getAttribute("usuarioLogeado")).getId()));
         Usuario usuarioActual = (Usuario) session.getAttribute("usuarioLogeado");
+
         ModelMap model = new ModelMap();
         model.addAttribute("nombre", usuarioActual.getNombre());
         model.addAttribute("nombreUsuario",usuarioActual.getNombreUsuario());

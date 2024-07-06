@@ -28,17 +28,18 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     private RepositorioPartidaUsuarioPropiedad repositorioPartidaUsuarioPropiedad;
     private RepositorioIntercambio repositorioIntercambio;
     private RepositorioIntercambioPropiedad repositorioIntercambioPropiedad;
-
+    private RepositorioUsuario repositorioUsuario;
     /*Enlace de Dados y Su numero*/
     Map<Integer, String> mapaDado = new HashMap<Integer, String>();
     @Autowired
-    public ServiceMonopolyImpl(RepositorioPartidaUsuario repositorioPartidaUsuario, RepositorioPartida repositorioPartida, RepositorioPropiedad repositorioPropiedad, RepositorioPartidaUsuarioPropiedad repositorioPartidaUsuarioPropiedad, RepositorioIntercambio repositorioIntercambio, RepositorioIntercambioPropiedad repositorioIntercambioPropiedad) {
+    public ServiceMonopolyImpl(RepositorioPartidaUsuario repositorioPartidaUsuario, RepositorioPartida repositorioPartida, RepositorioPropiedad repositorioPropiedad, RepositorioPartidaUsuarioPropiedad repositorioPartidaUsuarioPropiedad, RepositorioIntercambio repositorioIntercambio, RepositorioIntercambioPropiedad repositorioIntercambioPropiedad, RepositorioUsuario repositorioUsuario) {
         this.repositorioPartidaUsuario = repositorioPartidaUsuario;
         this.repositorioPartida = repositorioPartida;
         this.repositorioPropiedad = repositorioPropiedad;
         this.repositorioPartidaUsuarioPropiedad = repositorioPartidaUsuarioPropiedad;
         this.repositorioIntercambio = repositorioIntercambio;
         this.repositorioIntercambioPropiedad=repositorioIntercambioPropiedad;
+        this.repositorioUsuario = repositorioUsuario;
 
         /*Llenamos datos al mapa */
         mapaDado.put(1,"/imagenes/dados/dado1.png");
@@ -207,6 +208,11 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     }
 
     @Override
+    public PartidaUsuario obtenerPartidaUsuarioPorId(Long id) {
+        return this.repositorioPartidaUsuario.obtenerUsuarioPartidaPorId(id);
+    }
+
+    @Override
     public void establecerEstadoDeUnPartidaUsuario(Long partidaUsuarioId, EstadoActividad estado){
         this.repositorioPartidaUsuario.cambiarEstadoPorId(partidaUsuarioId, estado);
     }
@@ -229,6 +235,12 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public Boolean verificarSiHayGanador(Long partidaId) {
+        List<PartidaUsuario> partidaUsuarios = this.repositorioPartidaUsuario.obtenerPartidasUsuariosEnlaPartidaId(partidaId);
+        return partidaUsuarios.size() <= 1;
     }
 
     @Override
@@ -353,6 +365,13 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
                 this.repositorioPartidaUsuarioPropiedad.eliminarPartidaUsuarioPropiedadPorJugadorYPropiedad(jugadorEmisor, propiedad);
             }
 
+    }
+
+    @Override
+    public void actualizarEstadisticasDelUsuarioEnLaPartida(PartidaUsuario partidaUsuario) {
+        Usuario usuarioGanador = partidaUsuario.getUsuario();
+        usuarioGanador.setVictorias(usuarioGanador.getVictorias() + 1);
+        this.repositorioUsuario.actualizarUsuario(usuarioGanador);
     }
 
 }

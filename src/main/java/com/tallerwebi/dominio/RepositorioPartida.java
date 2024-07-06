@@ -9,4 +9,5 @@ public interface RepositorioPartida {
     public Partida obtenerPartidaPorId(Long partidaId);
     public Partida obtenerPartidaPorCreador(Usuario creador);
     public void cambiarEstadoDeLaPartida(Partida partida);
+    public void eliminarPartidaPorId(Long partidaId);
 }

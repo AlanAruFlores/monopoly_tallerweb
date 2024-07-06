@@ -38,17 +38,20 @@ public class ControladorMonopoly {
         session.setAttribute("partidaEnJuego", partidaActualEnJuego);
 
         //Establezco el nuevo estado de la partida a la hora de ser inicializada
-        if(partidaActualEnJuego.getEstadoPartida().equals(EstadoPartida.ABIERTA))
+        if(partidaActualEnJuego != null && partidaActualEnJuego.getEstadoPartida().equals(EstadoPartida.ABIERTA))
             this.servicioPartida.actualizarEstadoDeUnaPartida(partidaActualEnJuego, EstadoPartida.EN_CURSO);
-
-
-
 
         ModelMap mp  = new ModelMap();
         PartidaUsuario usuarioActual = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(partidaId, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
         List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
 
+        //Veo si el usuario se encuentra en la partida, en caso contrario va al menu
+        System.out.println("USUARIO ACTUALLLLLLLLLLLLLLLLLLLLLLL:"+usuarioActual);
+        if(usuarioActual == null)
+            return new ModelAndView("redirect:/ir-menu");
+
         Boolean hayAlgunInactivo = this.servicioMonopoly.verificarSiAlgunoEstaInactivo(usuariosJugando);
+        Boolean hayAlgunGanador = this.servicioMonopoly.verificarSiHayGanador(partidaId);
         //Obtengo todas las propiedades
         List<DatosPropiedadUsuario> datosDeLasPropiedadesDeLosUsuarios = this.servicioMonopoly.tenerDatosDeLasPropiedadesDeLosUsuarios(usuariosJugando);
 
@@ -58,6 +61,8 @@ public class ControladorMonopoly {
         Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(partidaId);
 
         ObjectMapper jackson = new ObjectMapper();
+
+
 
         /*A su vez evaluo si es algun emisor / receptor de un intercambio*/
         if(this.servicioMonopoly.buscarEmisorDeAlgunIntercambio(usuarioActual) != null) {
@@ -87,10 +92,10 @@ public class ControladorMonopoly {
         mp.put("usuarioPropiedadesActual", propiedadesUsuarioActual);
         mp.put("bancarrota",session.getAttribute("bancarrota"));
         mp.put("datosPropiedadesUsuariosJSON",jackson.writeValueAsString(datosDeLasPropiedadesDeLosUsuarios));
-
         //Me va a servir para ver si hay algun inactivo en el juego, y asi poder eliminarlo
+        mp.put("hayGanador",hayAlgunGanador);
         mp.put("hayAlgunInactivo",hayAlgunInactivo);
-        System.out.println(hayAlgunInactivo);
+        //System.out.println(hayAlgunInactivo);
 
         /*Remuevo el atributo para que no aparezca 2 o más veces*/
         session.removeAttribute("dado");
@@ -98,9 +103,10 @@ public class ControladorMonopoly {
         session.removeAttribute("mensaje");
         session.removeAttribute("pagarMensaje");
         session.removeAttribute("bancarrota");
+        session.removeAttribute("hayGanador");
 
-        System.out.println(jackson.writeValueAsString(usuariosJugando));
-        System.out.println(usuariosJugando.size());
+        //System.out.println(jackson.writeValueAsString(usuariosJugando));
+        //System.out.println(usuariosJugando.size());
         return new ModelAndView("monopoly.html",mp);
     }
     @RequestMapping("/aceptarDado")
@@ -135,6 +141,15 @@ public class ControladorMonopoly {
         return new ModelAndView("redirect:/monopoly/?id="+idPartida);
     }
 
+
+    @RequestMapping("/salirPartidaGanador")
+    public ModelAndView salirPartidaComoGanador(@RequestParam("idPartida") Long idPartida, @RequestParam("idPartidaUsuario") Long idPartidaUsuario){
+        PartidaUsuario ganador = this.servicioMonopoly.obtenerPartidaUsuarioPorId(idPartidaUsuario);
+        this.servicioMonopoly.actualizarEstadisticasDelUsuarioEnLaPartida(ganador);
+        this.servicioPartida.salirDeLaPartida(idPartida, ganador.getUsuario().getId());
+        this.servicioPartida.eliminarPartida(idPartida);
+        return new ModelAndView("redirect:/ir-menu");
+    }
 }
 
 
