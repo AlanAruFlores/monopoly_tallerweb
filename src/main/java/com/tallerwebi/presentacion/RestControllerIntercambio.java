@@ -27,6 +27,9 @@ public class RestControllerIntercambio {
         Intercambio intercambio  = this.servicioMonopoly.buscarIntercambioPorId(idIntercambio);
         intercambio.setEstado(EstadoIntercambio.ACEPTADO);
         this.servicioMonopoly.actualizarIntercambio(intercambio);
+
+        /*Hago el intercambio*/
+        this.servicioMonopoly.realizarIntercambioEntreJugadores(intercambio);
     }
 
     @RequestMapping(path="/cambiarEstadoRechazado", method = RequestMethod.GET)

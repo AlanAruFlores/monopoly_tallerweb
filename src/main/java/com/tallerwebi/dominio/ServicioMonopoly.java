@@ -28,4 +28,5 @@ public interface ServicioMonopoly {
     public Intercambio buscarIntercambioPorId(Long id);
     public void actualizarIntercambio(Intercambio intercambio);
     public void eliminarIntercambioPorId(Long id);
+    public void realizarIntercambioEntreJugadores(Intercambio intercambio);
 }

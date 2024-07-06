@@ -7,6 +7,7 @@ import com.tallerwebi.dominio.excepcion.UsuarioPerdedorException;
 import com.tallerwebi.presentacion.DatosIntercambio;
 import com.tallerwebi.presentacion.DatosPagarPropiedad;
 import com.tallerwebi.presentacion.DatosPropiedadUsuario;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -286,6 +287,72 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     @Override
     public void eliminarIntercambioPorId(Long id){
         this.repositorioIntercambio.eliminarIntercambioPorId(id);
+    }
+
+    @Override
+    public void realizarIntercambioEntreJugadores(Intercambio intercambio) {
+        //1)Obtengo los jugadores involucrados en el intercambio
+        PartidaUsuario jugadorEmisor = this.repositorioPartidaUsuario.obtenerUsuarioPartidaPorId(intercambio.getEmisor().getId());
+        PartidaUsuario jugadorReceptor = this.repositorioPartidaUsuario.obtenerUsuarioPartidaPorId(intercambio.getReceptor().getId());
+
+        //2)Actualizo su saldo con los del intercambio propuesto:
+        jugadorReceptor.setSaldo(jugadorReceptor.getSaldo()-intercambio.getSaldoReceptor());
+        jugadorEmisor.setSaldo(jugadorEmisor.getSaldo()- intercambio.getSaldoEmisor());
+
+        jugadorReceptor.setSaldo(jugadorReceptor.getSaldo()+intercambio.getSaldoEmisor());
+        jugadorEmisor.setSaldo(jugadorEmisor.getSaldo()+intercambio.getSaldoReceptor());
+
+        this.repositorioPartidaUsuario.actualizarPartidaUsuario(jugadorEmisor);
+        this.repositorioPartidaUsuario.actualizarPartidaUsuario(jugadorReceptor);
+        //3 Actualizo las propiedades entre ellos
+
+        //Obtengo las propiedades
+        List<IntercambioPropiedades> intercambioPropiedades = this.repositorioIntercambioPropiedad.obtenerIntercambioPropiedadesPorIntercambio(intercambio);
+        List<Propiedad> propiedadesReceptor = intercambioPropiedades.stream()
+                .filter(ip->
+                {
+                    System.out.println("IP RECEPTOR :"+ip);
+                    if(ip.getPropiedadReceptor() != null)
+                        System.out.println("ID RECEPTOR :"+ip.getPropiedadReceptor().getId());
+                    System.out.println("PROPIEDAD RECEPTOR: "+ip.getPropiedadReceptor());
+                    return ip.getPropiedadReceptor() != null;
+                })
+                .map(ip->ip.getPropiedadReceptor())
+                .collect(Collectors.toList());
+
+        System.out.println("PROPIEDADES RECEPTOR: "+propiedadesReceptor);
+
+        List<Propiedad> propiedadesEmisor = intercambioPropiedades.stream()
+                .filter(
+                        ip->{
+                            System.out.println("IP EMISOR :"+ip);
+                            if(ip.getPropiedadEmisor() != null)
+                                System.out.println("ID RECEPTOR :"+ip.getPropiedadEmisor().getId());
+                            System.out.println("PROPIEDAD EMISOR: "+ip.getPropiedadEmisor());
+                            return ip.getPropiedadEmisor() != null;
+                        })
+                .map(ip->ip.getPropiedadEmisor())
+                .collect(Collectors.toList());
+
+        System.out.println("PROPIEDADES EMISOR: "+propiedadesEmisor);
+
+        //Hago intercambio de propiedades
+            for(Propiedad propiedad : propiedadesReceptor){
+                PartidaUsuarioPropiedad pup = new PartidaUsuarioPropiedad();
+                pup.setPropiedad(propiedad);
+                pup.setPartidaUsuario(jugadorEmisor);
+                this.repositorioPartidaUsuarioPropiedad.crearPartidaUsuarioPropiedad(pup);
+                this.repositorioPartidaUsuarioPropiedad.eliminarPartidaUsuarioPropiedadPorJugadorYPropiedad(jugadorReceptor, propiedad);
+
+            }
+            for(Propiedad propiedad : propiedadesEmisor) {
+                PartidaUsuarioPropiedad pup = new PartidaUsuarioPropiedad();
+                pup.setPropiedad(propiedad);
+                pup.setPartidaUsuario(jugadorReceptor);
+                this.repositorioPartidaUsuarioPropiedad.crearPartidaUsuarioPropiedad(pup);
+                this.repositorioPartidaUsuarioPropiedad.eliminarPartidaUsuarioPropiedadPorJugadorYPropiedad(jugadorEmisor, propiedad);
+            }
+
     }
 
 }
