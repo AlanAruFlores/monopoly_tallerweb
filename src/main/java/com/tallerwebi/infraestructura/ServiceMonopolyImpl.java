@@ -283,5 +283,9 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
         this.repositorioIntercambio.actualizarIntercambio(intercambio);
     }
 
+    @Override
+    public void eliminarIntercambioPorId(Long id){
+        this.repositorioIntercambio.eliminarIntercambioPorId(id);
+    }
 
 }

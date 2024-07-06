@@ -198,6 +198,24 @@ function rechazarIntercambio(){
         notificarIntercambioRechazado();
     },1500);*/
 }
+
+function continuar(){
+    $.ajax({
+       type:"GET",
+       url:"http://localhost:8080/spring/api/intercambio/eliminarIntercambio/?id="+idIntercambio,
+       success:function (){
+           stompClient.publish({
+               destination: "/app/notificarIntercambio",
+               body: JSON.stringify({
+                   message: "Intercambio rechazado"
+               })
+           });
+           window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+           window.location.reload();
+       }
+    });
+}
+
 document.addEventListener("click", (e)=>{
     console.log("EVENTOS: "+e.target);
 
@@ -209,6 +227,10 @@ document.addEventListener("click", (e)=>{
     if(e.target.matches("#rechazar_intercambio") || e.target.matches("#rechazar_intercambio *")) {
         console.log("Hola2");
         rechazarIntercambio()
+    }
+
+    if(e.target.matches(".ventana__continuar") || e.target.matches(".ventana__continuar *")){
+        continuar();
     }
 });
 

@@ -27,4 +27,5 @@ public interface ServicioMonopoly {
     public List<IntercambioPropiedades> obtenerIntercambioPropiedadesPorIntercambio(Intercambio intercambio);
     public Intercambio buscarIntercambioPorId(Long id);
     public void actualizarIntercambio(Intercambio intercambio);
+    public void eliminarIntercambioPorId(Long id);
 }

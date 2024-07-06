@@ -35,4 +35,9 @@ public class RestControllerIntercambio {
         intercambio.setEstado(EstadoIntercambio.RECHAZADO);
         this.servicioMonopoly.actualizarIntercambio(intercambio);
     }
+
+    @RequestMapping(path="/eliminarIntercambio", method = RequestMethod.GET)
+    public void eliminarIntercambio(@RequestParam("id") Long idIntercambio){
+        this.servicioMonopoly.eliminarIntercambioPorId(idIntercambio);
+    }
 }

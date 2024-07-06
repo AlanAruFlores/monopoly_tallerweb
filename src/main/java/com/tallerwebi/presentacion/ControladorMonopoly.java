@@ -64,6 +64,7 @@ public class ControladorMonopoly {
             Intercambio intercambio = this.servicioMonopoly.buscarEmisorDeAlgunIntercambio(usuarioActual);
             mp.put("esEmisor", true);
             mp.put("estadoIntercambio", intercambio.getEstado().name());
+            mp.put("intercambio", intercambio);
         }
         //Si es receptor obtengo el intercambio y las propiedaddes a intercambiar
         if(this.servicioMonopoly.buscarReceptorDeAlgunIntercambio(usuarioActual) != null) {
