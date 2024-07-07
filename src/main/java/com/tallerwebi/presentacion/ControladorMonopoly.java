@@ -150,6 +150,21 @@ public class ControladorMonopoly {
         this.servicioPartida.eliminarPartida(idPartida);
         return new ModelAndView("redirect:/ir-menu");
     }
+
+
+    @RequestMapping("/hipotecar")
+    public ModelAndView hipotecarPropiedad(@RequestParam("idPartida") Long partidaId, @RequestParam("idPropiedadUsuario") Long idPropiedadUsuario){
+
+
+        return new ModelAndView("redirect:/monopoly?partidaId="+partidaId);
+    }
+
+    @RequestMapping("/deshipotecar")
+    public ModelAndView deshipotecarPropiedad(@RequestParam("idPartida") Long partidaId, @RequestParam("idPropiedadUsuario") Long idPropiedadUsuario){
+
+
+        return new ModelAndView("redirect:/monopoly?partidaId="+partidaId);
+    }
 }
 
 

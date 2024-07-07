@@ -6,6 +6,7 @@ import com.tallerwebi.dominio.Propiedad;
 import com.tallerwebi.dominio.RepositorioPartidaUsuarioPropiedad;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,9 +27,6 @@ public class RepositorioPartidaUsuarioPropiedadImpl implements RepositorioPartid
 
     @Override
     public void eliminarPartidaUsuarioPropiedadPorJugadorYPropiedad(PartidaUsuario pu, Propiedad p){
-        System.out.println("PU ID: "+pu.getId());
-        System.out.println("P ID: "+p.getId());
-
         final Session session = sessionFactory.getCurrentSession();
         System.out.println("SESSION: "+session);
 
@@ -36,6 +34,20 @@ public class RepositorioPartidaUsuarioPropiedadImpl implements RepositorioPartid
                 .setParameter("idJugador", pu.getId())
                 .setParameter("idPropiedad", p.getId())
                 .executeUpdate();
+    }
+
+    @Override
+    public PartidaUsuarioPropiedad obtenerPartidaUsuarioPropiedadPorId(Long id){
+        final Session session = sessionFactory.getCurrentSession();
+        return (PartidaUsuarioPropiedad) session.createCriteria(PartidaUsuarioPropiedad.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+    }
+
+    @Override
+    public void actualizarPartidaUsuarioPropiedad(PartidaUsuarioPropiedad pup) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.update(pup);
     }
 
 }

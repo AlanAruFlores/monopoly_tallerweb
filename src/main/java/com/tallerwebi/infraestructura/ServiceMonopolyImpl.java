@@ -375,4 +375,28 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
         this.repositorioUsuario.actualizarUsuario(usuarioGanador);
     }
 
-}
+
+    /*HIPOTECAR Y DESHIPOTECAR*/
+
+    public void hipotecarPropiedad(Long idPropiedadUsuario){
+        PartidaUsuarioPropiedad propiedadAHipotecar = this.repositorioPartidaUsuarioPropiedad.obtenerPartidaUsuarioPropiedadPorId(idPropiedadUsuario);
+        PartidaUsuario jugador = propiedadAHipotecar.getPartidaUsuario();
+
+        propiedadAHipotecar.setEstaHipotecado(true);
+        jugador.setSaldo(jugador.getSaldo() + propiedadAHipotecar.getPropiedad().getPrecioHipoteca());
+        this.repositorioPartidaUsuarioPropiedad.actualizarPartidaUsuarioPropiedad(propiedadAHipotecar);
+        this.repositorioPartidaUsuario.actualizarPartidaUsuario(jugador);
+    }
+
+    public void deshipotecarPropiedad(Long idPropiedadUsuario) throws SaldoInsuficienteException {
+        PartidaUsuarioPropiedad propiedadAHipotecar = this.repositorioPartidaUsuarioPropiedad.obtenerPartidaUsuarioPropiedadPorId(idPropiedadUsuario);
+        PartidaUsuario jugador = propiedadAHipotecar.getPartidaUsuario();
+
+        if(jugador.getSaldo() < propiedadAHipotecar.getPropiedad().getPrecio())
+            throw new SaldoInsuficienteException();
+
+        propiedadAHipotecar.setEstaHipotecado(false);
+        jugador.setSaldo(jugador.getSaldo() - propiedadAHipotecar.getPropiedad().getPrecio());
+        this.repositorioPartidaUsuarioPropiedad.actualizarPartidaUsuarioPropiedad(propiedadAHipotecar);
+        this.repositorioPartidaUsuario.actualizarPartidaUsuario(jugador);
+    }}
