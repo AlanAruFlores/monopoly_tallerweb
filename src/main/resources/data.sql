@@ -8,25 +8,25 @@ INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario,i
 
 /*INSERCION DE LAS PROPIEDADES (no eliminar)*/
 /*CASAS CELESTES Y SU TREN*/
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Calle Balcarce", "/imagenes/propiedades/celeste/balcarce.png",100,2,"#51bcf5");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Avenida Belgrano", "/imagenes/propiedades/celeste/belgrano.png",100,3,"#51bcf5");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Tren Roca", "/imagenes/propiedades/trenes/roca.png",500,4,"#ffffff");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Calle Juramento", "/imagenes/propiedades/celeste/juramento.png",100,5,"#51bcf5");
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Calle Balcarce", "/imagenes/propiedades/celeste/balcarce.png",100,2,"#51bcf5",80);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Avenida Belgrano", "/imagenes/propiedades/celeste/belgrano.png",100,3,"#51bcf5",80);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Tren Roca", "/imagenes/propiedades/trenes/roca.png",500,4,"#ffffff",400);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Calle Juramento", "/imagenes/propiedades/celeste/juramento.png",100,5,"#51bcf5",80);
 
 /*CASAS ROSAS Y SU SERVICIO*/
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Avenida 9 de Julio","/imagenes/propiedades/rosa/9julio.png",200,7,"#f1004e");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Calle Aribeño", "/imagenes/propiedades/rosa/arribeños.png",200,8,"#f1004e");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Servicio de Luz", "/imagenes/propiedades/utilidades/edenor.png",250,9,"#ffffff");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Calle Mendoza", "/imagenes/propiedades/rosa/mendoza.png",200,10,"#f1004e");
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Avenida 9 de Julio","/imagenes/propiedades/rosa/9julio.png",200,7,"#f1004e",150);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Calle Aribeño", "/imagenes/propiedades/rosa/arribeños.png",200,8,"#f1004e",150);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Servicio de Luz", "/imagenes/propiedades/utilidades/edenor.png",250,9,"#ffffff",200);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Calle Mendoza", "/imagenes/propiedades/rosa/mendoza.png",200,10,"#f1004e",150);
 
 /*CASAS ROJAS Y SU TREN*/
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Avenida de Mayo", "/imagenes/propiedades/roja/mayo.png",400,12,"#d1001f");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Avenida Rivadavia", "/imagenes/propiedades/roja/rivadavia.png",400,13,"#d1001f");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Tren Sarmiento", "/imagenes/propiedades/trenes/sarmiento.png",500,14,"#ffffff");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Florencio Varela", "/imagenes/propiedades/roja/varela.png",400,15,"#d1001f");
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Avenida de Mayo", "/imagenes/propiedades/roja/mayo.png",400,12,"#d1001f",300);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Avenida Rivadavia", "/imagenes/propiedades/roja/rivadavia.png",400,13,"#d1001f",300);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Tren Sarmiento", "/imagenes/propiedades/trenes/sarmiento.png",500,14,"#ffffff",400);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Florencio Varela", "/imagenes/propiedades/roja/varela.png",400,15,"#d1001f",300);
 
 /*CASAS VERDES Y SU SERVICIO*/
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Avenida Corrientes", "/imagenes/propiedades/verde/corrientes.png",600,17,"#16914f");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Avenida Florida", "/imagenes/propiedades/verde/florida.png",600,18,"#16914f");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Aysa", "/imagenes/propiedades/utilidades/aysa.png",350,19,"ffffff");
-insert into propiedad(nombre,imagen,precio,nroCasilla,color) values("Avenida Santa Fé", "/imagenes/propiedades/verde/santafe.png",600,20,"#16914f");
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Avenida Corrientes", "/imagenes/propiedades/verde/corrientes.png",600,17,"#16914f",500);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Avenida Florida", "/imagenes/propiedades/verde/florida.png",600,18,"#16914f",500);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Aysa", "/imagenes/propiedades/utilidades/aysa.png",350,19,"ffffff",300);
+insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Avenida Santa Fé", "/imagenes/propiedades/verde/santafe.png",600,20,"#16914f",500);
