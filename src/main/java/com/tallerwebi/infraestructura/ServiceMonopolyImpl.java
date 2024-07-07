@@ -7,7 +7,6 @@ import com.tallerwebi.dominio.excepcion.UsuarioPerdedorException;
 import com.tallerwebi.presentacion.DatosIntercambio;
 import com.tallerwebi.presentacion.DatosPagarPropiedad;
 import com.tallerwebi.presentacion.DatosPropiedadUsuario;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -378,6 +377,7 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
 
     /*HIPOTECAR Y DESHIPOTECAR*/
 
+    @Override
     public void hipotecarPropiedad(Long idPropiedadUsuario){
         PartidaUsuarioPropiedad propiedadAHipotecar = this.repositorioPartidaUsuarioPropiedad.obtenerPartidaUsuarioPropiedadPorId(idPropiedadUsuario);
         PartidaUsuario jugador = propiedadAHipotecar.getPartidaUsuario();
@@ -388,6 +388,7 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
         this.repositorioPartidaUsuario.actualizarPartidaUsuario(jugador);
     }
 
+    @Override
     public void deshipotecarPropiedad(Long idPropiedadUsuario) throws SaldoInsuficienteException {
         PartidaUsuarioPropiedad propiedadAHipotecar = this.repositorioPartidaUsuarioPropiedad.obtenerPartidaUsuarioPropiedadPorId(idPropiedadUsuario);
         PartidaUsuario jugador = propiedadAHipotecar.getPartidaUsuario();
