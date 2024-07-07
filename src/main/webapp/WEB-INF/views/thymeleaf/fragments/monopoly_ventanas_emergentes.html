@@ -81,11 +81,11 @@
                 <div th:each="usuarioPropiedad:${usuarioPropiedadesActual}">
                     <div class="propiedad__div" th:if="${usuarioPropiedad.estaHipotecado != true}">
                         <img th:src="@{${usuarioPropiedad.propiedad.imagen}}" alt="propiedad">
-                        <button class="ventana__boton">Hipotecar</button>
+                        <button id="boton__hipotecar">Hipotecar</button>
                     </div>
                     <div class="propiedad__div" th:if="${usuarioPropiedad.estaHipotecado == true}">
                         <img th:src="@{${usuarioPropiedad.propiedad.imagen}}" class="propiedad__hipotecada" alt="propiedad">
-                        <button class="ventana__boton">Deshipotecar</button>
+                        <button id="boton__deshipotecar">Deshipotecar</button>
                     </div>
                 </div>
             </div>

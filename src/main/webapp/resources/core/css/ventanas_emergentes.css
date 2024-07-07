@@ -134,6 +134,24 @@
 
     padding: 10px 30px;
 }*/
+#boton__hipotecar{
+    padding:10px 30px;
+    width:150px;
+    height:50px;
+    max-width:none;
+    display:inline-block;
+    margin:0 auto;
+}
+
+#boton__deshipotecar{
+    padding:10px 30px;
+    width:150px;
+    height:50px;
+    max-width:none;
+    display:inline-block;
+    margin:0 auto;
+}
+
 .propiedad__hipotecada{
     background-color:rgba(255, 0, 0, 0.3);
     padding:4px;
