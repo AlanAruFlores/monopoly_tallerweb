@@ -378,7 +378,7 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     /*HIPOTECAR Y DESHIPOTECAR*/
 
     @Override
-    public void hipotecarPropiedad(Long idPropiedadUsuario){
+    public void hipotecarPropiedad(Integer idPropiedadUsuario){
         PartidaUsuarioPropiedad propiedadAHipotecar = this.repositorioPartidaUsuarioPropiedad.obtenerPartidaUsuarioPropiedadPorId(idPropiedadUsuario);
         PartidaUsuario jugador = propiedadAHipotecar.getPartidaUsuario();
 
@@ -389,7 +389,7 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
     }
 
     @Override
-    public void deshipotecarPropiedad(Long idPropiedadUsuario) throws SaldoInsuficienteException {
+    public void deshipotecarPropiedad(Integer idPropiedadUsuario) throws SaldoInsuficienteException {
         PartidaUsuarioPropiedad propiedadAHipotecar = this.repositorioPartidaUsuarioPropiedad.obtenerPartidaUsuarioPropiedadPorId(idPropiedadUsuario);
         PartidaUsuario jugador = propiedadAHipotecar.getPartidaUsuario();
 

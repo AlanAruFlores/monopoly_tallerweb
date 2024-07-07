@@ -34,6 +34,6 @@ public interface ServicioMonopoly {
 
     public void actualizarEstadisticasDelUsuarioEnLaPartida(PartidaUsuario partidaUsuario);
 
-    public void hipotecarPropiedad(Long idPropiedadUsuario);
-    public void deshipotecarPropiedad(Long idPropiedadUsuario) throws SaldoInsuficienteException;
+    public void hipotecarPropiedad(Integer idPropiedadUsuario);
+    public void deshipotecarPropiedad(Integer idPropiedadUsuario) throws SaldoInsuficienteException;
 }

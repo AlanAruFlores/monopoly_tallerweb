@@ -155,13 +155,24 @@ document.addEventListener("DOMContentLoaded", ()=>{
             location.href="http://localhost:8080/spring/adquirirPropiedad/?idPartida="+partidaIdActual+"&idPropiedad="+propiedadId;
         }
 
-            if(e.target.matches("#continuarGanador") || e.target.matches("#continuarGanador *")){
+        if(e.target.matches("#continuarGanador") || e.target.matches("#continuarGanador *")){
             window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
             location.href="http://localhost:8080/spring/salirPartidaGanador?idPartida="+partidaIdActual+"&idPartidaUsuario="+usuarioPartidaId;
             //th:href="@{/salirPartidaGanador/(idPartida=${partidaEnJuego.id}, idPartidaUsuario=${usuarioActual.id})}"
         }
 
-
+        if(e.target.matches(".boton__hipotecar") || e.target.matches(".boton__hipotecar *")){
+            window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+            console.log(e.target.nextElementSibling);
+            let idPropiedadUsuario = e.target.nextElementSibling.value;
+            location.href="http://localhost:8080/spring/hipotecar/?idPartida="+partidaIdActual+"&idPropiedadUsuario="+idPropiedadUsuario;
+        }
+        if(e.target.matches(".boton__deshipotecar") || e.target.matches(".boton__deshipotecar *")){
+            window.removeEventListener("beforeunload", establecerInactivoAlJugadorActual);
+            console.log(e.target.nextElementSibling);
+            let idPropiedadUsuario = e.target.nextElementSibling.value;
+            location.href="http://localhost:8080/spring/deshipotecar/?idPartida="+partidaIdActual+"&idPropiedadUsuario="+idPropiedadUsuario;
+        }
     })
 });
 

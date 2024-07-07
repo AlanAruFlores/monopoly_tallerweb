@@ -37,7 +37,7 @@ public class RepositorioPartidaUsuarioPropiedadImpl implements RepositorioPartid
     }
 
     @Override
-    public PartidaUsuarioPropiedad obtenerPartidaUsuarioPropiedadPorId(Long id){
+    public PartidaUsuarioPropiedad obtenerPartidaUsuarioPropiedadPorId(Integer id){
         final Session session = sessionFactory.getCurrentSession();
         return (PartidaUsuarioPropiedad) session.createCriteria(PartidaUsuarioPropiedad.class)
                 .add(Restrictions.eq("id", id))

@@ -97,6 +97,8 @@ public class ControladorMonopoly {
         mp.put("hayAlgunInactivo",hayAlgunInactivo);
         //System.out.println(hayAlgunInactivo);
 
+        mp.put("deshipotecarError", session.getAttribute("deshipotecarError"));
+
         /*Remuevo el atributo para que no aparezca 2 o más veces*/
         session.removeAttribute("dado");
         session.removeAttribute("propiedad");
@@ -104,6 +106,7 @@ public class ControladorMonopoly {
         session.removeAttribute("pagarMensaje");
         session.removeAttribute("bancarrota");
         session.removeAttribute("hayGanador");
+        session.removeAttribute("deshipotecarError");
 
         //System.out.println(jackson.writeValueAsString(usuariosJugando));
         //System.out.println(usuariosJugando.size());
@@ -153,17 +156,20 @@ public class ControladorMonopoly {
 
 
     @RequestMapping("/hipotecar")
-    public ModelAndView hipotecarPropiedad(@RequestParam("idPartida") Long partidaId, @RequestParam("idPropiedadUsuario") Long idPropiedadUsuario){
-
-
-        return new ModelAndView("redirect:/monopoly?partidaId="+partidaId);
+    public ModelAndView hipotecarPropiedad(@RequestParam("idPartida") Long partidaId, @RequestParam("idPropiedadUsuario") Integer idPropiedadUsuario){
+        this.servicioMonopoly.hipotecarPropiedad(idPropiedadUsuario);
+        return new ModelAndView("redirect:/monopoly?id="+partidaId);
     }
 
     @RequestMapping("/deshipotecar")
-    public ModelAndView deshipotecarPropiedad(@RequestParam("idPartida") Long partidaId, @RequestParam("idPropiedadUsuario") Long idPropiedadUsuario){
+    public ModelAndView deshipotecarPropiedad(@RequestParam("idPartida") Long partidaId, @RequestParam("idPropiedadUsuario") Integer idPropiedadUsuario, HttpSession session){
+        try {
+            this.servicioMonopoly.deshipotecarPropiedad(idPropiedadUsuario);
+        } catch (SaldoInsuficienteException e) {
+            session.setAttribute("deshipotecarError", true);
+        }
 
-
-        return new ModelAndView("redirect:/monopoly?partidaId="+partidaId);
+        return new ModelAndView("redirect:/monopoly?id="+partidaId);
     }
 }
 

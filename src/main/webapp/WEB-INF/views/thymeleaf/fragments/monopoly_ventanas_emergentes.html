@@ -81,11 +81,13 @@
                 <div th:each="usuarioPropiedad:${usuarioPropiedadesActual}">
                     <div class="propiedad__div" th:if="${usuarioPropiedad.estaHipotecado != true}">
                         <img th:src="@{${usuarioPropiedad.propiedad.imagen}}" alt="propiedad">
-                        <button id="boton__hipotecar" th:text="'Hipotecar $'+${usuarioPropiedad.propiedad.precioHipoteca}"></button>
+                        <button class="boton__hipotecar" th:text="'Hipotecar $'+${usuarioPropiedad.propiedad.precioHipoteca}"></button>
+                        <input type="hidden" name="propiedadUsuarioId" th:value="${usuarioPropiedad.id}">
                     </div>
                     <div class="propiedad__div" th:if="${usuarioPropiedad.estaHipotecado == true}">
                         <img th:src="@{${usuarioPropiedad.propiedad.imagen}}" class="propiedad__hipotecada" alt="propiedad">
-                        <button id="boton__deshipotecar" th:text="'Deshipotecar $'+${usuarioPropiedad.propiedad.precio}"></button>
+                        <button class="boton__deshipotecar" th:text="'Deshipotecar $'+${usuarioPropiedad.propiedad.precio}"></button>
+                        <input type="hidden" name="propiedadUsuarioId" th:value="${usuarioPropiedad.id}">
                     </div>
                 </div>
             </div>
@@ -240,6 +242,14 @@
         <h2>Eres el ganador !!</h2>
         <a href="#" id="continuarGanador">Continuar</a>
     </div>
+
+
+    <!--VENTANA DE DESHIPOTECAR POR ERROR-->
+    <div th:if="${deshipotecarError}" class="ventana__emergente ventana__hipotecado">
+        <h1>No tiene saldo suficiente para levantar la hipoteca</h1>
+        <img class="ventana__imagen" th:src="@{/imagenes/monopolyman.svg}" alt="monopolyman">
+    </div>
+
     <!--Ventana para mostrar TU TURNO-->
     <!--Ventana para mensajes u errores
     <div th:if="${partidaEnJuego.turnoJugador.id == usuarioActual.usuario.id}" class="ventana__emergente" id="ventana__tuturno">
