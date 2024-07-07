@@ -23,6 +23,8 @@ public class PartidaUsuarioPropiedad {
     @ManyToOne
     private Propiedad propiedad;
 
+    private Boolean estaHipotecado;
+
     //Jugador en la partida
     @ManyToOne
     @JsonIgnore

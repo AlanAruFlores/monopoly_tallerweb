@@ -123,6 +123,21 @@
     visibility: hidden;
     opacity:0;
 }
+.propiedad__div{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+/*
+.propiedad__div button{
+    width:150px;
+
+    padding: 10px 30px;
+}*/
+.propiedad__hipotecada{
+    background-color:rgba(255, 0, 0, 0.3);
+    padding:4px;
+}
 .propiedades{
     display:flex;
     flex-direction:column;

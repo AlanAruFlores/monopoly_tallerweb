@@ -22,6 +22,7 @@ public class Propiedad {
     private Integer precio;
     private Integer nroCasilla;
     private String color;
+    private Integer precioHipoteca;
 
     @Override
     public boolean equals(Object o) {

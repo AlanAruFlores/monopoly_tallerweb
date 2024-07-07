@@ -73,7 +73,7 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
             //Busco si le pertenece a alguien
             PartidaUsuarioPropiedad pup = verSiLaPropiedadLePerteneceAAlguien(posicionObtenida, usuarioAMover.getUsuario(), usuarioAMover.getPartida());
             //Si le pertenece entonces hago cambio de saldo
-            if(pup!=null){
+            if(pup!=null && !pup.getEstaHipotecado()){
                 Boolean resultado = transferirDineroAlDestinatario(usuarioAMover, pup.getPartidaUsuario(), pup.getPropiedad());
                 if(!resultado)
                     throw new UsuarioPerdedorException();
@@ -175,6 +175,7 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
         PartidaUsuarioPropiedad usuarioYSuPropiedadNueva = new PartidaUsuarioPropiedad();
         usuarioYSuPropiedadNueva.setPartidaUsuario(usuarioQuienCompra);
         usuarioYSuPropiedadNueva.setPropiedad(propiedad);
+        usuarioYSuPropiedadNueva.setEstaHipotecado(false);
         this.repositorioPartidaUsuarioPropiedad.crearPartidaUsuarioPropiedad(usuarioYSuPropiedadNueva);
 
         usuarioQuienCompra.setSaldo(usuarioQuienCompra.getSaldo() - propiedad.getPrecio());
