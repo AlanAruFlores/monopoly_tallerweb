@@ -300,3 +300,29 @@
     text-decoration:none;
     padding:10px 30px;
 }
+
+
+.ventana__ganador h2{
+    color: #fff;
+    background: #ff3f22;
+    width: 100%;
+    font-family: 'monopoly';
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 20px 0px;
+}
+
+.ventana__ganador img{
+    width:325px;
+}
+
+.ventana__ganador a{
+    background-color: #ff3f22;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 40px;
+    margin-top: 40px;
+    font-family: 'monopoly';
+    letter-spacing: 1px;
+    cursor: pointer;
+}

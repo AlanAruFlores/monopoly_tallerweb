@@ -44,6 +44,8 @@ body {
     padding:6px;
     text-align:center;
     transition: 1s;
+    color:white;
+
 }
 
 .header__link__menu i:hover {

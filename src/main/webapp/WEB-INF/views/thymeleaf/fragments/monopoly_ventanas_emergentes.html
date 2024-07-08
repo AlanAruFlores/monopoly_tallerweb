@@ -237,9 +237,10 @@
         </div>
     </div>
 
-    <!--Ventana de victorio-->
-    <div th:if="${hayGanador}" class="ventana__emergente ventana__ganador">
-        <h2>Eres el ganador !!</h2>
+    <!--Ventana de victorio th:if="${hayGanador}"-->
+    <div class="ventana__emergente ventana__ganador">
+        <h2 th:text="'¡Felicidades! '+ ${usuarioActual.usuario.nombreUsuario} +' has ganado la partida de Monopoly.'"></h2>
+        <img th:src="@{/imagenes/cup.svg}" alt="copa">
         <a href="#" id="continuarGanador">Continuar</a>
     </div>
 

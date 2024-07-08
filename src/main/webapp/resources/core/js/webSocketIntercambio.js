@@ -28,7 +28,7 @@ document.querySelectorAll(".boton__intercambiar").forEach(boton =>{
                 <div class="player-info">
                   <div class="profile">
                     <input type="hidden" value="${partidaUsuarioJson.id}" id="receptorId">
-                    <img th:src="@{${partidaUsuarioJson.usuario.imagenPerfil}}" alt="Perfil Jugador 2" class="profile-img">
+                    <img src="/spring${partidaUsuarioJson.usuario.imagenPerfil}" alt="Perfil Jugador 2" class="profile-img">
                     <span class="nombre">${partidaUsuarioJson.usuario.nombreUsuario}</span>
                     <div class="money">
                       <input type="number" id="saldoReceptor" pattern="[0-9]{4}" max="${partidaUsuarioJson.saldo}" placeholder="$">
