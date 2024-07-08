@@ -85,7 +85,8 @@
                         <input type="hidden" name="propiedadUsuarioId" th:value="${usuarioPropiedad.id}">
                     </div>
                     <div class="propiedad__div" th:if="${usuarioPropiedad.estaHipotecado == true}">
-                        <img th:src="@{${usuarioPropiedad.propiedad.imagen}}" class="propiedad__hipotecada" alt="propiedad">
+                        <div class="propiedad__hipotecada" th:style="'background-image:linear-gradient(to top, #FF0000C9, #FF0000C9) , url(/spring'+${usuarioPropiedad.propiedad.imagen}+'); height: 284px; width:250px; background-size:cover; background-repeat: no-repeat;'"></div>
+                        <!--<img th:src="@{${usuarioPropiedad.propiedad.imagen}}" class="propiedad__hipotecada" alt="propiedad"-->
                         <button class="boton__deshipotecar" th:text="'Deshipotecar $'+${usuarioPropiedad.propiedad.precio}"></button>
                         <input type="hidden" name="propiedadUsuarioId" th:value="${usuarioPropiedad.id}">
                     </div>
@@ -237,12 +238,12 @@
         </div>
     </div>
 
-    <!--Ventana de victorio th:if="${hayGanador}"-->
-    <div class="ventana__emergente ventana__ganador">
+    <!--Ventana de victorio th:if="${hayGanador}"
+    <div th:if="${hayGanador}" class="ventana__emergente ventana__ganador">
         <h2 th:text="'¡Felicidades! '+ ${usuarioActual.usuario.nombreUsuario} +' has ganado la partida de Monopoly.'"></h2>
         <img th:src="@{/imagenes/cup.svg}" alt="copa">
         <a href="#" id="continuarGanador">Continuar</a>
-    </div>
+    </div>-->
 
 
     <!--VENTANA DE DESHIPOTECAR POR ERROR-->
