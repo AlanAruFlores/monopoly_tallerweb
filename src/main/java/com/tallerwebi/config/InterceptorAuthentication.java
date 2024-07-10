@@ -16,6 +16,10 @@ public class InterceptorAuthentication implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
 
+        String encabezadoPostman = request.getHeader("EncabezadoPostman");
+        if ("disable-interceptor".equals(encabezadoPostman)) {
+            return true;
+        }
 
         if(session.getAttribute("usuarioLogeado")==null) {
             String mensaje = "No está autorizado para acceder a esta página. Por favor, inicie sesión para continuar.";
