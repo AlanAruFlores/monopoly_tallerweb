@@ -125,6 +125,16 @@ function eliminarJugadorPorBancarrota(){
     });
 }
 
+function salirDeLaPartida(){
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/spring/api/partida/eliminar/?partidaId="+partidaIdActual+"&usuarioId="+usuarioIdActual,
+        success: function(){
+            enviarNotificacionMovimiento();
+        }
+    });
+}
+
 /*Funcion que capta eventos en Javascript*/
 document.addEventListener("DOMContentLoaded", ()=>{
     document.addEventListener("click", (e)=>{
@@ -141,6 +151,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
         if(e.target.matches(".volver_boton") || e.target.matches(".volver_boton *")) {
             eliminarJugadorPorBancarrota();
+        }
+
+        if(e.target.matches("#salirPartidaBoton") || e.target.matches("#salirPartidaBoton *")){
+            salirDeLaPartida();
         }
 
         //Botones para mover y adquirir con sus respectivos eventos.

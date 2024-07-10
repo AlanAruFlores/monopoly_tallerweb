@@ -119,7 +119,8 @@ public class ControladorMonopoly {
 
     @RequestMapping("/moverJugador")
     public ModelAndView moverJugador(@RequestParam("id")Long idPartida, HttpSession session){
-        PartidaUsuario  usuarioQuienTiro = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(idPartida, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
+        PartidaUsuario usuarioQuienTiro = this.servicioMonopoly.obtenerUsuarioPartidaPorPartidaIdYUsuarioId(idPartida, ((Usuario)session.getAttribute("usuarioLogeado")).getId());
+
         Partida partidaEnJuego = this.servicioMonopoly.obtenerPartidaPorPartidaId(idPartida);
        try{
            this.servicioMonopoly.hacerCambioTurno(usuarioQuienTiro,partidaEnJuego);

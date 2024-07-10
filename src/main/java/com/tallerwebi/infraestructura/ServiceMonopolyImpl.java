@@ -149,21 +149,67 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
 
     @Override
     public void hacerCambioTurno(PartidaUsuario partidaUsuario, Partida partidaEnJuego) {
-        /*obtengo todos los usuarios jugando a la misma partida*/
+        //Obtengo todos los usuarios jugando a la misma partida
         List<PartidaUsuario> usuarioJugandoALaMismaPartida = this.repositorioPartidaUsuario.obtenerPartidasUsuariosEnlaPartidaId(partidaEnJuego.getId());
+        usuarioJugandoALaMismaPartida.forEach(x->System.out.println(x.getColorUsuario()));
 
-        /*Hago el cambio de turno*/
+        //Hago el cambio de turno
         int ordenTurnoActual = usuarioJugandoALaMismaPartida.indexOf(partidaUsuario);
+        System.out.print(ordenTurnoActual);
+
         int siguienteTurno = (ordenTurnoActual + 1) % usuarioJugandoALaMismaPartida.size();
+        System.out.print(siguienteTurno);
 
         PartidaUsuario proximoUsuarioATirar = usuarioJugandoALaMismaPartida.get(siguienteTurno);
         partidaEnJuego.setTurnoJugador(proximoUsuarioATirar.getUsuario());
 
-        /*Guardo cambios*/
+        //Guardo cambios
         this.repositorioPartida.actualizarPartida(partidaEnJuego);
     }
-
+    /*
     @Override
+    public void hacerCambioTurno(PartidaUsuario partidaUsuario, Partida partidaEnJuego) {
+        // Validar entradas
+        if (partidaUsuario == null) {
+            throw new IllegalArgumentException("El objeto partidaUsuario no puede ser null");
+        }
+        if (partidaEnJuego == null) {
+            throw new IllegalArgumentException("El objeto partidaEnJuego no puede ser null");
+        }
+
+        // Obtener todos los usuarios jugando a la misma partida
+        List<PartidaUsuario> usuarioJugandoALaMismaPartida = this.repositorioPartidaUsuario.obtenerPartidasUsuariosEnlaPartidaId(partidaEnJuego.getId());
+
+        if (usuarioJugandoALaMismaPartida == null) {
+            throw new IllegalStateException("La lista de usuarios en la partida no puede ser null");
+        }
+
+        // Obtener el índice del usuario actual
+        int ordenTurnoActual = usuarioJugandoALaMismaPartida.indexOf(partidaUsuario);
+        if (ordenTurnoActual == -1) {
+            throw new IllegalStateException("El usuario no se encuentra en la lista de la partida");
+        }
+
+        // Determinar el siguiente turno
+        int siguienteTurno = (ordenTurnoActual + 1) % usuarioJugandoALaMismaPartida.size();
+
+        // Obtener el próximo usuario
+        PartidaUsuario proximoUsuarioATirar = usuarioJugandoALaMismaPartida.get(siguienteTurno);
+        if (proximoUsuarioATirar.getUsuario() == null) {
+            throw new IllegalStateException("El usuario del próximo turno no puede ser null");
+        }
+
+        // Establecer el turno del jugador
+        partidaEnJuego.setTurnoJugador(proximoUsuarioATirar.getUsuario());
+
+        // Guardar cambios
+        this.repositorioPartida.actualizarPartida(partidaEnJuego);
+
+    }
+    */
+
+
+        @Override
     public void adquirirPropiedad(Long propiedadId, PartidaUsuario usuarioQuienCompra) throws SaldoInsuficienteException {
         Propiedad propiedad = this.repositorioPropiedad.obtenerPropiedadPorId(propiedadId);
 

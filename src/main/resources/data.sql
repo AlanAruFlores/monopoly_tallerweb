@@ -2,7 +2,14 @@
 INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario,imagenPerfil,baneado) VALUES(1,"usuario","usuario","usuario@gmail.com","usuario1234",4,"UsuarioNombre1","/imagenes/fotosPerfil/perfil1.png",false);
 INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario,imagenPerfil,baneado) VALUES(2,"karl","karl","karl@gmail.com","karl1234",10,"karlos","/imagenes/fotosPerfil/perfil2.png",false);
 INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario,imagenPerfil,baneado) VALUES(3,"juan","juan","juan@gmail.com","juan1234",8,"juanceto07","/imagenes/fotosPerfil/perfil3.png",false);
-
+INSERT INTO usuario (id,nombre,apellido,email,password,victorias,nombreUsuario,imagenPerfil,baneado) VALUES
+                                                                                                         (4, "maria", "perez", "maria.perez@gmail.com", "maria1234", 5, "mariaperez", "/imagenes/fotosPerfil/perfil4.png", false),
+                                                                                                         (5, "jorge", "gonzalez", "jorge.gonzalez@gmail.com", "jorge1234", 12, "jorgegonzalez", "/imagenes/fotosPerfil/perfil5.png", false),
+                                                                                                         (6, "ana", "lopez", "ana.lopez@gmail.com", "ana1234", 7, "analopez", "/imagenes/fotosPerfil/perfil6.png", false),
+                                                                                                         (7, "pedro", "martinez", "pedro.martinez@gmail.com", "pedro1234", 3, "pedromartinez", "/imagenes/fotosPerfil/perfil1.png", false),
+                                                                                                         (8, "luisa", "fernandez", "luisa.fernandez@gmail.com", "luisa1234", 10, "luisaf", "/imagenes/fotosPerfil/perfil2.png", false),
+                                                                                                         (9, "marta", "ramirez", "marta.ramirez@gmail.com", "marta1234", 6, "martaramirez", "/imagenes/fotosPerfil/perfil3.png", false),
+                                                                                                         (10, "carlos", "morales", "carlos.morales@gmail.com", "carlos1234", 9, "carlosmorales", "/imagenes/fotosPerfil/perfil4.png", false);
 /*INSERT PARTIDA (PRUEBA)*/
 /*INSERT INTO partida(id,estadoPartida,fechaApertura,nombre,numeroJugadores,creador_id,turnoJugador_id) values (1,"ABIERTA",CURDATE(),"ASDpartida",3,1,1);*/
 
@@ -32,8 +39,7 @@ insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) valu
 insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Avenida Santa Fé", "/imagenes/propiedades/verde/santafe.png",600,20,"#16914f",500);
 
 
-/*CREO PROCEDURA PARA SALIR PARTIDA Y USARLO EN SPRING BOOT*/
-
+/*CREO LOS PROCEDURES, EJECUTARLO EN EL GESTOR DE MYSQL
 -- Crea el procedimiento
 CREATE PROCEDURE salir_partida(IN partida_id INT, IN usuario_id INT)
 BEGIN
@@ -53,8 +59,6 @@ DELETE FROM partidausuario
 WHERE id = var_partida_usuario_id;
 END;
 
-
-
 -- Crea el procedimiento
 CREATE PROCEDURE eliminar_intercambio(IN intercambioId INT)
 BEGIN
@@ -66,3 +70,4 @@ WHERE intercambio_id = intercambioId;
 DELETE FROM intercambio
 WHERE id = intercambioId;
 END;
+*/

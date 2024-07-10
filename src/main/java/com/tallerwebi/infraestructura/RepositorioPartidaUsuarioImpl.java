@@ -4,6 +4,7 @@ import com.tallerwebi.dominio.*;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -44,6 +45,7 @@ public class RepositorioPartidaUsuarioImpl implements RepositorioPartidaUsuario 
                 .createAlias("partida", "p")
                 .add(Restrictions.eq("p.id", partidaId))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .addOrder(Order.asc("id"))
                 .list();
     }
 
