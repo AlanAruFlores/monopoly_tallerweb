@@ -36,6 +36,7 @@ public class ServicioPartidaTest {
         Partida partida = whenObtenerPartidaCreador(usuario);
 
         thenPartidaExiste(partida);
+        
     }
 
     private void thenPartidaExiste(Partida partida) {
