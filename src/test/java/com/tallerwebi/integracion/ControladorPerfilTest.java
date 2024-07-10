@@ -80,6 +80,6 @@ public class ControladorPerfilTest {
         assertEquals("usuario@dominio.com", datosPerfil.getEmail());
     }
 
-    // Agrega más tests según tus requerimientos
+
 }
 
