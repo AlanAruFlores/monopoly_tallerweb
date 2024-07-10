@@ -30,3 +30,39 @@ insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) valu
 insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Avenida Florida", "/imagenes/propiedades/verde/florida.png",600,18,"#16914f",500);
 insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Aysa", "/imagenes/propiedades/utilidades/aysa.png",350,19,"ffffff",300);
 insert into propiedad(nombre,imagen,precio,nroCasilla,color,precioHipoteca) values("Avenida Santa Fé", "/imagenes/propiedades/verde/santafe.png",600,20,"#16914f",500);
+
+
+/*CREO PROCEDURA PARA SALIR PARTIDA Y USARLO EN SPRING BOOT*/
+
+-- Crea el procedimiento
+CREATE PROCEDURE salir_partida(IN partida_id INT, IN usuario_id INT)
+BEGIN
+    DECLARE var_partida_usuario_id INT;
+
+    -- Selecciona el ID de la partida del usuario
+SELECT pu.id INTO var_partida_usuario_id
+FROM partidausuario pu
+WHERE pu.partida_id = partida_id AND pu.usuario_id = usuario_id;
+
+-- Elimina propiedades del usuario en la partida
+DELETE FROM partidausuariopropiedad
+WHERE partidaUsuario_id = var_partida_usuario_id;
+
+-- Elimina la relación del usuario en la partida
+DELETE FROM partidausuario
+WHERE id = var_partida_usuario_id;
+END;
+
+
+
+-- Crea el procedimiento
+CREATE PROCEDURE eliminar_intercambio(IN intercambioId INT)
+BEGIN
+    -- Elimina propiedades del intercambio
+DELETE FROM intercambiopropiedades
+WHERE intercambio_id = intercambioId;
+
+-- Elimina el intercambio
+DELETE FROM intercambio
+WHERE id = intercambioId;
+END;

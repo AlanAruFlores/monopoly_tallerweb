@@ -8,6 +8,7 @@ import com.tallerwebi.integracion.config.SpringWebTestConfig;
 import org.hamcrest.Matchers;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -22,6 +23,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+@DisabledIfSystemProperty(named = "skip.unit.tests", matches = "true")
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {SpringWebTestConfig.class, HibernateTestConfig.class})
