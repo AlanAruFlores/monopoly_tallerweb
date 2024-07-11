@@ -11,6 +11,7 @@ stompClient.onConnect = (frame) => {
     //Estado de escucha
     stompClient.subscribe('/topic/notificacionPartida', (m) => {
         console.log("Hola");
+        console.log(m);
         $.ajax({
             type: "GET",
             url: "http://localhost:8080/spring/api/partida/obtenerTodasPartidas",

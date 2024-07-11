@@ -75,7 +75,7 @@ public class ControladorPerfil {
             model.put("error", "El email proporcionado no es válido");
             return new ModelAndView("editarPerfil", model);
         } catch (CamposVaciosException e) {
-            model.put("error", "No se aceptan campos vacíos");
+            model.put("error", "Para actualizar sus datos debe introducir email y contraseña actual");
             return new ModelAndView("editarPerfil", model);
         } catch (Exception e) {
             model.put("error", "Error al actualizar el perfil");

@@ -54,6 +54,8 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
         Integer posicionObtenida = (int) (1 + (Math.random() * (6 - 1)));
         session.setAttribute("dado",mapaDado.get(posicionObtenida));
         posicionObtenida += posicionUsuario;
+        if(posicionObtenida == 16)
+            posicionObtenida = 6;
         if(posicionObtenida > 20)
             posicionObtenida = (posicionObtenida-20) ;
 
