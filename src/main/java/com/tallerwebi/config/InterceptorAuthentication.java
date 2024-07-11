@@ -28,15 +28,13 @@ public class InterceptorAuthentication implements HandlerInterceptor {
             return false;
         }
 
-
-        /*
         Usuario usuario  = (Usuario) session.getAttribute("usuarioLogeado");
-        if(usuario.getId() != 1){
+        if(request.getRequestURI().equalsIgnoreCase("/spring/ir-menu-admin") && usuario.getId() != 1){
             String mensaje = "No tiene permiso para acceder esta sesion.";
             Integer codigo = HttpServletResponse.SC_UNAUTHORIZED;
             response.sendRedirect(request.getContextPath()+"/error/?codigo="+ codigo+"&mensaje="+ URLEncoder.encode(mensaje, StandardCharsets.UTF_8.toString()));
             return false;
-        }*/
+        }
 
         return true;
     }

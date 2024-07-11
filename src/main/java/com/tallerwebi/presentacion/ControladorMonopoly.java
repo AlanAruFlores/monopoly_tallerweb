@@ -46,7 +46,6 @@ public class ControladorMonopoly {
         List<PartidaUsuario> usuariosJugando = this.servicioMonopoly.obtenerTodosLosUsuariosJugandoEnLaPartidaId(partidaId);
 
         //Veo si el usuario se encuentra en la partida, en caso contrario va al menu
-        System.out.println("USUARIO ACTUALLLLLLLLLLLLLLLLLLLLLLL:"+usuarioActual);
         if(usuarioActual == null)
             return new ModelAndView("redirect:/ir-menu");
 
@@ -95,7 +94,6 @@ public class ControladorMonopoly {
         //Me va a servir para ver si hay algun inactivo en el juego, y asi poder eliminarlo
         mp.put("hayGanador",hayAlgunGanador);
         mp.put("hayAlgunInactivo",hayAlgunInactivo);
-        //System.out.println(hayAlgunInactivo);
 
         mp.put("deshipotecarError", session.getAttribute("deshipotecarError"));
 

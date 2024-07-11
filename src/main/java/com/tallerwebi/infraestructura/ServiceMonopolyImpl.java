@@ -157,10 +157,8 @@ public class ServiceMonopolyImpl implements ServicioMonopoly{
 
         //Hago el cambio de turno
         int ordenTurnoActual = usuarioJugandoALaMismaPartida.indexOf(partidaUsuario);
-        System.out.print(ordenTurnoActual);
 
         int siguienteTurno = (ordenTurnoActual + 1) % usuarioJugandoALaMismaPartida.size();
-        System.out.print(siguienteTurno);
 
         PartidaUsuario proximoUsuarioATirar = usuarioJugandoALaMismaPartida.get(siguienteTurno);
         partidaEnJuego.setTurnoJugador(proximoUsuarioATirar.getUsuario());
